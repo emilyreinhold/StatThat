@@ -16,5 +16,19 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="Label">
+        <item name="android:textColor">#69D2E7</item>
+    </style>
+    
+    <style name="Background">
+		<item name='android:background'>#E0E4CC</item>
+	</style>
+	
+    <style name="Confirm"></style>
+    <style name="Cancel"></style>
+    <style name="Font"></style>
+    <style name="TitleBar"></style>
+    
 
 </resources>
