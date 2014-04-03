@@ -9,36 +9,59 @@
     tools:context=".MainActivity" >
 
     <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="29dp"
-        android:layout_marginAbove="190dp"
-        android:ems="10"
-        android:inputType="textNoSuggestions" />
-    
-    <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/username"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="25dp"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="190dp"
-        android:layout_marginRight="29dp"
-        android:ems="10"
-        android:inputType="textPassword" />
-    
-    
+        android:layout_marginRight="50dp"
+        android:inputType="textPassword"
+        android:ems="20"
+ />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/login"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="350dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="50dp"
+        android:ems="20"
+        android:inputType="textNoSuggestions" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/password"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="29dp"
+        android:layout_below="@+id/password"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="25dp"
         android:text="@string/login" />
 
+    <TextView
+        android:id="@+id/username_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/username"
+        android:layout_alignLeft="@+id/username"
+        android:layout_marginBottom="50dp"
+        android:text="@string/username" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/password"
+        android:layout_below="@+id/username"
+        android:layout_marginBottom="50dp"
+        android:text="@string/password" />
 
 </RelativeLayout>
