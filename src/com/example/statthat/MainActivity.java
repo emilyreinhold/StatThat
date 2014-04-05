@@ -1,7 +1,8 @@
 package com.example.statthat;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
@@ -10,6 +11,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// Add basketball and its stat types to database once
+		Context c = getApplicationContext();
+		StatType.populateBballStatTypes(c);
 	}
 
 	@Override
