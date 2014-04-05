@@ -18,17 +18,9 @@ public class TeamSelect extends Activity {
 		
 		//Create Existing Team Buttons
 		ListView existing_teams = (ListView) findViewById(R.id.existing_team_view);
-
-		//Need to create an array to lost into ArrayAdapter
-		List<Team> temp_list = Team.listAll(Team.class); 
-		Team[] teams = new Team[temp_list.size()];
-		temp_list.toArray(teams);
+		List<Team> teams = Team.listAll(Team.class); 
 		
-		//Testing
-//		String[] teamz = new String[]{"Team1", "Team2", "Team3"};
-//		existing_teams.setAdapter(new ArrayAdapter<String>(this, R.layout.team_list, teamz));
-		
-		existing_teams.setAdapter(new TeamList(this,temp_list));
+		existing_teams.setAdapter(new TeamList(this,teams));
 		
 
 	}
