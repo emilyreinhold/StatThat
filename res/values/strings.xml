@@ -8,5 +8,7 @@
     <string name="title_activity_team_select">TeamSelect</string>
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>
+    <string name="title_activity_new_game">New Game</string>
+    <string name="title_activity_game_setup">Game  Setup</string>
 
 </resources>
