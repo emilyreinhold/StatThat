@@ -8,32 +8,42 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TeamSelect" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+   
+    <!-- New Team Button -->
+    <FrameLayout
+        android:id='@+id/new_team_view'
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp" >
 
-    <TextView
-        style='@style/Label'
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="120dp"
-        android:text="I HATE ADT!"/>
+        <Button
+            style="Button"
+            android:id="@+id/button1"
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:layout_margin="20dp"
+            android:text="New Team" />
+          
+    </FrameLayout>
+    
+    <!-- View Dividing Line  -->
+    <View
+    android:layout_below="@+id/new_team_view"
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/black"/>
 
-    <TextView
-        style='@style/Label'
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <!-- Existing Team Buttons -->
+    <ListView
+        android:id="@+id/existing_team_view"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="165dp"
-        android:text="TextView" />
+        android:layout_alignLeft="@+id/new_team_view"
+        android:layout_below="@+id/new_team_view"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical" >
+    </ListView>
 
 </RelativeLayout>

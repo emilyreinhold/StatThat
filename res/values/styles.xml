@@ -29,6 +29,7 @@
     <style name="Cancel"></style>
     <style name="Font"></style>
     <style name="TitleBar"></style>
+    <style name="Button"></style>
     
 
 </resources>
