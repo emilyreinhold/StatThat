@@ -17,4 +17,20 @@ public class StatType extends SugarRecord<StatType> {
 		this.sport = sport;
 		this.name = name;
 	}
+	
+	// Add basketball stat types to db, if not there already
+	public static void populateBballStatTypes(Context c) {
+		Sport bball = Sport.populateBball(c);
+		boolean isPopulated = StatType.find(StatType.class, "sport = ?", bball.getId().toString()).size() > 0;
+		if (isPopulated) {
+			return;
+		} else {
+			for (String name : DBHelper.bballStatTypes) {
+				StatType type = new StatType(c, bball, name);
+				type.save();
+			}
+		}
+	}
+
 }
+

@@ -28,4 +28,17 @@ public class Sport extends SugarRecord<Sport> {
 	public List<Sport> getAll() {
 		return Sport.listAll(Sport.class);
 	}
+	
+	
+	// Add basketball to db, if it doesn't exist
+	public static Sport populateBball(Context c) {
+		List<Sport> bball = Sport.find(Sport.class, "name = ?", "basketball");
+		if (bball.size() == 1) {
+			return bball.get(0);
+		} else {
+			Sport s = new Sport(c, "basketball");
+			s.save();
+			return s;
+		}
+	}
 }

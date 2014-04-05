@@ -1,9 +1,12 @@
 package com.example.statthat;
 
 import android.app.Activity;
-import android.content.Context;
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+import android.content.Context;
 import android.os.Bundle;
+>>>>>>> 45d1ce19efb42df0549557c6becc69ce3634e599
 import android.view.Menu;
 
 public class MainActivity extends Activity {
