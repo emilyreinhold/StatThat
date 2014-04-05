@@ -16,6 +16,9 @@ public class MainActivity extends Activity {
 		// Add basketball and its stat types to database once
 		Context c = getApplicationContext();
 		StatType.populateBballStatTypes(c);
+		
+		// Add a team, players, game, and stats for testing
+		// DBHelper.populateTestData(c);
 	}
 
 	@Override
