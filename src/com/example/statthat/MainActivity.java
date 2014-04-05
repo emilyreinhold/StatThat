@@ -27,10 +27,8 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		
-//		testing();
-		
-		
-		
+		testing();
+
 		return true;
 	}
 	
@@ -40,9 +38,13 @@ public class MainActivity extends Activity {
 	private void testing(){
 		//destroy DB and seed
 		reset_and_seed();
-		//Start app on TeamSelect
-		Intent intent = new Intent(this, TeamSelect.class);
-		startActivity(intent);
+		
+		Intent teamSelect = new Intent(this, TeamSelect.class);
+		Intent gameSetup = new Intent(this, GameSetup.class);
+
+		
+		//Start app on...
+		startActivity(gameSetup);
 	}
 	
 	private void  reset_and_seed(){
