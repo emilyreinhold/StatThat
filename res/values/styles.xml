@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -28,7 +28,9 @@
     <style name="Confirm"></style>
     <style name="Cancel"></style>
     <style name="Font"></style>
-    <style name="TitleBar"></style>
+    <style name="TitleBar">
+        <item name='android:background'>#F38630</item>
+    </style>
     <style name="Button"></style>
     
 

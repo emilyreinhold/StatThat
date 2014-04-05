@@ -1,49 +1,81 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TeamSelect" >
-   
-    <!-- New Team Button -->
-    <FrameLayout
-        android:id='@+id/new_team_view'
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    tools:context=".TeamSelect">
+    
+   <FrameLayout         
+       style="@style/TitleBar"
+        android:id="@+id/title_bar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp" >
-
-        <Button
-            style="Button"
-            android:id="@+id/button1"
-            android:layout_width="fill_parent"
-            android:layout_height="75dp"
-            android:layout_margin="20dp"
-            android:text="New Team" />
-          
+        android:layout_height="65dp">
+	    <!-- Title  -->
+	    <TextView      	           
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:textSize="30sp"
+	        android:text="Select Team"/>
+    
     </FrameLayout>
     
-    <!-- View Dividing Line  -->
-    <View
-    android:layout_below="@+id/new_team_view"
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/black"/>
+	<RelativeLayout
+	    style="@style/Background"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_alignTop="@+id/title_bar"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+		android:layout_marginTop="65dp">
+	 
+	    <!-- New Team Button -->
+	
+	    <FrameLayout
+	        android:id="@+id/new_team_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true" >
+	
+	        <Button
+	            style="@style/Button"
+	            android:id="@+id/button1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="75dp"
+	            android:layout_margin="20dp"
+	            android:text="New Team" />
+	          
+	    </FrameLayout>
+	    
+	    <!-- View Dividing Line  -->
+	    <TextView
+	        android:text = "or pick a team:"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/divider_line"/>
+	        
+	    <View
+		   android:layout_below="@+id/new_team_view"
+		   android:layout_width="fill_parent"
+		   android:layout_height="1dp"
+		   android:id="@+id/divider_line"
+		   android:background="@android:color/black"/>
+	
+	    <!-- Existing Team Buttons -->
+	    <ListView
+	        android:id="@+id/existing_team_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/new_team_view"
+	        android:layout_below="@+id/new_team_view"
+	        android:layout_marginTop="20dp"
+	        android:divider="@android:color/transparent"
+  			android:dividerHeight="10.0sp"
+	        android:orientation="vertical" >
+	    </ListView>
 
-    <!-- Existing Team Buttons -->
-    <ListView
-        android:id="@+id/existing_team_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/new_team_view"
-        android:layout_below="@+id/new_team_view"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical" >
-    </ListView>
+	</RelativeLayout>
 
 </RelativeLayout>

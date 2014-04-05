@@ -23,10 +23,22 @@ public class MainActivity extends Activity {
 	}
 	
 	
+	
+	// Andrew - Used for testing
 	private void testing(){
+		//destroy DB and seed
+		reset_and_seed();
 		//Start app on TeamSelect
 		Intent intent = new Intent(this, TeamSelect.class);
 		startActivity(intent);
+	}
+	
+	private void  reset_and_seed(){
+		Team.deleteAll(Team.class);
+		String[] team_names = new String[]{"Team1","Team2","Team3"};
+		for(String name : team_names){
+			new Team(getApplicationContext(), name, null).save();
+		}
 	}
 
 }
