@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NewTeam" >
+
+    <FrameLayout         
+       style="@style/TitleBar"
+        android:id="@+id/new_team_title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="65dp">
+	    <TextView      	           
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:textSize="30sp"
+	        android:text="@string/new_team_title"/>
+    
+    </FrameLayout>
+
+
+    <TextView
+        style="@style/Label"
+        android:id="@+id/team_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/team_name"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp" />
+
+    <EditText
+        android:id="@+id/TeamName"
+        android:background="@drawable/text_view_border"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <requestFocus />
+    </EditText>
+    
+    <TextView
+        style="@style/Label"
+        android:id="@+id/players_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/players"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp" />
+
+    <ListView
+        android:background="@drawable/text_view_border"
+        android:id="@+id/player_list"
+        android:layout_width="match_parent"
+        android:layout_height="565dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp" >
+    </ListView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:layout_marginTop="10dp"
+    	android:weightSum="2" >
+
+	    <Button
+	        style="@style/buttonStyleConfirm"
+	        android:id="@+id/done_adding_players"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:text="@string/done_adding_players"
+	        android:layout_weight="1"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="5dp" />
+	    <Button
+	        style="@style/buttonStyleCancel"
+	        android:id="@+id/add_player"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:text="@string/add_player"
+	        android:layout_weight="1"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginRight="10dp" />
+	</LinearLayout>
+	    
+	    
+
+</LinearLayout>
