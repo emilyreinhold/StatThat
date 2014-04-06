@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="18" />
 
     <application
@@ -44,6 +44,10 @@
         <activity
             android:name="com.example.statthat.GameSetup"
             android:label="@string/title_activity_game_setup" >
+        </activity>
+        <activity
+            android:name="com.example.statthat.RecordStat"
+            android:label="@string/title_activity_record_stat" >
         </activity>
     </application>
 

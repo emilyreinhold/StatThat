@@ -26,24 +26,40 @@
     </FrameLayout>
 	
    <!-- Form -->
+
    <LinearLayout
+       android:id="@+id/form"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"
        android:layout_below="@+id/title_bar"
        android:layout_centerHorizontal="true"
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
        android:orientation="vertical" >
+	   <!-- Opponent Name -->
+       <TextView
+           android:id="@+id/game_opponent_label"
+           android:layout_width='fill_parent'
+           android:layout_height='wrap_content'
+           android:text="@string/game_opponent_label"/>
+	   
+
+       <EditText
+           android:id="@+id/game_opponent"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:ems="10" >
+
+           <requestFocus />
+       </EditText>
 	   
        <!-- Game Location -->
        <TextView
            android:id="@+id/game_location_label"
            android:layout_width='fill_parent'
            android:layout_height='wrap_content'
-           android:text="Game Location"/>
-       
-       <View 
-		   android:layout_width="fill_parent"
-		   android:layout_height="1dp"       
-		   android:background="#ffffff" />
+           android:text="@string/game_location_label"/>
+	   
 
        <EditText
            android:id="@+id/game_location"
@@ -58,23 +74,39 @@
        <TextView
            android:id="@+id/game_date_label"
            android:layout_width='fill_parent'
-           android:layout_height='wrap_content'/>
-
-       <EditText
-           android:id="@+id/game_date"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:ems="10" >
-
-           <requestFocus />
-       </EditText>
-       
+           android:layout_height='wrap_content'
+           android:text="@string/game_date_label"
+           android:inputType='date'/>       
+		<RelativeLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+			<EditText
+	           android:id="@+id/game_date"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:layout_toLeftOf="@+id/date_picker"
+	           android:ems="10" >
+	           <requestFocus />
+	       </EditText>
+	       
+	       <Button 
+	           android:id="@+id/date_picker"
+	           android:layout_alignParentRight='true'
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:text="Calendar"/>
        <!-- Game Notes -->
+		    
+		</RelativeLayout>
+
+
+
        <TextView
            android:id="@+id/game_notes_label"
            android:layout_width='fill_parent'
-           android:layout_height='wrap_content'/>
-
+           android:layout_height='wrap_content'
+           android:text="@string/game_notes_label"/>
+              
        <EditText
            android:id="@+id/game_notes"
            android:layout_width="match_parent"
@@ -83,7 +115,13 @@
 
            <requestFocus />
        </EditText>
-       
+
+       <Button
+           android:id="@+id/confirm"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/confirm" />
+    
    </LinearLayout>
 
 </RelativeLayout>

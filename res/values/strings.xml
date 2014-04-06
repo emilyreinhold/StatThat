@@ -10,5 +10,13 @@
     <string name="password">PASSWORD</string>
     <string name="title_activity_new_game">New Game</string>
     <string name="title_activity_game_setup">Game  Setup</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- New Game Setup Form Labels -->
+    <string name="game_location_label"><u>Location</u></string>
+    <string name="game_date_label"><u>Date</u></string>
+    <string name="game_notes_label"><u>Notes</u></string>
+    <string name="game_opponent_label">Opponent</string>
+    <string name="title_activity_record_stat">Record Stat</string>
 
 </resources>
