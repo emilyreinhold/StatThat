@@ -1,6 +1,5 @@
 package com.example.statthat;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,7 +26,7 @@ public class NewTeam extends Activity {
 			public void onClick(View v) {
 				EditText teamName = (EditText)findViewById(R.id.TeamName);
 				team_name = teamName.getText().toString();
-				Sport bball = new Sport(getApplicationContext(), "basketball");
+				Sport bball = new Sport(getApplicationContext(), "basketball", "quarter");
 				if(team == null) {
 					team = new Team(getApplicationContext(), team_name, bball);
 					team.save();
