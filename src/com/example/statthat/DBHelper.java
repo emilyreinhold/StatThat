@@ -67,14 +67,14 @@ public class DBHelper {
 		StatType type2 = StatType.find(StatType.class, "name = ?", "Free throw").get(0);
 		StatType type3 = StatType.find(StatType.class, "name = ?", "Personal foul").get(0);
 		
-		new Stat(c, players.get(0), game, type1, 11.0, "1", true).save();
-		new Stat(c, players.get(0), game, type1, 13.0, "1", true).save();
-		new Stat(c, players.get(0), game, type1, 20.0, "2", false).save();
-		new Stat(c, players.get(1), game, type1, 2.0, "1", true).save();
-		new Stat(c, players.get(1), game, type2, 41.0, "3", false).save();
-		new Stat(c, players.get(2), game, type2, 21.0, "2", false).save();
-		new Stat(c, players.get(2), game, type1, 17.0, "1", true).save();
-		new Stat(c, players.get(2), game, type3, 50.0, "4", true).save();
+		new Stat(c, players.get(0), game, type1, 11.0, 1, true).save();
+		new Stat(c, players.get(0), game, type1, 13.0, 1, true).save();
+		new Stat(c, players.get(0), game, type1, 20.0, 2, false).save();
+		new Stat(c, players.get(1), game, type1, 2.0, 1, true).save();
+		new Stat(c, players.get(1), game, type2, 41.0, 3, false).save();
+		new Stat(c, players.get(2), game, type2, 21.0, 2, false).save();
+		new Stat(c, players.get(2), game, type1, 17.0, 1, true).save();
+		new Stat(c, players.get(2), game, type3, 50.0, 4, true).save();
 		
 	}
 

@@ -10,19 +10,19 @@ public class Stat extends SugarRecord<Stat> {
 	StatType statType;
 	double time;
 	boolean result;
-	String period;
+	int period_num;
 	
 	public Stat(Context ctx) {
 		super(ctx);
 	}
 	
-	public Stat(Context ctx, Player player, Game game, StatType statType, double time, String period, boolean result) {
+	public Stat(Context ctx, Player player, Game game, StatType statType, double time, int period_num, boolean result) {
 		super(ctx);
 		this.player = player;
 		this.game = game;
 		this.statType = statType;
 		this.time = time;
-		this.period = period;
+		this.period_num = period_num;
 		this.result = result;
 	}
 }
