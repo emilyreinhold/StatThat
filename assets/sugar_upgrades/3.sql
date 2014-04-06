@@ -1,0 +1,1 @@
+alter table STAT add PERIOD TEXT;

@@ -9,14 +9,16 @@ import com.orm.SugarRecord;
 public class Sport extends SugarRecord<Sport> {
 	
 	String name;
+	String periodName;
 	
 	public Sport(Context ctx) {
 		super(ctx);
 	}
 	
-	public Sport(Context ctx, String name) {
+	public Sport(Context ctx, String name, String periodName) {
 		super(ctx);
 		this.name = name;
+		this.periodName = periodName;
 	}
 	
 	// Helper Methods
@@ -36,7 +38,7 @@ public class Sport extends SugarRecord<Sport> {
 		if (bball.size() == 1) {
 			return bball.get(0);
 		} else {
-			Sport s = new Sport(c, "basketball");
+			Sport s = new Sport(c, "basketball", "quarter");
 			s.save();
 			return s;
 		}
