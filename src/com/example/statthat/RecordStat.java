@@ -8,8 +8,10 @@ import android.os.SystemClock;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.DigitalClock;
@@ -35,6 +37,7 @@ public class RecordStat extends Activity {
 	// keeping track of stats
 	private int current_quarter;
 	private long stopped_at = 0;
+	private boolean clock_stopped = true;
 	ArrayList<Long> stats = new ArrayList<Long>();
 
 	
@@ -123,8 +126,11 @@ public class RecordStat extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				stopped_at = clock.getBase() - SystemClock.elapsedRealtime();
-				clock.stop();
+				if(!clock_stopped){
+					clock_stopped = true;
+					stopped_at = clock.getBase() - SystemClock.elapsedRealtime();
+					clock.stop();
+				}
 			}
 			
 		});
@@ -134,8 +140,12 @@ public class RecordStat extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				clock.setBase(stopped_at + SystemClock.elapsedRealtime());
-				clock.start();
+				if(clock_stopped){
+					clock_stopped = false;
+					clock.setBase(stopped_at + SystemClock.elapsedRealtime());
+					stopped_at = 0;
+					clock.start();
+				}
 			}
 		
 		});
@@ -148,7 +158,16 @@ public class RecordStat extends Activity {
 		
 	private Stat recordStat(){
 		Context ctx = getApplicationContext();
-		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), (double)SystemClock.elapsedRealtime() - clock.getBase(),"1", true);
+		double time;
+		
+		// get time according to clock
+		if(clock_stopped)
+			// stopped_at is offset for base, need to make it a positive
+			time = -1 * stopped_at;
+		else
+			time = SystemClock.elapsedRealtime() - clock.getBase();
+		
+		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), time , current_quarter, true);
 		
 		return stat;
 	}
@@ -156,20 +175,33 @@ public class RecordStat extends Activity {
 	private void updateRecentStats(Stat stat){
 		Context ctx = getApplicationContext();
 		TableRow row = new TableRow(ctx);
+		LayoutParams params;
+		
+		
 		
 		// time
 		TextView time = new TextView(ctx);
-		time.setText("0");
+		time.setText(Double.toString(stat.time));
+		params = ((TextView) findViewById(R.id.col1)).getLayoutParams();
+		time.setLayoutParams(params);
+		time.setGravity(Gravity.CENTER_HORIZONTAL);
 		row.addView(time);
 		
 		// player number
 		TextView player = new TextView(ctx);
 		player.setText("5");
+		params = ((TextView) findViewById(R.id.col2)).getLayoutParams();
+		player.setGravity(Gravity.CENTER_HORIZONTAL);
+		player.setLayoutParams(params);
 		row.addView(player);
 		
 		// result 
 		TextView result = new TextView(ctx);
 		result.setText("MISS");
+		params = ((TextView) findViewById(R.id.col3)).getLayoutParams();
+		result.setGravity(Gravity.CENTER_HORIZONTAL);
+
+		result.setLayoutParams(params);
 		row.addView(result);
 		
 		stat_table.addView(row);
