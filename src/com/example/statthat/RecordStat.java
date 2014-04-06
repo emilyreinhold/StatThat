@@ -1,6 +1,8 @@
 package com.example.statthat;
 
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.annotation.SuppressLint;
@@ -12,9 +14,14 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.DigitalClock;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextClock;
+import android.widget.TextView;
 
 public class RecordStat extends Activity {
+	
+	TableLayout stat_table;
 	Game game = null;
 	
 	// View buttons
@@ -28,6 +35,8 @@ public class RecordStat extends Activity {
 	// keeping track of stats
 	private int current_quarter;
 	private long stopped_at = 0;
+	ArrayList<Long> stats = new ArrayList<Long>();
+
 	
 	// clock
 	private Chronometer clock;
@@ -52,7 +61,9 @@ public class RecordStat extends Activity {
 	    record = (Button) findViewById(R.id.record_button);
 	    stop_clock = (Button) findViewById(R.id.stop_clock_button);
 	    start_clock = (Button) findViewById(R.id.start_clock_button);
+	    
 	    clock = (Chronometer) findViewById(R.id.clock);
+	    stat_table = (TableLayout) findViewById(R.id.recent_stats_table);
 
 	    current_quarter = 1;
 		
@@ -92,6 +103,21 @@ public class RecordStat extends Activity {
 			
 		});
 		
+		// record stat
+		record.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Stat recent_stat = recordStat();
+				stats.add(recent_stat.getId());
+				updateRecentStats(recent_stat);
+				
+				
+				
+			}
+			
+		});
+		
 		// stop_clock - stops the clock
 		stop_clock.setOnClickListener(new Button.OnClickListener(){
 
@@ -122,9 +148,34 @@ public class RecordStat extends Activity {
 		
 	private Stat recordStat(){
 		Context ctx = getApplicationContext();
-		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), (double)SystemClock.elapsedRealtime() - clock.getBase(), true);
+		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), (double)SystemClock.elapsedRealtime() - clock.getBase(),"1", true);
 		
 		return stat;
+	}
+	
+	private void updateRecentStats(Stat stat){
+		Context ctx = getApplicationContext();
+		TableRow row = new TableRow(ctx);
+		
+		// time
+		TextView time = new TextView(ctx);
+		time.setText("0");
+		row.addView(time);
+		
+		// player number
+		TextView player = new TextView(ctx);
+		player.setText("5");
+		row.addView(player);
+		
+		// result 
+		TextView result = new TextView(ctx);
+		result.setText("MISS");
+		row.addView(result);
+		
+		stat_table.addView(row);
+		
+		
+	
 	}
 
 }
