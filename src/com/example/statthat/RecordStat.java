@@ -41,6 +41,8 @@ public class RecordStat extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			game = Game.findById(Game.class, extras.getLong("game_id"));
+		}else{
+			game = Game.findById(Game.class, (long)1);
 		}
 		
 		// Set variables
@@ -119,10 +121,10 @@ public class RecordStat extends Activity {
 		
 		
 	private Stat recordStat(){
-		Context cxt = getApplicationContext();
-		Stat stat = new Stat(ctx, new Player(ctx), , StatType statType, double time, boolean result);
+		Context ctx = getApplicationContext();
+		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), (double)SystemClock.elapsedRealtime() - clock.getBase(), true);
 		
-		return 
+		return stat;
 	}
 
 }
