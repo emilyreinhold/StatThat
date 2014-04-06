@@ -6,20 +6,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TeamPageActivity" >
+    tools:context=".MainActivity" >
 
-       <LinearLayout
+    
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center_horizontal"
+        android:background="#E0E4CC"
+        
         >
     	<TextView
-    	   android:layout_marginTop="15sp"
     	android:textSize="30sp"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Golden Bears"    
+        android:text="Golden Bears"   
+        android:background="#69D2E7"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
         />        
         
     	<Button
@@ -30,6 +35,8 @@
         	android:paddingLeft="40sp"
         	android:paddingRight="40sp"  
         	android:id="@+id/button_bears" 
+        	android:background="#FA6900"
+        	android:layout_marginTop="20dp"
         	 />
     	    
     	<android.support.v4.view.ViewPager
@@ -43,4 +50,6 @@
         
     </LinearLayout>
     
+
+
 </RelativeLayout>

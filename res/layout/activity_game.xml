@@ -8,32 +8,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GameActivity" >
 
-    
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="#E0E4CC"
         android:gravity="center_horizontal"
-        >
-    	<TextView
-    	   android:layout_marginTop="15sp"
-    	android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Golden Bears"    
-        />        
-        
- 
-    	    
-    	<android.support.v4.view.ViewPager
-    		xmlns:android="http://schemas.android.com/apk/res/android"
-    		android:id="@+id/game_pager"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		/>
-    	
-          
-        
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#69D2E7"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:text="Golden Bears"
+            android:textSize="30sp" />
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/game_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>
