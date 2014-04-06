@@ -82,29 +82,45 @@
 		            android:id="@+id/headers"
 		            android:layout_width="match_parent"
 		            android:layout_height="wrap_content">
+		            
+		            <!-- Player -->
 		            <TextView
-		              android:id="@+id/col1"
+		              android:id="@+id/player_header"
 					  android:textColor="@android:color/black"
 					  android:layout_margin="1dp"
 					  android:gravity="center_horizontal"
 					  android:layout_weight="1"
-					  android:text="Col1" />
+					  android:text="Player #" />
+		            
+		            <!-- Stat Type -->
 					<TextView
-					  android:id="@+id/col2"
+					  android:id="@+id/stat_type_header"
 					  android:textColor="@android:color/black"
 					  android:gravity="center_horizontal"
 					  android:layout_weight="1"
 					  android:layout_margin="1dp"
 					  android:background="@android:color/white"
-					  android:text="Col2" />
+					  android:text="Stat" />
+					
+					<!-- Result -->
 					<TextView
-					  android:id="@+id/col3"
+					  android:id="@+id/result_header"
 					  android:textColor="@android:color/black"
 					  android:gravity="center_horizontal"
 					  android:layout_weight="1"
 					  android:layout_margin="1dp"
 					  android:background="@android:color/white"
-					  android:text="Col3" />
+					  android:text="Result" />
+					
+					<!-- Time -->
+					<TextView
+					  android:id="@+id/time_header"
+					  android:textColor="@android:color/black"
+					  android:gravity="center_horizontal"
+					  android:layout_weight="1"
+					  android:layout_margin="1dp"
+					  android:background="@android:color/white"
+					  android:text="Time" />
 		        </TableRow>
 		        
 		    </TableLayout>
@@ -121,7 +137,8 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:gravity="center_horizontal"
-		            android:text="Next Quarter"/>
+		            android:text="Next Quarter"
+		            android:textSize="10dp"/>
 		        
 		       	<!-- Dividing Line  --> 
 		    	<View
@@ -136,14 +153,16 @@
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:gravity="center_horizontal"
-		            android:text="Start Clock"/>
+		            android:text="Start Clock"
+		            android:textSize="10dp"/>
 		       
 		       <Button
 		            android:id="@+id/stop_clock_button"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content"
 		            android:gravity="center_horizontal"
-		            android:text="Stop Clock"/>
+		            android:text="Stop Clock"
+		            android:textSize="10dp"/>
 		    </LinearLayout> <!-- End of clock buttons -->
 		    
 	  	

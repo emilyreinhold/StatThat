@@ -178,31 +178,41 @@ public class RecordStat extends Activity {
 		LayoutParams params;
 		
 		
-		
-		// time
-		TextView time = new TextView(ctx);
-		time.setText(Double.toString(stat.time));
-		params = ((TextView) findViewById(R.id.col1)).getLayoutParams();
-		time.setLayoutParams(params);
-		time.setGravity(Gravity.CENTER_HORIZONTAL);
-		row.addView(time);
-		
 		// player number
 		TextView player = new TextView(ctx);
 		player.setText("5");
-		params = ((TextView) findViewById(R.id.col2)).getLayoutParams();
+		params = ((TextView) findViewById(R.id.player_header)).getLayoutParams();
 		player.setGravity(Gravity.CENTER_HORIZONTAL);
 		player.setLayoutParams(params);
 		row.addView(player);
+
+		
+		// stat_type
+		TextView stat_type = new TextView(ctx);
+		stat_type.setText("Free Throw");
+		params = ((TextView) findViewById(R.id.stat_type_header)).getLayoutParams();
+		stat_type.setGravity(Gravity.CENTER_HORIZONTAL);
+		stat_type.setLayoutParams(params);
+		row.addView(stat_type);
+		
 		
 		// result 
 		TextView result = new TextView(ctx);
 		result.setText("MISS");
-		params = ((TextView) findViewById(R.id.col3)).getLayoutParams();
+		params = ((TextView) findViewById(R.id.result_header)).getLayoutParams();
 		result.setGravity(Gravity.CENTER_HORIZONTAL);
-
 		result.setLayoutParams(params);
 		row.addView(result);
+		
+		
+		
+		// time
+		TextView time = new TextView(ctx);
+		time.setText(Double.toString(stat.time));
+		params = ((TextView) findViewById(R.id.time_header)).getLayoutParams();
+		time.setLayoutParams(params);
+		time.setGravity(Gravity.CENTER_HORIZONTAL);
+		row.addView(time);
 		
 		stat_table.addView(row);
 		
