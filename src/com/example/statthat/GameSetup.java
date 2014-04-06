@@ -17,9 +17,13 @@ import android.widget.DatePicker;
 
 public class GameSetup extends Activity {
 	private String error =""; 
+	
 	private EditText date;
 	private EditText location;
+	private EditText opponent;
+	
 	private Team team = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,9 +40,8 @@ public class GameSetup extends Activity {
 			team = Team.findById(Team.class, (long)1);
 		}
 		
-		
-		
-		
+		location = (EditText) findViewById(R.id.game_location);
+		opponent = (EditText) findViewById(R.id.game_opponent);
 		
 		// Date dialog and selection
 		date = (EditText) findViewById(R.id.game_date);
@@ -60,9 +63,16 @@ public class GameSetup extends Activity {
 			@Override
 			public void onClick(View v) {
 				if(validateFields()){
-					location = (EditText) findViewById(R.id.game_location);
-					Game game = new Game(getApplicationContext(), team, "Oops", location.getText().toString(), date.getText().toString());
+					
+					Game game = new Game(
+							getApplicationContext(),
+							team,
+							opponent.getText().toString(),
+							location.getText().toString(), 
+							date.getText().toString() );
+					
 					game.save();
+					
 				}else{
 					// Error message if fields are not filled in
 					int duration = Toast.LENGTH_SHORT;
@@ -85,13 +95,12 @@ public class GameSetup extends Activity {
 	private boolean validateFields(){
 		error = "";
 		
-		EditText location = (EditText) findViewById(R.id.game_location);
-		EditText date = (EditText) findViewById(R.id.game_date);
-		
 		if (location.getText().toString().trim().isEmpty())
 			error += "You must include a location. ";
 		if (date.getText().toString().trim().isEmpty())
 			error += "You must include a date. ";
+		if (opponent.getText().toString().trim().isEmpty())
+			error += "You must include a opponents.";
 		
 		// checks to see if location and text are empty
 		return  error.isEmpty();
