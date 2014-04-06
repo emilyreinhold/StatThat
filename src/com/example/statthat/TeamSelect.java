@@ -9,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class TeamSelect extends Activity {
-
+	private ListView existing_teams;
+	private List<Team> teams;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -17,8 +19,9 @@ public class TeamSelect extends Activity {
 		
 		
 		//Create Existing Team Buttons
-		ListView existing_teams = (ListView) findViewById(R.id.existing_team_view);
-		List<Team> teams = Team.listAll(Team.class); 
+		teams = Team.listAll(Team.class); 
+		
+		existing_teams = (ListView) findViewById(R.id.existing_team_view);
 		
 		existing_teams.setAdapter(new TeamList(this,teams));
 		
@@ -31,6 +34,13 @@ public class TeamSelect extends Activity {
 		getMenuInflater().inflate(R.menu.team_select, menu);
 		
 		return true;
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		teams = Team.listAll(Team.class);
+		existing_teams.setAdapter(new TeamList(this,teams));
 	}
 
 }

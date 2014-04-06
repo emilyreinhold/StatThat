@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		
-		// testing();
+		 testing();
 
 		return true;
 	}
@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 
 		
 		//Start app on...
-		startActivity(gameSetup);
+		startActivity(teamSelect);
 	}
 	
 	private void  reset_and_seed(){
