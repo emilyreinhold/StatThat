@@ -12,7 +12,7 @@
     <string name="title_activity_team_page">TeamPageActivity</string>
     <string name="title_activity_new_game">New Game</string>
     <string name="title_activity_game_setup">Game  Setup</string>
-    <string name="confirm">Confirm</string>
+    <string name="confirm">confirm</string>
 
     <!-- New Game Setup Form Labels -->
     <string name="game_location_label"><u>Location</u></string>
@@ -20,5 +20,35 @@
     <string name="game_notes_label"><u>Notes</u></string>
     <string name="game_opponent_label">Opponent</string>
     <string name="title_activity_record_stat">Record Stat</string>
+    <string name="title_activity_new_team">NewTeam</string>
+    <string name="new_team_title">new team</string>
+    <string name="new_player_title">new player</string>
+    <string name="team_name">team name</string>
+    <string name="done_adding_players">done adding players</string>
+    <string name="add_player">add another player</string>
+    <string name="players">players</string>
+    <string name="title_activity_new_player">NewPlayerActivity</string>
+    <string name="player_first_name">first name</string>
+    <string name="player_last_name">last name</string>
+    <string name="player_number">number</string>
+    <string name="player_height">height</string>
+    <string name="player_weight">weight</string>
+    <string name="player_year">year</string>
+    <string name="cancel">cancel</string>
+    <string name="player_position">position</string>
+    <string name="finalize_team">confirm team</string>
+    <string name="select_a_year">select a year</string>
+    <string name="select_a_position">select a position</string>
+    <string-array name="positions_array">
+        <item>center</item>
+        <item>forward</item>
+        <item>guard</item>
+    </string-array>
+    <string-array name="year_array">
+        <item>freshman</item>
+        <item>sophomore</item>
+        <item>junior</item>
+        <item>senior</item>
+    </string-array>
 
 </resources>

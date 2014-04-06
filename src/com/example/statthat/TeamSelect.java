@@ -1,11 +1,13 @@
 package com.example.statthat;
 
-import java.util.*;
+import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class TeamSelect extends Activity {
@@ -24,6 +26,15 @@ public class TeamSelect extends Activity {
 		existing_teams = (ListView) findViewById(R.id.existing_team_view);
 		
 		existing_teams.setAdapter(new TeamList(this,teams));
+		Button new_team = (Button)findViewById(R.id.button1);
+		new_team.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent new_team_intent = new Intent(TeamSelect.this, NewTeam.class);
+				startActivity(new_team_intent);
+			}
+		});
 		
 
 	}
