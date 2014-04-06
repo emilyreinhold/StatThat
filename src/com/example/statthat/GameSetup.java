@@ -72,6 +72,10 @@ public class GameSetup extends Activity {
 							date.getText().toString() );
 					
 					game.save();
+					Intent record_start = new Intent(GameSetup.this, RecordStat.class);
+					record_start.putExtra("game_id", game.getId());
+					startActivity(record_start);
+					
 					
 				}else{
 					// Error message if fields are not filled in
