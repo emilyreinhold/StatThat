@@ -8,8 +8,10 @@
     <string name="title_activity_team_select">TeamSelect</string>
     <string name="username">USERNAME</string>
     <string name="password">PASSWORD</string>
+<<<<<<< HEAD
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_team_page">TeamPageActivity</string>
+=======
     <string name="title_activity_new_game">New Game</string>
     <string name="title_activity_game_setup">Game  Setup</string>
     <string name="confirm">Confirm</string>
@@ -20,5 +22,6 @@
     <string name="game_notes_label"><u>Notes</u></string>
     <string name="game_opponent_label">Opponent</string>
     <string name="title_activity_record_stat">Record Stat</string>
+>>>>>>> e1ec21e9ce1e51f125523b83ac41391e4c752137
 
 </resources>
