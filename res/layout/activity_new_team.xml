@@ -75,7 +75,7 @@
 	        android:id="@+id/done_adding_players"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:text="@string/done_adding_players"
+	        android:text="@string/finalize_team"
 	        android:layout_weight="1"
 	        android:layout_marginLeft="10dp"
 	        android:layout_marginRight="5dp" />
