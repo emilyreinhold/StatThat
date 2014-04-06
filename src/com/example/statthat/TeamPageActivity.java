@@ -3,12 +3,14 @@ package com.example.statthat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -35,13 +37,12 @@ public class TeamPageActivity extends FragmentActivity {
 		setContentView(R.layout.activity_team_page);	
 
 		// get all variables from DB, programmatically set to XML
+		// set team name from db 
 
 		List<Fragment> fragments = getFragments();
 		pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
 		final ViewPager pager = (ViewPager)findViewById(R.id.pager);
 		pager.setAdapter(pageAdapter);
-
-
 		final ActionBar actionBar = getActionBar();
 
 		// Specify that tabs should be displayed in the action bar.
@@ -63,11 +64,8 @@ public class TeamPageActivity extends FragmentActivity {
 			}
 		};
 
-
-
 		actionBar.addTab(actionBar.newTab().setText("Players").setTabListener(tabListener));
 		actionBar.addTab(actionBar.newTab().setText("Reports").setTabListener(tabListener));
-
 
 		pager.setOnPageChangeListener(
 				new ViewPager.SimpleOnPageChangeListener() {
@@ -78,9 +76,7 @@ public class TeamPageActivity extends FragmentActivity {
 						getActionBar().setSelectedNavigationItem(position);
 					}
 				});
-
 	}
-
 
 	private List<Fragment> getFragments(){
 		List<Fragment> fList = new ArrayList<Fragment>();
@@ -99,7 +95,6 @@ public class TeamPageActivity extends FragmentActivity {
 
 		return fList;
 	}
-
 
 	public static class MyFragment extends Fragment implements OnClickListener{
 		public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
@@ -120,7 +115,6 @@ public class TeamPageActivity extends FragmentActivity {
 			bdl.putSerializable(EXTRA_MESSAGE, message);
 			f.setArguments(bdl);
 			return f;
-
 		}
 
 
@@ -128,7 +122,6 @@ public class TeamPageActivity extends FragmentActivity {
 		{
 			MyFragment f = new MyFragment();
 			Bundle bdl = new Bundle(message.length);
-
 			bdl.putStringArray(EXTRA_MESSAGE, message);
 			f.setArguments(bdl);
 			return f;
@@ -167,59 +160,59 @@ public class TeamPageActivity extends FragmentActivity {
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
 					button.setWidth(500);
-					button.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+					//button.bringToFront();
+
+					button.setBackgroundColor(Color.parseColor("#FA6900"));
+					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+					params.setMargins(10,10,10,10);
+
+					button.setLayoutParams(params);
 					gamesLayout.addView(button);
 				}
 
 			}
 
-		return v;
+			return v;
+		}
+
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+
+			// intent to game page
+
+			Intent intent = new Intent(arg0.getContext(), GameActivity.class);
+			startActivity(intent);
+
+		}
+	}
+
+
+	class MyPageAdapter extends FragmentPagerAdapter {
+		private List<Fragment> fragments;
+
+		public MyPageAdapter(FragmentManager fm, List<Fragment> fragments) {
+			super(fm);
+			this.fragments = fragments;
+		}
+		@Override 
+		public Fragment getItem(int position) {
+			return this.fragments.get(position);
+		}
+
+		@Override
+		public int getCount() {
+			return this.fragments.size();
+		}
 	}
 
 
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-
-		// intent to game page
-		
-		Intent intent = new Intent(arg0.getContext(), GameActivity.class);
-		
-		startActivity(intent);
-
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
-}
-
-
-class MyPageAdapter extends FragmentPagerAdapter {
-	private List<Fragment> fragments;
-
-	public MyPageAdapter(FragmentManager fm, List<Fragment> fragments) {
-		super(fm);
-		this.fragments = fragments;
-	}
-	@Override 
-	public Fragment getItem(int position) {
-		return this.fragments.get(position);
-	}
-
-	@Override
-	public int getCount() {
-		return this.fragments.size();
-	}
-}
-
-
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
-	// Inflate the menu; this adds items to the action bar if it is present.
-	getMenuInflater().inflate(R.menu.main, menu);
-	return true;
-}
-
-
-
-
-
 
 }
