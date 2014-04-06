@@ -58,10 +58,10 @@ public class MainActivity extends Activity {
 		
 		Intent teamSelect = new Intent(this, TeamSelect.class);
 		Intent gameSetup = new Intent(this, GameSetup.class);
-
+		Intent recordStat = new Intent(this, RecordStat.class);
 		
 		//Start app on...
-		startActivity(gameSetup);
+		startActivity(recordStat);
 	}
 	
 	private void  reset_and_seed(){
