@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		
-		testing();
+		// testing();
 
 		return true;
 	}
