@@ -17,12 +17,14 @@ public class MainActivity extends Activity {
 		getActionBar().hide();
 		setContentView(R.layout.activity_main);
 		
-		// Add basketball and its stat types to database once
 		Context c = getApplicationContext();
-		StatType.populateBballStatTypes(c);
 		
 		// Deletes all data in database
 		DBHelper.deleteAllData();
+		
+		// Add basketball and its stat types to database once
+		StatType.populateBballStatTypes(c);
+		
 		// Add a team, players, game, and stats for testing
 		DBHelper.populateTestData(c);
 		
