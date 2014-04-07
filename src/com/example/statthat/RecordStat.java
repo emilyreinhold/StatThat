@@ -57,6 +57,7 @@ public class RecordStat extends Activity {
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_record_stat);
 		
 		// get game id

@@ -39,8 +39,10 @@ public class GameActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//getActionBar().hide();
 		setContentView(R.layout.activity_game);
-
+		getActionBar().setDisplayShowHomeEnabled(false);              
+		getActionBar().setDisplayShowTitleEnabled(false);
 		List<Fragment> fragments = getFragments();
 		pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
 		final ViewPager pager = (ViewPager)findViewById(R.id.game_pager);
@@ -101,6 +103,10 @@ public class GameActivity extends FragmentActivity {
 		a_stats.put("Three Pointers", "2");
 		a_stats.put("Rebounds", "1");
 		a_stats.put("Layups", "4");
+		a_stats.put("Assist", "9");
+		a_stats.put("Steal", "2");
+		a_stats.put("Block", "1");
+		a_stats.put("Turnover", "1");
 
 		HashMap<String, String> d_stats = new HashMap<String, String>();
 		d_stats.put("Free Throws", "1");
@@ -109,6 +115,10 @@ public class GameActivity extends FragmentActivity {
 		d_stats.put("Three Pointers", "3");
 		d_stats.put("Rebounds", "2");
 		d_stats.put("Layups", "4");
+		d_stats.put("Assist", "6");
+		d_stats.put("Steal", "1");
+		d_stats.put("Block", "2");
+		d_stats.put("Turnover", "2");
 
 		HashMap<String, String> e_stats = new HashMap<String, String>();
 		e_stats.put("Free Throws", "4");
@@ -117,6 +127,10 @@ public class GameActivity extends FragmentActivity {
 		e_stats.put("Three Pointers", "2");
 		e_stats.put("Rebounds", "5");
 		e_stats.put("Layups", "4");
+		e_stats.put("Assist", "8");
+		e_stats.put("Steal", "1");
+		e_stats.put("Block", "4");
+		e_stats.put("Turnover", "1");
 
 
 		players.put("Andrew Dorsett", a_stats);
@@ -133,6 +147,10 @@ public class GameActivity extends FragmentActivity {
 		team.put("Layups", "15");
 		team.put("Time-outs", "3");
 		team.put("Free Throws", "20");
+		team.put("Assist", "40");
+		team.put("Steal", "16");
+		team.put("Block", "20");
+		team.put("Turnover", "5");
 
 		fList.add(MyFragment.newInstance(team));		
 		fList.add(MyFragment.newInstance(players, 0)); 
@@ -206,11 +224,11 @@ public class GameActivity extends FragmentActivity {
 					TextView s = new TextView(v.getContext());
 
 					s.setText(stat + "        ");
-					s.setTextSize(20);
+					s.setTextSize(30);
 
 					TextView ss = new TextView(v.getContext());
 					ss.setText(hash.get(stat));
-					ss.setTextSize(20);
+					ss.setTextSize(30);
 
 					row.addView(s);
 					row.addView(ss);
@@ -236,6 +254,8 @@ public class GameActivity extends FragmentActivity {
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
+			// make spinner text bigger
+			((TextView) arg0.getChildAt(0)).setTextSize(25);			
 			String s = (String) arg0.getItemAtPosition(arg2);
 			TableLayout layout = (TableLayout) v.findViewById(R.id.table_layout);
 			// reset tablerows
@@ -244,11 +264,11 @@ public class GameActivity extends FragmentActivity {
 				TableRow row = new TableRow(v.getContext());
 				TextView t = new TextView(v.getContext());
 				t.setText(stat + "        ");
-				t.setTextSize(20);
+				t.setTextSize(30);
 
 				TextView tt = new TextView(v.getContext());
 				tt.setText(hash.get(s).get(stat));
-				tt.setTextSize(20);
+				tt.setTextSize(30);
 
 				row.addView(t);
 				row.addView(tt);
@@ -285,7 +305,7 @@ public class GameActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.game, menu);
+		//getMenuInflater().inflate(R.menu.game, menu);
 		return true;
 	}
 

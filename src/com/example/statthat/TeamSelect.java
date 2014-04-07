@@ -4,6 +4,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +22,7 @@ public class TeamSelect extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_team_select);
 		
 		
@@ -24,6 +30,19 @@ public class TeamSelect extends Activity {
 		teams = Team.listAll(Team.class); 
 		
 		existing_teams = (ListView) findViewById(R.id.existing_team_view);
+		
+		//Make buttons clickable
+		existing_teams.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = new Intent(arg0.getContext(), TeamPageActivity.class);
+				startActivity(intent);
+				
+			}
+			
+		});
 		
 		existing_teams.setAdapter(new TeamList(this,teams));
 		Button new_team = (Button)findViewById(R.id.button1);
@@ -36,7 +55,7 @@ public class TeamSelect extends Activity {
 			}
 		});
 		
-
+	
 	}
 
 	@Override

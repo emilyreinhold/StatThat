@@ -29,6 +29,7 @@ public class GameSetup extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_game_setup);
 		
 		back = (Button) findViewById(R.id.back_button);

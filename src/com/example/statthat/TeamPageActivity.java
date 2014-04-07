@@ -34,6 +34,9 @@ public class TeamPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//getActionBar().hide();
+		getActionBar().setDisplayShowHomeEnabled(false);              
+		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.activity_team_page);	
 
 		// get all variables from DB, programmatically set to XML
@@ -144,7 +147,7 @@ public class TeamPageActivity extends FragmentActivity {
 				for (String i: message) {
 					TextView text=new TextView(container.getContext());
 					text.setText(i);
-					text.setTextSize(20);
+					text.setTextSize(30);
 					text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 					layout.addView(text);
 				}
@@ -160,8 +163,7 @@ public class TeamPageActivity extends FragmentActivity {
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
 					button.setWidth(500);
-					//button.bringToFront();
-
+					button.setTextSize(25);
 					button.setBackgroundColor(Color.parseColor("#FA6900"));
 					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 					params.setMargins(10,10,10,10);
@@ -211,8 +213,15 @@ public class TeamPageActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	public void makeNewTeam(View v) {
+		Intent intent = new Intent(v.getContext(), GameSetup.class);
+		startActivity(intent); 
+		
+	}
+	
 
 }
