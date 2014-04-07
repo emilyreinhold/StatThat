@@ -84,7 +84,6 @@ public class GameActivity extends FragmentActivity {
 					}
 				});
 
-
 	}
 
 	HashMap<String, HashMap<String, String>> players;
