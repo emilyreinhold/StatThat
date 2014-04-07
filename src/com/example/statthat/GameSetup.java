@@ -79,7 +79,7 @@ public class GameSetup extends Activity {
 					game.save();
 					Intent record_start = new Intent(GameSetup.this, RecordStat.class);
 					record_start.putExtra("game_id", game.getId());
-					startActivity(record_start);
+					startActivityForResult(record_start, 1);
 					
 					
 				}else{
@@ -93,7 +93,7 @@ public class GameSetup extends Activity {
          });
 		
 		
-		// back button
+		// back button - destroy activity
 		back.setOnClickListener(new Button.OnClickListener(){
 
 			@Override
@@ -160,5 +160,16 @@ public class GameSetup extends Activity {
      
            }
         };
+        
+    // Closes activity when you press done on record_stat screen    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+             if (resultCode == RESULT_OK) {
+                this.finish();
+             }
+         }
+    }
 
 }

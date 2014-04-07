@@ -17,8 +17,12 @@ public class MainActivity extends Activity {
 		getActionBar().hide();
 		setContentView(R.layout.activity_main);
 		
-		// Add basketball and its stat types to database once
 		Context c = getApplicationContext();
+		
+		// Deletes all data in database
+		DBHelper.deleteAllData();
+		
+		// Add basketball and its stat types to database once
 		StatType.populateBballStatTypes(c);
 		
 		// Add a team, players, game, and stats for testing
@@ -54,14 +58,14 @@ public class MainActivity extends Activity {
 	// Andrew - Used for testing
 	private void testing(){
 		//destroy DB and seed
-		reset_and_seed();
+//		reset_and_seed();
 		
 		Intent teamSelect = new Intent(this, TeamSelect.class);
 		Intent gameSetup = new Intent(this, GameSetup.class);
 		Intent recordStat = new Intent(this, RecordStat.class);
 		
 		//Start app on...
-		startActivity(gameSetup);
+		startActivity(recordStat);
 	}
 	
 	private void  reset_and_seed(){
