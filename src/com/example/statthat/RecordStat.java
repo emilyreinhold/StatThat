@@ -104,6 +104,7 @@ public class RecordStat extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// some sort of intent
+			    setResult(RESULT_OK, null);
 				finish();
 			}
 			
