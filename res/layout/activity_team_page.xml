@@ -37,6 +37,7 @@
         	android:id="@+id/button_bears" 
         	android:background="#FA6900"
         	android:layout_marginTop="20dp"
+        	android:onClick="makeNewTeam"
         	 />
     	    
     	<android.support.v4.view.ViewPager

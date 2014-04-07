@@ -214,5 +214,11 @@ public class TeamPageActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	public void makeNewTeam(View v) {
+		
+		
+	}
+	
 
 }
