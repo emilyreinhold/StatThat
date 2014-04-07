@@ -2,55 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center_horizontal"
         android:background="#E0E4CC"
-        
-        >
-    	<TextView
-    	android:textSize="30sp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Golden Bears"   
-        android:background="#69D2E7"
         android:gravity="center_horizontal"
-        android:padding="20dp"
-        />        
-        
-    	<Button
-    	    android:text="New Game" 
-    	    android:layout_margin="15sp"
-    	    android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:paddingLeft="40sp"
-        	android:paddingRight="40sp"  
-        	android:id="@+id/button_bears" 
-        	android:background="#FA6900"
-        	android:layout_marginTop="20dp"
-        	android:onClick="makeNewTeam"
-        	 />
-    	    
-    	<android.support.v4.view.ViewPager
-    		xmlns:android="http://schemas.android.com/apk/res/android"
-    		android:id="@+id/pager"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content" 
-    		/>
-    	
-          
-        
-    </LinearLayout>
-    
+        android:orientation="vertical" >
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#F38630"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:text="Golden Bears"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/button_bears"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20sp"
+            android:layout_marginTop="40dp"
+            android:background="#FA6900"
+            android:onClick="makeNewTeam"
+            android:paddingLeft="40sp"
+            android:paddingRight="40sp"
+            android:text="New Game" />
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </RelativeLayout>

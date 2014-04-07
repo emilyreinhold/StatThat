@@ -34,7 +34,9 @@ public class TeamPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActionBar().hide();
+		//getActionBar().hide();
+		getActionBar().setDisplayShowHomeEnabled(false);              
+		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.activity_team_page);	
 
 		// get all variables from DB, programmatically set to XML
@@ -212,12 +214,13 @@ public class TeamPageActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	
 	public void makeNewTeam(View v) {
-		
+		Intent intent = new Intent(v.getContext(), GameSetup.class);
+		startActivity(intent); 
 		
 	}
 	
