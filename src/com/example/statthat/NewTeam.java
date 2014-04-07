@@ -17,6 +17,7 @@ public class NewTeam extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_new_team);
 		
 		Button addPlayer = (Button) findViewById(R.id.add_player);

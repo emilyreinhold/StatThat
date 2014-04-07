@@ -39,6 +39,7 @@ public class GameActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_game);
 
 		List<Fragment> fragments = getFragments();

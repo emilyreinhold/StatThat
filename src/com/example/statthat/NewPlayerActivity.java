@@ -17,6 +17,7 @@ public class NewPlayerActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_new_player);
 		Bundle extras = this.getIntent().getExtras();
 		long team_id = extras.getLong("team");

@@ -34,6 +34,7 @@ public class TeamPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_team_page);	
 
 		// get all variables from DB, programmatically set to XML
