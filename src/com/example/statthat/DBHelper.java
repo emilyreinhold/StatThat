@@ -21,6 +21,10 @@ public class DBHelper {
 	public static void populateTestData(Context c) {
 		StatType.populateBballStatTypes(c);
 		
+		if (Team.find(Team.class, "name = ?", "Golden Bears").size() > 0) {
+			return;
+		}
+		
 		Team team = new Team(c, "Golden Bears", Sport.populateBball(c));
 		team.save();
 		List<Player> players = populateTestPlayers(c, team);
