@@ -1,8 +1,7 @@
 package com.example.statthat;
 
-import java.util.*;
+import java.util.List;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -10,19 +9,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class TeamSelect extends Activity {
-
+	private ListView existing_teams;
+	private List<Team> teams;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_team_select);
 		
 		
 		//Create Existing Team Buttons
-		ListView existing_teams = (ListView) findViewById(R.id.existing_team_view);
-		List<Team> teams = Team.listAll(Team.class); 
+		teams = Team.listAll(Team.class); 
+		
+		existing_teams = (ListView) findViewById(R.id.existing_team_view);
 		
 		//Make buttons clickable
 		existing_teams.setOnItemClickListener(new OnItemClickListener() {
@@ -38,6 +45,15 @@ public class TeamSelect extends Activity {
 		});
 		
 		existing_teams.setAdapter(new TeamList(this,teams));
+		Button new_team = (Button)findViewById(R.id.button1);
+		new_team.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent new_team_intent = new Intent(TeamSelect.this, NewTeam.class);
+				startActivity(new_team_intent);
+			}
+		});
 		
 	
 	}
@@ -48,6 +64,13 @@ public class TeamSelect extends Activity {
 		getMenuInflater().inflate(R.menu.team_select, menu);
 		
 		return true;
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		teams = Team.listAll(Team.class);
+		existing_teams.setAdapter(new TeamList(this,teams));
 	}
 
 }

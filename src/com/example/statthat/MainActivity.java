@@ -1,5 +1,6 @@
 package com.example.statthat;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.activity_main);
 		
 		// Add basketball and its stat types to database once
@@ -42,8 +44,7 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-		
-		// testing();
+//		testing();
 
 		return true;
 	}
@@ -57,7 +58,7 @@ public class MainActivity extends Activity {
 		
 		Intent teamSelect = new Intent(this, TeamSelect.class);
 		Intent gameSetup = new Intent(this, GameSetup.class);
-
+		Intent recordStat = new Intent(this, RecordStat.class);
 		
 		//Start app on...
 		startActivity(gameSetup);
