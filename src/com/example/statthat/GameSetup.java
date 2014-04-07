@@ -92,7 +92,7 @@ public class GameSetup extends Activity {
          });
 		
 		
-		// back button
+		// back button - destroy activity
 		back.setOnClickListener(new Button.OnClickListener(){
 
 			@Override
