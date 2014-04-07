@@ -68,7 +68,7 @@ public class TeamPageActivity extends FragmentActivity {
 		};
 
 		actionBar.addTab(actionBar.newTab().setText("Players").setTabListener(tabListener));
-		actionBar.addTab(actionBar.newTab().setText("Reports").setTabListener(tabListener));
+		actionBar.addTab(actionBar.newTab().setText("Stats").setTabListener(tabListener));
 
 		pager.setOnPageChangeListener(
 				new ViewPager.SimpleOnPageChangeListener() {
