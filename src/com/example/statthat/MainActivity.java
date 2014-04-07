@@ -21,8 +21,10 @@ public class MainActivity extends Activity {
 		Context c = getApplicationContext();
 		StatType.populateBballStatTypes(c);
 		
+		// Deletes all data in database
+		DBHelper.deleteAllData();
 		// Add a team, players, game, and stats for testing
-//		 DBHelper.populateTestData(c);
+		DBHelper.populateTestData(c);
 		
 		// login - no username/password checks
 		Button login = (Button) findViewById(R.id.login);
