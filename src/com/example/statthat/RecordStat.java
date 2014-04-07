@@ -2,12 +2,14 @@ package com.example.statthat;
 
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -90,6 +92,8 @@ public class RecordStat extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// some sort of intent
+				Intent team_page = new Intent(RecordStat.this, TeamPageActivity.class);
+				startActivity(team_page);
 			}
 			
 		});
@@ -208,7 +212,17 @@ public class RecordStat extends Activity {
 		
 		// time
 		TextView time = new TextView(ctx);
-		time.setText(Double.toString(stat.time));
+		
+		//convert stat time to HH:MM:SS format
+		String time_str = String.format("%02d:%02d:%02d", 
+				TimeUnit.MILLISECONDS.toHours((long)stat.time),
+				TimeUnit.MILLISECONDS.toMinutes((long) stat.time) -  
+				TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours((long)stat.time)), // The change is in this line
+				TimeUnit.MILLISECONDS.toSeconds((long)stat.time) - 
+				TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)stat.time)));  
+		
+		time.setText(time_str);
+
 		params = ((TextView) findViewById(R.id.time_header)).getLayoutParams();
 		time.setLayoutParams(params);
 		time.setGravity(Gravity.CENTER_HORIZONTAL);

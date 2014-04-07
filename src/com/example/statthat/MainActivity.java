@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		
 		
-//		 testing();
+		 testing();
 
 		return true;
 	}
@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
 		Intent recordStat = new Intent(this, RecordStat.class);
 		
 		//Start app on...
-		startActivity(teamSelect);
+		startActivity(gameSetup);
 	}
 	
 	private void  reset_and_seed(){
