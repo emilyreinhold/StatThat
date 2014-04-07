@@ -147,7 +147,7 @@ public class TeamPageActivity extends FragmentActivity {
 				for (String i: message) {
 					TextView text=new TextView(container.getContext());
 					text.setText(i);
-					text.setTextSize(20);
+					text.setTextSize(30);
 					text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 					layout.addView(text);
 				}
@@ -163,8 +163,7 @@ public class TeamPageActivity extends FragmentActivity {
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
 					button.setWidth(500);
-					//button.bringToFront();
-
+					button.setTextSize(25);
 					button.setBackgroundColor(Color.parseColor("#FA6900"));
 					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 					params.setMargins(10,10,10,10);
