@@ -104,8 +104,7 @@ public class RecordStat extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// some sort of intent
-				Intent team_page = new Intent(RecordStat.this, TeamPageActivity.class);
-				startActivity(team_page);
+				finish();
 			}
 			
 		});
