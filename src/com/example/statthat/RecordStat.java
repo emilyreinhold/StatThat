@@ -2,22 +2,28 @@ package com.example.statthat;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.DigitalClock;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextClock;
@@ -27,6 +33,7 @@ public class RecordStat extends Activity {
 	
 	TableLayout stat_table;
 	Game game = null;
+	private Dialog record_diag;
 	
 	// View buttons
 	private Button done;
@@ -38,6 +45,7 @@ public class RecordStat extends Activity {
 	
 	// keeping track of stats
 	private int current_quarter;
+	private long report_time;
 	private long stopped_at = 0;
 	private boolean clock_stopped = true;
 	ArrayList<Long> stats = new ArrayList<Long>();
@@ -74,6 +82,9 @@ public class RecordStat extends Activity {
 		
 		// Setup onclick listeners
 		setupOnClickListeners();
+		
+		// Setup Record Dialog
+		setupDialog();
 	}
 	
 	@Override
@@ -115,9 +126,18 @@ public class RecordStat extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Stat recent_stat = recordStat();
-				stats.add(recent_stat.getId());
-				updateRecentStats(recent_stat);
+//				Stat recent_stat = recordStat();
+//				stats.add(recent_stat.getId());
+//				updateRecentStats(recent_stat);
+				if(clock_stopped)
+					report_time = -1*stopped_at;
+				else
+					report_time = SystemClock.elapsedRealtime() - clock.getBase();
+				
+				record_diag.show();
+//				System.out.println("PRINT!");
+//
+//				System.out.println(record_diag);
 				
 				
 				
@@ -184,7 +204,7 @@ public class RecordStat extends Activity {
 		
 		// player number
 		TextView player = new TextView(ctx);
-		player.setText("5");
+		player.setText(Integer.toString(stat.player.number));
 		params = ((TextView) findViewById(R.id.player_header)).getLayoutParams();
 		player.setGravity(Gravity.CENTER_HORIZONTAL);
 		player.setLayoutParams(params);
@@ -193,7 +213,7 @@ public class RecordStat extends Activity {
 		
 		// stat_type
 		TextView stat_type = new TextView(ctx);
-		stat_type.setText("Free Throw");
+		stat_type.setText(stat.statType.name);
 		params = ((TextView) findViewById(R.id.stat_type_header)).getLayoutParams();
 		stat_type.setGravity(Gravity.CENTER_HORIZONTAL);
 		stat_type.setLayoutParams(params);
@@ -202,7 +222,7 @@ public class RecordStat extends Activity {
 		
 		// result 
 		TextView result = new TextView(ctx);
-		result.setText("MISS");
+		result.setText(stat.result ? "HIT" : "MISS");
 		params = ((TextView) findViewById(R.id.result_header)).getLayoutParams();
 		result.setGravity(Gravity.CENTER_HORIZONTAL);
 		result.setLayoutParams(params);
@@ -233,5 +253,66 @@ public class RecordStat extends Activity {
 		
 	
 	}
+	private void setupDialog(){
+		
 
+		record_diag = new Dialog(this);
+		record_diag.setContentView(R.layout.record_stat_dialog);
+		record_diag.setTitle("Record Stat");
+		
+		List<Player> players = Player.listAll(Player.class);
+		List<StatType> stat_types = StatType.listAll(StatType.class);
+		
+		ArrayList<Integer> player_numbers = new ArrayList<Integer>();
+		for(Player player : players){
+			player_numbers.add(player.number);
+		}
+		
+		ArrayList<String> stat_type_strings = new ArrayList<String>();
+		for(StatType stat_type : stat_types){
+			stat_type_strings.add(stat_type.name);
+		}
+		
+		
+		
+		// Add player selection
+		ArrayAdapter<Integer> player_adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, player_numbers);
+		final Spinner select_player_spinner = (Spinner) record_diag.findViewById(R.id.select_player);
+		select_player_spinner.setAdapter(player_adapter);
+		
+		// Add stat selection
+		ArrayAdapter<String> stat_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, stat_type_strings);
+		final Spinner select_stat_spinner = (Spinner) record_diag.findViewById(R.id.select_stat);
+		select_stat_spinner.setAdapter(stat_adapter);
+		
+		// Add result selection
+		ArrayList<String> result = new ArrayList<String>(Arrays.asList("HIT", "MISS"));
+		ArrayAdapter<String> result_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, result);
+		final Spinner select_result_spinner = (Spinner) record_diag.findViewById(R.id.select_result);
+		select_result_spinner.setAdapter(result_adapter);
+		
+		
+		// Add confirm listen
+		Button confirm = (Button) record_diag.findViewById(R.id.confirm);
+		confirm.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Stat stat = new Stat(getApplicationContext());
+				stat.player = Player.find(Player.class, "number=?", select_player_spinner.getSelectedItem().toString()).get(0);
+				stat.statType = StatType.find(StatType.class, "name=?",select_stat_spinner.getSelectedItem().toString()).get(0);
+				stat.result = select_result_spinner.getSelectedItem().toString() == "HIT";
+				stat.time = report_time;
+				stat.save();
+				
+				updateRecentStats(stat);
+				record_diag.dismiss();
+				
+			}
+			
+		});
+		
+		
+	}
+	
 }

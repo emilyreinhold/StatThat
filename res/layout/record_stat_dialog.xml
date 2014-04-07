@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <!-- Player -->
+	<TextView 
+	    android:layout_width='fill_parent'
+	    android:layout_height="wrap_content"
+	    android:labelFor="@+id/select_player"
+	    android:text="Player #:"/>
+    <Spinner
+        android:id="@+id/select_player"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp" />
+   
+    <!-- Stat -->
+   	<TextView 
+   	    android:id='@+id/select_stat_label'
+	    android:layout_width='fill_parent'
+	    android:layout_height="wrap_content"
+	    android:labelFor="@+id/select_stat"
+	    android:layout_below="@+id/select_player"
+	    android:text="Stat:"/>
+    <Spinner
+        android:id="@+id/select_stat"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_stat_label"
+        android:layout_centerHorizontal="true" />
+    
+    <!-- Result -->
+    <TextView 
+        android:id="@+id/select_result_label"
+	    android:layout_width='fill_parent'
+	    android:layout_height="wrap_content"
+	    android:labelFor="@+id/select_result"
+	    android:layout_below="@+id/select_stat"
+	    android:text="Result:"/>
+    <Spinner
+        android:id="@+id/select_result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_result_label"/>
+    
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:layout_alignParentBottom="true"/>
+        
+
+    
+
+</RelativeLayout>

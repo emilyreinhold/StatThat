@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 		StatType.populateBballStatTypes(c);
 		
 		// Add a team, players, game, and stats for testing
-		// DBHelper.populateTestData(c);
+//		 DBHelper.populateTestData(c);
 		
 		// login - no username/password checks
 		Button login = (Button) findViewById(R.id.login);
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-//		testing();
+		testing();
 
 		return true;
 	}
@@ -53,14 +53,14 @@ public class MainActivity extends Activity {
 	// Andrew - Used for testing
 	private void testing(){
 		//destroy DB and seed
-		reset_and_seed();
+//		reset_and_seed();
 		
 		Intent teamSelect = new Intent(this, TeamSelect.class);
 		Intent gameSetup = new Intent(this, GameSetup.class);
 		Intent recordStat = new Intent(this, RecordStat.class);
 		
 		//Start app on...
-		startActivity(gameSetup);
+		startActivity(recordStat);
 	}
 	
 	private void  reset_and_seed(){
