@@ -11,8 +11,8 @@ public class DBHelper {
 	
 	// Basketball data
 	
-	static String[] bballStatTypes = { "3 pt", "2 pt", "Free throw", "Offensive rebound", "Defensive rebound",
-		   "Assist", "Steal", "Block", "Turnover", "Personal foul" };
+	static String[] bballStatTypes = { "3 pt", "2 pt", "free throw", "offensive rebound", "defensive rebound",
+		   "assist", "steal", "block", "turnover", "personal foul" };
 
 	static String[] bballStatAbbr = { "3FGM", "3FG", "FGM", "FG",
 		  "FTM", "FT", "OREB", "DREB",

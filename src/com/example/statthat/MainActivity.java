@@ -20,13 +20,13 @@ public class MainActivity extends Activity {
 		Context c = getApplicationContext();
 		
 		// Deletes all data in database
-		DBHelper.deleteAllData();
+//		DBHelper.deleteAllData();
 		
 		// Add basketball and its stat types to database once
-		StatType.populateBballStatTypes(c);
+//		StatType.populateBballStatTypes(c);
 		
 		// Add a team, players, game, and stats for testing
-		DBHelper.populateTestData(c);
+//		DBHelper.populateTestData(c);
 		
 		// login - no username/password checks
 		Button login = (Button) findViewById(R.id.login);
@@ -40,6 +40,16 @@ public class MainActivity extends Activity {
 			
 		});
 		
+		
+		Button audio_test = (Button) findViewById(R.id.audio_test);
+		audio_test.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, RecordExample.class);
+				startActivity(intent);
+			}
+		});
 		
 	}
 

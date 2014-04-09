@@ -44,32 +44,26 @@ public class RecordExample extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
+			    startVoiceRecognitionActivity();
+
 			}
 			
 		});
 		
-		button.setOnTouchListener(new Button.OnTouchListener(){
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-				switch(e.getAction()){
-					case MotionEvent.ACTION_DOWN:
-					    startVoiceRecognitionActivity();
-					case MotionEvent.ACTION_UP:
-						speech.destroy();
-				}
-				return false;
-			}
-		});
+//		button.setOnTouchListener(new Button.OnTouchListener(){
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent e) {
+//				switch(e.getAction()){
+//					case MotionEvent.ACTION_DOWN:
+//					    startVoiceRecognitionActivity();
+//					case MotionEvent.ACTION_UP:
+//						speech.destroy();
+//				}
+//				return false;
+//			}
+//		});
 		
-		List<Player> players = Player.listAll(Player.class);
-		String output = "";
-		for (Player player : players){
-			output += "Player: " + Integer.toString(player.number) + "\n";
-		}
-		List<Player> player = Player.find(Player.class, "number=?", "1");
-		output += "Size of players with 1 = " + player.size(); 
-		text2.setText(output);
 	}
 
 	@Override
@@ -99,8 +93,8 @@ public class RecordExample extends Activity {
 		    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 		  speechIntent.putExtra(RecognizerIntent.EXTRA_PROMPT,
 		    "AndroidBite Voice Recognition...");
-//		  startActivityForResult(intent, REQUEST_CODE);
-		  speech.startListening(speechIntent);
+		  startActivityForResult(speechIntent, REQUEST_CODE);
+//		  speech.startListening(speechIntent);
 	}
 	
 	
@@ -127,7 +121,6 @@ public class RecordExample extends Activity {
 	    				if(players.size() >= 1){
 	    					try{
 		    					Player player = players.get(0);
-		    					output += "Player found, num: " + player.number;
 		    					stat.player = player;
 	    					}catch(Exception e){
 
@@ -143,45 +136,40 @@ public class RecordExample extends Activity {
 	    				continue;
 	    			}
 	    		
-	    		String last = sentence[sentence.length - 1].toLowerCase();
+	    		String result = sentence[2].toLowerCase();
 	    		StatType statType = null;
 	    		
-	    		if(last.equals("hit") || last.equals("miss")){
-	    			// Look for action in StatType
-	    			statType = new StatType(getApplicationContext());
-	    			statType.name = "free throw";
-	    			statType.save();
-	    			stat.statType = statType;
-	    			stat.result = last.equals("hit");
+	    		if(result.equals("made") || result.equals("miss")){
 	    			
-//	    			for(int i = 2; i < sentence.length - 2; i++){
-//	    				List<StatType> statTypes = StatType.findWithQuery(StatType.class, "Select * from StatType where name like ?", sentence[i]);
-//	    				if(statTypes.size() > 1){
-//	    					try{
-//		    					statType = statTypes.get(0);
-//		    					stat.statType = statType;
-//		    					stat.result = last.equals("hit");
-//	    					break;
-//	    					}catch(Exception e){
-//	    	    				output += "ERROR at statType!! = " + e.toString() + "\n";
-//	    	    			}
-//	    					
-//	    				}
-//	    			}
+//	    			statType = new StatType(getApplicationContext());	
+//	    			statType.name = "free throw";
+//	    			stat.statType = statType;
+	    			String action = sentence[3];
+	    			if(sentence.length == 5)
+	    				action += " " + sentence[4];
+	    			
+	    			List<StatType> statTypes = StatType.find(StatType.class, "name=?", action);
+
+	    			if(statTypes.size() > 0)
+	    				statType = statTypes.get(0);
+	    					
+	    				
+	    			
+	    			
 //	    			if(statType == null){
 //	    				output += "-Failed to find StatType";
 //	    				continue;
 //	    			}
-	    			
+//	    			
+	    			stat.statType = statType;
+	    			stat.result = result.equals("made");
 	    			stat.save();
-	    			output += "Player exists? " + (stat.player != null) +"\n";
-	    			output += "StatType exits? " + (stat.statType != null) + "\n";
-	    			output += "Result = " + stat.result + "\n";
 	    			
 	    			try{
-	    			output += "Player: " + Integer.toString(stat.player.number) + "\n" +
-	    					  "StatType: " + stat.statType.name + "\n" + 
-	    					  "Result: " + stat.result + "\n";
+	    				
+		    			output += "\nFOUND!\nPlayer: " + Integer.toString(stat.player.number) + "\n" +
+		    					  "StatType: " + ( statType == null? "NULL StatType" : stat.statType.name) + "\n" + 
+		    					  "Result: " + stat.result + "\n";
 	    			}catch(Exception e){
 	    				output += "ERROR at end!! = " + e.toString() + "\n";
 	    			}
@@ -198,67 +186,5 @@ public class RecordExample extends Activity {
 	}
 	 
 	 
-	 
-	 protected class SpeechRecognitionListener implements RecognitionListener
-	 {
 
-	     @Override
-	     public void onBeginningOfSpeech()
-	     {               
-	         //Log.d(TAG, "onBeginingOfSpeech"); 
-	     }
-
-	     @Override
-	     public void onBufferReceived(byte[] buffer)
-	     {
-
-	     }
-
-	     @Override
-	     public void onEndOfSpeech()
-	     {
-	         //Log.d(TAG, "onEndOfSpeech");
-	      }
-
-	     @Override
-	     public void onError(int error)
-	     {
-	          speech.startListening(speechIntent);
-
-	         //Log.d(TAG, "error = " + error);
-	     }
-
-	     @Override
-	     public void onEvent(int eventType, Bundle params)
-	     {
-
-	     }
-
-	     @Override
-	     public void onPartialResults(Bundle partialResults)
-	     {
-
-	     }
-
-	     @Override
-	     public void onReadyForSpeech(Bundle params)
-	     {
-	     }
-
-	     @Override
-	     public void onResults(Bundle results)
-	     {
-	         //Log.d(TAG, "onResults"); //$NON-NLS-1$
-	         ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-	         // matches are the return values of speech recognition engine
-	         // Use these values for whatever you wish to do
-	     }
-
-	     @Override
-	     public void onRmsChanged(float rmsdB)
-	     {
-
-	     }
-
-	 }
 }
