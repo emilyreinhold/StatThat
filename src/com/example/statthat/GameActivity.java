@@ -100,9 +100,6 @@ public class GameActivity extends FragmentActivity {
 
 	private List<Fragment> getFragments(){
 		List<Fragment> fList = new ArrayList<Fragment>();
-
-		// instead of hard coding, get stats from Game class; will do later
-
 		players = new HashMap<String, HashMap<String, Integer>>();
 		
 		List<Game> games = Game.find(Game.class, "location = ?", location);
@@ -114,7 +111,7 @@ public class GameActivity extends FragmentActivity {
 		
 		for (Player p: plays) {
 			HashMap<String, Integer> h = new HashMap<String, Integer>();
-			List<Stat> playerStats = game.getStatsForPlayer(p);
+			List<Stat> playerStats = game.getStatsForPlayer(p); // questionable
 			for(Stat s: playerStats) {
 				String stat = s.statType.name;
 				if (h.containsKey(s)) {

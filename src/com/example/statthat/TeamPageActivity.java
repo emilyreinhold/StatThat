@@ -202,9 +202,7 @@ public class TeamPageActivity extends FragmentActivity {
 					row.addView(s);
 					row.addView(ss);
 					tableLayout.addView(row);	
-					
 				}
-		
 			}
 
 			if (getArguments().getSerializable(EXTRA_MESSAGE) instanceof HashMap<?,?>) {
@@ -214,20 +212,18 @@ public class TeamPageActivity extends FragmentActivity {
 
 				for (String vs : hash.keySet()) {
 					Button button = new Button(container.getContext());
+					
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
 					button.setWidth(500);
 					button.setTextSize(25);
-					button.setBackgroundColor(Color.parseColor("#FA6900"));
 					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 					params.setMargins(10,10,10,10);
-
+					button.setBackgroundResource(R.drawable.custom_button_confirm);
 					button.setLayoutParams(params);
 					gamesLayout.addView(button);
 				}
-
 			}
-
 			return v;
 		}
 
@@ -237,12 +233,9 @@ public class TeamPageActivity extends FragmentActivity {
 			// TODO Auto-generated method stub
 
 			// intent to game page
-
 			Button b = (Button) arg0;
 			String bText = b.getText().toString();
 			String[] bArr = bText.split(" ");
-			//String teamName = bArr[1];
-
 			
 			Intent intent = new Intent(arg0.getContext(), GameActivity.class);
 			intent.putExtra("teamName", teamName);
