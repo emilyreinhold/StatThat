@@ -18,19 +18,19 @@
     </style>
     
     <style name="Label">
-        <item name="android:textColor">#0099CC</item>
+        <item name="android:textColor">#424242</item>
         <item name="android:textSize">20sp</item>
     </style>
     
     <style name="Background">
-		<item name='android:background'>#E0E4CC</item>
+		<item name='android:background'>#E9E9E9</item>
 	</style>
 	
     <style name="Confirm"></style>
     <style name="Cancel"></style>
     <style name="Font"></style>
     <style name="TitleBar">
-        <item name='android:background'>#F38630</item>
+        <item name='android:background'>#3299BB</item>
     </style>
     <style name="Button"></style>
     

@@ -52,18 +52,25 @@ public class NewPlayerActivity extends Activity {
 	public void createPlayer() {
 		EditText playerFirstName = (EditText)findViewById(R.id.PlayerFirstName);
 		String first_name = playerFirstName.getText().toString();
+		
 		EditText playerLastName = (EditText)findViewById(R.id.PlayerLastName);
 		String last_name = playerLastName.getText().toString();
+		
 		EditText playerNumber = (EditText)findViewById(R.id.PlayerNumber);
 		int number = Integer.parseInt(playerNumber.getText().toString());
+		
 		EditText playerHeightFeet = (EditText)findViewById(R.id.PlayerHeightFeet);
 		int feet = Integer.parseInt(playerHeightFeet.getText().toString());
+		
 		EditText playerHeightInches = (EditText)findViewById(R.id.PlayerHeightInches);
 		int inches = Integer.parseInt(playerHeightInches.getText().toString());
+		
 		EditText playerWeight = (EditText)findViewById(R.id.PlayerWeight);
 		double weight = Double.parseDouble(playerWeight.getText().toString());
+		
 		Spinner years = (Spinner)findViewById(R.id.year_spinner);
 		int year_index = years.getSelectedItemPosition();
+		
 		String year = (String)years.getItemAtPosition(year_index);
 		Spinner positions = (Spinner)findViewById(R.id.position_spinner);
 		int pos_index = positions.getSelectedItemPosition();
