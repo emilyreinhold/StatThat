@@ -7,7 +7,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".RecordStat" >
+    tools:context=".RecordStat" 
+    style="@style/Background">
 
     <!-- Top row buttons -->
     <RelativeLayout
@@ -19,16 +20,20 @@
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal" >
 	        <Button
+	            style="@style/buttonStyleConfirm"
 	            android:id="@+id/done_button"
 	            android:layout_weight="1.0"
+	            android:layout_margin="2dp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:text="Done"/>
 	        <Button
+	            style="@style/buttonStyleCancel"
 	            android:id="@+id/edit_game_button"
 	            android:layout_weight="1.0"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:layout_margin="2dp"
 	            android:text="Edit Stat"/>
 	        
 	        <!-- Game Clock -->
@@ -75,6 +80,7 @@
 		        android:id="@+id/recent_stats_table"
 		        android:layout_width="fill_parent"
 		        android:layout_height="fill_parent"
+		        android:paddingTop="5dp"
 		        android:layout_weight="1.0">
 		        
 		        <!-- Table Headers -->
@@ -131,14 +137,15 @@
 		        android:layout_height="wrap_content"
 		        android:orientation="vertical"
 		        android:layout_alignParentRight='true' >
-		        
-		        <Button
-		            android:id="@+id/next_quarter_button"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
+		        		    	
+		       <Button
+		            android:id="@+id/start_clock_button"
+		            android:layout_width="75dp"
+		            android:layout_height="75dp"
 		            android:gravity="center_horizontal"
-		            android:text="Next Quarter"
+		            android:background="@drawable/play"
 		            android:textSize="10dp"/>
+
 		        
 		       	<!-- Dividing Line  --> 
 		    	<View
@@ -148,13 +155,16 @@
 				   android:gravity="center_horizontal"
 				   android:background="@android:color/black"/>
 		    	
-		       <Button
-		            android:id="@+id/start_clock_button"
-		            android:layout_width="fill_parent"
+		    	<Button
+		            android:id="@+id/next_quarter_button"
+		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:gravity="center_horizontal"
-		            android:text="Start Clock"
+		            style="@style/buttonStyleCancel"
+		            android:layout_margin="2dp"
+		            android:text="Next Quarter"
 		            android:textSize="10dp"/>
+
 		       
 		       <Button
 		            android:id="@+id/stop_clock_button"
@@ -162,6 +172,7 @@
 		            android:layout_height="wrap_content"
 		            android:gravity="center_horizontal"
 		            android:text="Stop Clock"
+		            android:visibility="gone"
 		            android:textSize="10dp"/>
 		    </LinearLayout> <!-- End of clock buttons -->
 		    
@@ -177,6 +188,7 @@
 	        android:layout_alignParentBottom="true"
 	        android:id="@+id/record_button_layout" >
 		    <Button 
+		        style="@style/buttonStyleConfirm"
 		        android:id="@+id/record_button"
 		        android:layout_width="fill_parent"
 		        android:layout_height="fill_parent"

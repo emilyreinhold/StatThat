@@ -152,9 +152,7 @@ public class RecordStat extends Activity {
 			@Override
 			public void onClick(View v) {
 				if(!clock_stopped){
-					clock_stopped = true;
-					stopped_at = clock.getBase() - SystemClock.elapsedRealtime();
-					clock.stop();
+
 				}
 			}
 			
@@ -168,8 +166,14 @@ public class RecordStat extends Activity {
 				if(clock_stopped){
 					clock_stopped = false;
 					clock.setBase(stopped_at + SystemClock.elapsedRealtime());
+					start_clock.setBackgroundResource(R.drawable.pause);
 					stopped_at = 0;
 					clock.start();
+				}else{
+					start_clock.setBackgroundResource(R.drawable.play);
+					clock_stopped = true;
+					stopped_at = clock.getBase() - SystemClock.elapsedRealtime();
+					clock.stop();
 				}
 			}
 		

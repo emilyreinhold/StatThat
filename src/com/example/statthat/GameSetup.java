@@ -21,9 +21,7 @@ public class GameSetup extends Activity {
 	private EditText date;
 	private EditText location;
 	private EditText opponent;
-	
-	private Button back;
-	
+		
 	private Team team = null;
 	
 	@Override
@@ -31,9 +29,7 @@ public class GameSetup extends Activity {
 		super.onCreate(savedInstanceState);
 		getActionBar().hide();
 		setContentView(R.layout.activity_game_setup);
-		
-		back = (Button) findViewById(R.id.back_button);
-		
+				
 		// Get team passed from intent
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
@@ -92,16 +88,6 @@ public class GameSetup extends Activity {
 			};
          });
 		
-		
-		// back button - destroy activity
-		back.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				finish();
-			}
-			
-		});
 	}
 
 	@Override

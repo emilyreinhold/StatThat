@@ -40,7 +40,7 @@
 	        android:layout_alignParentTop="true" >
 	
 	        <Button
-	            style="@style/Button"
+	            style="@style/buttonStyleConfirm"
 	            android:id="@+id/button1"
 	            android:layout_width="fill_parent"
 	            android:layout_height="75dp"
