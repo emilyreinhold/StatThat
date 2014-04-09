@@ -58,7 +58,7 @@ public class DBHelper {
 			p2.save();
 			players.add(p2);
 			
-			Player p3 = new Player(c, "Tobias", "Funke", team, 1, "guard", 8, 5, 160.0, "sophomore");
+			Player p3 = new Player(c, "Tom", "Funke", team, 1, "guard", 8, 5, 160.0, "sophomore");
 			p3.save();
 			players.add(p3);
 			

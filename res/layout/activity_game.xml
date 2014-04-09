@@ -5,20 +5,22 @@
     tools:context=".GameActivity" >
 
     <LinearLayout
+ 		style = "@style/Background"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#E0E4CC"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <TextView
+            style = "@style/TitleBar"
+            
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#F38630"
             android:gravity="center_horizontal"
             android:padding="20dp"
             android:text="Golden Bears"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:id="@+id/team_title" />
 
         <android.support.v4.view.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"

@@ -38,6 +38,8 @@ public class TeamSelect extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				Intent intent = new Intent(arg0.getContext(), TeamPageActivity.class);
+				Team team = (Team) arg0.getItemAtPosition(arg2);
+				intent.putExtra("team", team.name);
 				startActivity(intent);
 				
 			}

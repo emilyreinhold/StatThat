@@ -3,6 +3,7 @@ package com.example.statthat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -34,13 +35,22 @@ import android.widget.TextView;
 
 public class GameActivity extends FragmentActivity {
 	MyPageAdapter pageAdapter;
-
+	String opposingTeamName;
+	String location;
+	String teamName;
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//getActionBar().hide();
 		setContentView(R.layout.activity_game);
+
+		Intent in = getIntent();
+		location = in.getStringExtra("location");
+		teamName = in.getStringExtra("teamName");
+		TextView tView = (TextView) findViewById(R.id.team_title);
+		tView.setText(teamName);
+		
+		//getActionBar().hide();
 		getActionBar().setDisplayShowHomeEnabled(false);              
 		getActionBar().setDisplayShowTitleEnabled(false);
 		List<Fragment> fragments = getFragments();
@@ -84,77 +94,110 @@ public class GameActivity extends FragmentActivity {
 					}
 				});
 
-
 	}
 
-	HashMap<String, HashMap<String, String>> players;
+	HashMap<String, HashMap<String, Integer>> players;
 
 	private List<Fragment> getFragments(){
 		List<Fragment> fList = new ArrayList<Fragment>();
+		players = new HashMap<String, HashMap<String, Integer>>();
+		
+		List<Game> games = Game.find(Game.class, "location = ?", location);
+		Game game = games.get(0);
+		List<Stat> teamStats =  game.getStats();
+	
+		Team t = Team.find(Team.class, "name = ?", teamName).get(0);
+		List<Player> plays = t.getPlayers();
+		
+		for (Player p: plays) {
+			HashMap<String, Integer> h = new HashMap<String, Integer>();
+			List<Stat> playerStats = game.getStatsForPlayer(p); // questionable
+			for(Stat s: playerStats) {
+				String stat = s.statType.name;
+				if (h.containsKey(s)) {
+					int c = h.get(s);
+					c ++;
+					h.put(stat, c);
+				}
+				else {
+					h.put(stat, 1);
+				}
+				
+			}
+			players.put(p.firstName + " " + p.lastName, h);
+		}
 
-		// instead of hard coding, get stats from Game class; will do later
+//		HashMap<String, String> a_stats = new HashMap<String, String>();
+//		a_stats.put("Free Throws", "2");
+//		a_stats.put("Points Scored", "13");
+//		a_stats.put("Fouls", "3");
+//		a_stats.put("Three Pointers", "2");
+//		a_stats.put("Rebounds", "1");
+//		a_stats.put("Layups", "4");
+//		a_stats.put("Assist", "9");
+//		a_stats.put("Steal", "2");
+//		a_stats.put("Block", "1");
+//		a_stats.put("Turnover", "1");
+//
+//		HashMap<String, String> d_stats = new HashMap<String, String>();
+//		d_stats.put("Free Throws", "1");
+//		d_stats.put("Points Scored", "10");
+//		d_stats.put("Fouls", "1");
+//		d_stats.put("Three Pointers", "3");
+//		d_stats.put("Rebounds", "2");
+//		d_stats.put("Layups", "4");
+//		d_stats.put("Assist", "6");
+//		d_stats.put("Steal", "1");
+//		d_stats.put("Block", "2");
+//		d_stats.put("Turnover", "2");
+//
+//		HashMap<String, String> e_stats = new HashMap<String, String>();
+//		e_stats.put("Free Throws", "4");
+//		e_stats.put("Points Scored", "15");
+//		e_stats.put("Fouls", "2");
+//		e_stats.put("Three Pointers", "2");
+//		e_stats.put("Rebounds", "5");
+//		e_stats.put("Layups", "4");
+//		e_stats.put("Assist", "8");
+//		e_stats.put("Steal", "1");
+//		e_stats.put("Block", "4");
+//		e_stats.put("Turnover", "1");
 
-		players = new HashMap<String, HashMap<String, String>>();
-
-		HashMap<String, String> a_stats = new HashMap<String, String>();
-		a_stats.put("Free Throws", "2");
-		a_stats.put("Points Scored", "13");
-		a_stats.put("Fouls", "3");
-		a_stats.put("Three Pointers", "2");
-		a_stats.put("Rebounds", "1");
-		a_stats.put("Layups", "4");
-		a_stats.put("Assist", "9");
-		a_stats.put("Steal", "2");
-		a_stats.put("Block", "1");
-		a_stats.put("Turnover", "1");
-
-		HashMap<String, String> d_stats = new HashMap<String, String>();
-		d_stats.put("Free Throws", "1");
-		d_stats.put("Points Scored", "10");
-		d_stats.put("Fouls", "1");
-		d_stats.put("Three Pointers", "3");
-		d_stats.put("Rebounds", "2");
-		d_stats.put("Layups", "4");
-		d_stats.put("Assist", "6");
-		d_stats.put("Steal", "1");
-		d_stats.put("Block", "2");
-		d_stats.put("Turnover", "2");
-
-		HashMap<String, String> e_stats = new HashMap<String, String>();
-		e_stats.put("Free Throws", "4");
-		e_stats.put("Points Scored", "15");
-		e_stats.put("Fouls", "2");
-		e_stats.put("Three Pointers", "2");
-		e_stats.put("Rebounds", "5");
-		e_stats.put("Layups", "4");
-		e_stats.put("Assist", "8");
-		e_stats.put("Steal", "1");
-		e_stats.put("Block", "4");
-		e_stats.put("Turnover", "1");
-
-
-		players.put("Andrew Dorsett", a_stats);
-		players.put("Daphne Hsu", d_stats);
-		players.put("Emily Reinhold", e_stats);
+//
+//		players.put("Andrew Dorsett", a_stats);
+//		players.put("Daphne Hsu", d_stats);
+//		players.put("Emily Reinhold", e_stats);
 		// add players stats
 
 		// make team stats
-		HashMap<String,String> team = new HashMap<String,String>();
-		team.put("Points Scored", "56");
-		team.put("Rebounds", "20");
-		team.put("Fouls", "9");
-		team.put("Three Pointers", "11");		
-		team.put("Layups", "15");
-		team.put("Time-outs", "3");
-		team.put("Free Throws", "20");
-		team.put("Assist", "40");
-		team.put("Steal", "16");
-		team.put("Block", "20");
-		team.put("Turnover", "5");
+		
+		HashMap<String, Integer> team = new HashMap<String,Integer>();
+
+		for (Stat stat: teamStats) {
+			String s = stat.statType.name;
+			if (team.containsKey(s)) {
+				int c = team.get(s);
+				c ++;
+				team.put(s, c);
+			}
+			else {
+				team.put(s, 1);
+			}
+		}
+//		team.put("Points Scored", "56");
+//		team.put("Rebounds", "20");
+//		team.put("Fouls", "9");
+//		team.put("Three Pointers", "11");		
+//		team.put("Layups", "15");
+//		team.put("Time-outs", "3");
+//		team.put("Free Throws", "20");
+//		team.put("Assist", "40");
+//		team.put("Steal", "16");
+//		team.put("Block", "20");
+//		team.put("Turnover", "5");
 
 		fList.add(MyFragment.newInstance(team));		
 		fList.add(MyFragment.newInstance(players, 0)); 
-
 
 		return fList;
 	}
@@ -169,7 +212,7 @@ public class GameActivity extends FragmentActivity {
 
 		// this is for players with stats
 		// hacky way to differentiate between team and players
-		public final static MyFragment newInstance(HashMap<String,HashMap<String,String>> message, int x) {
+		public final static MyFragment newInstance(HashMap<String,HashMap<String,Integer>> message, int x) {
 			MyFragment f = new MyFragment();
 			Bundle bdl = new Bundle(message.size());
 			bdl.putSerializable(PLAYERS, message);
@@ -178,13 +221,14 @@ public class GameActivity extends FragmentActivity {
 		}
 
 		// for team
-		public final static MyFragment newInstance(HashMap<String,String> message) {
+		public final static MyFragment newInstance(HashMap<String,?> message) {
 			MyFragment f = new MyFragment();
 			Bundle bdl = new Bundle(message.size());
 			bdl.putSerializable(TEAM, message);
 			f.setArguments(bdl);
 			return f;
 		}
+
 
 
 		@Override
@@ -227,7 +271,7 @@ public class GameActivity extends FragmentActivity {
 					s.setTextSize(30);
 
 					TextView ss = new TextView(v.getContext());
-					ss.setText(hash.get(stat));
+					ss.setText(String.valueOf(hash.get(stat)));
 					ss.setTextSize(30);
 
 					row.addView(s);
@@ -267,7 +311,7 @@ public class GameActivity extends FragmentActivity {
 				t.setTextSize(30);
 
 				TextView tt = new TextView(v.getContext());
-				tt.setText(hash.get(s).get(stat));
+				tt.setText(String.valueOf(hash.get(s).get(stat)));
 				tt.setTextSize(30);
 
 				row.addView(t);

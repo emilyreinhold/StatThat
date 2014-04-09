@@ -7,26 +7,27 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#E0E4CC"
+ 		style = "@style/Background"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#F38630"
+            style = "@style/TitleBar"
             android:gravity="center_horizontal"
             android:padding="20dp"
             android:text="Golden Bears"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:id="@+id/team_title2" />
 
         <Button
+            style="@style/buttonStyleConfirm"            
             android:id="@+id/button_bears"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20sp"
             android:layout_marginTop="40dp"
-            android:background="#FA6900"
             android:onClick="makeNewTeam"
             android:paddingLeft="40sp"
             android:paddingRight="40sp"
