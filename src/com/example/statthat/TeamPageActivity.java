@@ -24,11 +24,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class TeamPageActivity extends FragmentActivity {
 	MyPageAdapter pageAdapter;
-
+	public static String teamName;
 	// http://architects.dzone.com/articles/android-tutorial-using
 	@SuppressLint("NewApi")
 	@Override
@@ -39,8 +41,12 @@ public class TeamPageActivity extends FragmentActivity {
 		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.activity_team_page);	
 
-		// get all variables from DB, programmatically set to XML
-		// set team name from db 
+		// get intent for team name
+		Intent in = getIntent();
+		teamName = in.getStringExtra("team");
+		
+		TextView tView = (TextView) findViewById(R.id.team_title2);
+		tView.setText(teamName);
 
 		List<Fragment> fragments = getFragments();
 		pageAdapter = new MyPageAdapter(getSupportFragmentManager(), fragments);
@@ -79,22 +85,29 @@ public class TeamPageActivity extends FragmentActivity {
 						getActionBar().setSelectedNavigationItem(position);
 					}
 				});
+
 	}
 
 	private List<Fragment> getFragments(){
 		List<Fragment> fList = new ArrayList<Fragment>();
 
 		// instead of hard coding, get players from Players class; will do later
-		String[] players = {"Daphne Hsu       05", "Emily Reinhold       22", "Zack Mayeda      41", "Andrew Dorsett       20", "Max Dougherty       13"};
 
-		fList.add(MyFragment.newInstance(players));
+		List<Team> t = Team.find(Team.class, "name = ?", teamName);
+		Team team = t.get(0);
+		List<Player> p = team.getPlayers();
 
-		HashMap<String, String> games = new HashMap<String, String>();
-		games.put("vs. Stanford", "April 1, 2014 (3:14 pm)");
-		games.put("vs. UCLA", "April 15, 2014 (2:18 pm)");
-		games.put("vs. MIT", "April 20, 2014 (1:50 pm)");
 
-		fList.add(MyFragment.newInstance(games)); 
+		fList.add(MyFragment.newInstance(p));
+	
+		List<Game> games = team.getGames();
+		HashMap<String, String> gamess = new HashMap<String, String>();
+
+		for (Game g : games) {
+			gamess.put("vs. " + g.opposingTeamName, g.date + " @ " + g.location);
+		}
+
+		fList.add(MyFragment.newInstance(gamess)); 
 
 		return fList;
 	}
@@ -129,6 +142,27 @@ public class TeamPageActivity extends FragmentActivity {
 			f.setArguments(bdl);
 			return f;
 		}
+		
+		public final static MyFragment newInstance(List<Player> message)
+		{
+			MyFragment f = new MyFragment();
+			Bundle bdl = new Bundle(message.size());
+			String[] playerNameThenNumber = new String[message.size() * 2];
+			
+			int i = 0;
+			for (Player p: message) {
+				String name = p.firstName + " " + p.lastName;
+				String number = Integer.toString(p.number);
+				playerNameThenNumber[i] = name; 
+				playerNameThenNumber[ i + 1] = number; 
+				i += 2;
+				
+			}
+			
+			bdl.putStringArray(EXTRA_MESSAGE, playerNameThenNumber);
+			f.setArguments(bdl);
+			return f;
+		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -141,16 +175,36 @@ public class TeamPageActivity extends FragmentActivity {
 				messageTextView.setText(message);
 
 			}
+			
+			// for player and number
 			if (getArguments().getStringArray(EXTRA_MESSAGE) instanceof String[]) {
 				String[] message = getArguments().getStringArray(EXTRA_MESSAGE);
-				LinearLayout layout = (LinearLayout)v.findViewById(R.id.linear_players);
-				for (String i: message) {
-					TextView text=new TextView(container.getContext());
-					text.setText(i);
-					text.setTextSize(30);
-					text.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
-					layout.addView(text);
+
+				TableLayout tableLayout = (TableLayout) v.findViewById(R.id.table_layout);
+
+				// reset tablerows
+				tableLayout.removeAllViews();
+				
+				
+				for (int i=0; i < message.length; i += 2) {
+					
+					TableRow row = new TableRow(v.getContext());
+					TextView s = new TextView(v.getContext());
+					
+
+					s.setText(message[i] + "       "); //hacky way to add space
+					s.setTextSize(30);
+
+					TextView ss = new TextView(v.getContext());
+					ss.setText(message[i+1]);
+					ss.setTextSize(30);
+
+					row.addView(s);
+					row.addView(ss);
+					tableLayout.addView(row);	
+					
 				}
+		
 			}
 
 			if (getArguments().getSerializable(EXTRA_MESSAGE) instanceof HashMap<?,?>) {
@@ -184,7 +238,15 @@ public class TeamPageActivity extends FragmentActivity {
 
 			// intent to game page
 
+			Button b = (Button) arg0;
+			String bText = b.getText().toString();
+			String[] bArr = bText.split(" ");
+			//String teamName = bArr[1];
+
+			
 			Intent intent = new Intent(arg0.getContext(), GameActivity.class);
+			intent.putExtra("teamName", teamName);
+			intent.putExtra("location", bArr[3]);
 			startActivity(intent);
 
 		}
@@ -216,12 +278,12 @@ public class TeamPageActivity extends FragmentActivity {
 		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	public void makeNewTeam(View v) {
 		Intent intent = new Intent(v.getContext(), GameSetup.class);
 		startActivity(intent); 
-		
+
 	}
-	
+
 
 }
