@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameSetup" >
@@ -11,17 +12,12 @@
     android:layout_height="65dp">
 	   
 	   <!-- Title  -->
-	   <Button 
-	       android:text="Back"
-	       android:id="@+id/back_button"
-	       android:gravity="center_vertical"
-	       android:layout_width="wrap_content"
-	       android:layout_height="wrap_content"/>
 	   <TextView      	           
 	       android:layout_width="match_parent"
 	       android:layout_height="match_parent"
 	       android:gravity="center"
-	       android:text="Game Setup"/>
+	       android:textSize="30sp"
+	       android:text="game setup"/>
     
     </FrameLayout>
 	
@@ -33,11 +29,12 @@
        android:layout_height="fill_parent"
        android:layout_below="@+id/title_bar"
        android:layout_centerHorizontal="true"
-       android:layout_marginLeft="10dp"
-       android:layout_marginRight="10dp"
+       android:layout_marginLeft="5dp"
+	   android:layout_marginRight="5dp"
        android:orientation="vertical" >
 	   <!-- Opponent Name -->
        <TextView
+           style="@style/Label"
            android:id="@+id/game_opponent_label"
            android:layout_width='fill_parent'
            android:layout_height='wrap_content'
@@ -45,16 +42,18 @@
 	   
 
        <EditText
+           android:background="@drawable/text_view_border"
+           android:padding="5dp"
            android:id="@+id/game_opponent"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:ems="10" >
+           android:layout_height="40dp"
+           android:layout_width="fill_parent">
 
            <requestFocus />
        </EditText>
 	   
        <!-- Game Location -->
        <TextView
+           style="@style/Label"
            android:id="@+id/game_location_label"
            android:layout_width='fill_parent'
            android:layout_height='wrap_content'
@@ -63,15 +62,15 @@
 
        <EditText
            android:id="@+id/game_location"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:ems="10" >
-
-           <requestFocus />
+           android:padding="5dp"
+           android:background="@drawable/text_view_border"
+           android:layout_width="fill_parent"
+           android:layout_height="40dp">
        </EditText>
        
        <!-- Game Date -->
        <TextView
+           style="@style/Label"
            android:id="@+id/game_date_label"
            android:layout_width='fill_parent'
            android:layout_height='wrap_content'
@@ -82,46 +81,56 @@
 		    android:layout_height="wrap_content">
 			<EditText
 	           android:id="@+id/game_date"
+	           android:padding="5dp"
+	           android:background="@drawable/text_view_border"
 	           android:layout_width="fill_parent"
-	           android:layout_height="wrap_content"
-	           android:layout_toLeftOf="@+id/date_picker"
-	           android:ems="10" >
-	           <requestFocus />
+	           android:layout_marginRight="5dp"
+	           android:layout_height="40dp"
+	           android:layout_toLeftOf="@+id/date_picker" >
+
 	       </EditText>
-	       
+	       <!-- TODO: try to fix calendar button height -->
 	       <Button 
 	           android:id="@+id/date_picker"
+	           style="@style/buttonStyleCancel"
 	           android:layout_alignParentRight='true'
 	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:text="Calendar"/>
-       <!-- Game Notes -->
+	           android:layout_height="40dp"
+	           android:text="calendar"/>
+       <!-- Game Notes  -->
 		    
 		</RelativeLayout>
 
 
 
        <TextView
+           style="@style/Label"
            android:id="@+id/game_notes_label"
            android:layout_width='fill_parent'
            android:layout_height='wrap_content'
            android:text="@string/game_notes_label"/>
               
-       <EditText
+      	<EditText
            android:id="@+id/game_notes"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:ems="10" >
-
-           <requestFocus />
-       </EditText>
-
-       <Button
-           android:id="@+id/confirm"
+           android:padding="5dp"
+           android:background="@drawable/text_view_border"
            android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:text="@string/confirm" />
+           android:layout_height="40dp" >
+
+
+       </EditText>
     
    </LinearLayout>
+   <Button
+	   android:id="@+id/confirm"
+	   style="@style/buttonStyleConfirm"
+	   android:layout_width="fill_parent"
+	   android:layout_height="wrap_content"
+	   android:text="@string/confirm"
+	   android:layout_marginLeft="5dp"
+	   android:layout_marginRight="5dp"
+	   android:layout_marginBottom="5dp"
+	   android:layout_weight="1"
+	   android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
