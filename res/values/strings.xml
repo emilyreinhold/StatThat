@@ -26,6 +26,7 @@
     <string name="team_name">team name</string>
     <string name="done_adding_players">done adding players</string>
     <string name="add_player">add another player</string>
+    <string name="add_players">add players</string>
     <string name="players">players</string>
     <string name="title_activity_new_player">NewPlayerActivity</string>
     <string name="player_first_name">first name</string>
