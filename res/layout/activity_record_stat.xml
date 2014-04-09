@@ -165,15 +165,8 @@
 		            android:text="Next Quarter"
 		            android:textSize="10dp"/>
 
+		     
 		       
-		       <Button
-		            android:id="@+id/stop_clock_button"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:gravity="center_horizontal"
-		            android:text="Stop Clock"
-		            android:visibility="gone"
-		            android:textSize="10dp"/>
 		    </LinearLayout> <!-- End of clock buttons -->
 		    
 	  	

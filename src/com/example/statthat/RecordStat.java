@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,7 +41,6 @@ public class RecordStat extends Activity {
 	private Button edit;
 	private Button next_quarter;
 	private Button record;
-	private Button stop_clock;
 	private Button start_clock;
 	
 	// keeping track of stats
@@ -73,7 +73,6 @@ public class RecordStat extends Activity {
 	    edit = (Button) findViewById(R.id.edit_game_button);
 	    next_quarter = (Button) findViewById(R.id.next_quarter_button);
 	    record = (Button) findViewById(R.id.record_button);
-	    stop_clock = (Button) findViewById(R.id.stop_clock_button);
 	    start_clock = (Button) findViewById(R.id.start_clock_button);
 	    
 	    clock = (Chronometer) findViewById(R.id.clock);
@@ -146,17 +145,7 @@ public class RecordStat extends Activity {
 			
 		});
 		
-		// stop_clock - stops the clock
-		stop_clock.setOnClickListener(new Button.OnClickListener(){
 
-			@Override
-			public void onClick(View v) {
-				if(!clock_stopped){
-
-				}
-			}
-			
-		});
 		
 		// start_clock - starts the clock
 		start_clock.setOnClickListener(new Button.OnClickListener(){
@@ -207,11 +196,13 @@ public class RecordStat extends Activity {
 		LayoutParams params;
 		
 		
+		
 		// player number
 		TextView player = new TextView(ctx);
 		player.setText(Integer.toString(stat.player.number));
 		params = ((TextView) findViewById(R.id.player_header)).getLayoutParams();
 		player.setGravity(Gravity.CENTER_HORIZONTAL);
+		player.setTextColor(Color.parseColor("#424242"));
 		player.setLayoutParams(params);
 		row.addView(player);
 
@@ -221,6 +212,7 @@ public class RecordStat extends Activity {
 		stat_type.setText(stat.statType.name);
 		params = ((TextView) findViewById(R.id.stat_type_header)).getLayoutParams();
 		stat_type.setGravity(Gravity.CENTER_HORIZONTAL);
+		stat_type.setTextColor(Color.parseColor("#424242"));
 		stat_type.setLayoutParams(params);
 		row.addView(stat_type);
 		
@@ -230,6 +222,7 @@ public class RecordStat extends Activity {
 		result.setText(stat.result ? "HIT" : "MISS");
 		params = ((TextView) findViewById(R.id.result_header)).getLayoutParams();
 		result.setGravity(Gravity.CENTER_HORIZONTAL);
+		result.setTextColor(Color.parseColor("#424242"));
 		result.setLayoutParams(params);
 		row.addView(result);
 		
@@ -251,6 +244,8 @@ public class RecordStat extends Activity {
 		params = ((TextView) findViewById(R.id.time_header)).getLayoutParams();
 		time.setLayoutParams(params);
 		time.setGravity(Gravity.CENTER_HORIZONTAL);
+		time.setTextColor(Color.parseColor("#424242"));
+		
 		row.addView(time);
 		
 		stat_table.addView(row);

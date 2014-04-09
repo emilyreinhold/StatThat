@@ -14,9 +14,9 @@
     <string name="confirm">confirm</string>
 
     <!-- New Game Setup Form Labels -->
-    <string name="game_location_label"><u>location</u></string>
-    <string name="game_date_label"><u>date</u></string>
-    <string name="game_notes_label"><u>notes</u></string>
+    <string name="game_location_label">location</string>
+    <string name="game_date_label">date</string>
+    <string name="game_notes_label">notes</string>
     <string name="game_opponent_label">opponent</string>
     <string name="title_activity_record_stat">record stat</string>
     <string name="title_activity_new_team">NewTeam</string>
