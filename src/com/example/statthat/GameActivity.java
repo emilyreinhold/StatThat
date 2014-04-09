@@ -266,6 +266,8 @@ public class GameActivity extends FragmentActivity {
 				for (String stat: hash.keySet()) {
 					TableRow row = new TableRow(v.getContext());
 					TextView s = new TextView(v.getContext());
+					
+				
 
 					s.setText(stat + "        ");
 					s.setTextSize(30);

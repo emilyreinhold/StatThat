@@ -185,6 +185,25 @@ public class TeamPageActivity extends FragmentActivity {
 				// reset tablerows
 				tableLayout.removeAllViews();
 				
+				TableRow r = new TableRow(v.getContext());
+				r.setPadding(0, 0, 0, 18);
+				TextView s1 = new TextView(v.getContext());
+				TextView s2 = new TextView(v.getContext());
+				s1.setText("Player");
+				s1.setTextSize(23);
+				s2.setText("#");
+				s2.setTextSize(23);
+				r.addView(s1);
+				r.addView(s2);
+				
+				// add line
+//				View view = new View(v.getContext());
+//				view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, 1));
+//				view.setBackgroundColor(Color.rgb(51, 51, 51));
+				
+				
+				tableLayout.addView(r);
+				//tableLayout.addView(view);
 				
 				for (int i=0; i < message.length; i += 2) {
 					
@@ -193,11 +212,11 @@ public class TeamPageActivity extends FragmentActivity {
 					
 
 					s.setText(message[i] + "       "); //hacky way to add space
-					s.setTextSize(30);
+					s.setTextSize(20);
 
 					TextView ss = new TextView(v.getContext());
 					ss.setText(message[i+1]);
-					ss.setTextSize(30);
+					ss.setTextSize(20);
 
 					row.addView(s);
 					row.addView(ss);
@@ -215,7 +234,6 @@ public class TeamPageActivity extends FragmentActivity {
 					
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
-					button.setWidth(500);
 					button.setTextSize(25);
 					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 					params.setMargins(10,10,10,10);
