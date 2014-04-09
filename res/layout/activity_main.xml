@@ -25,23 +25,25 @@
     
     <TextView
         style="@style/Label"
-        android:layout_marginLeft='10dp'
-        android:layout_marginRight='10dp'
+        android:layout_marginLeft='5dp'
+        android:layout_marginRight='5dp'
         android:id="@+id/username_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="@string/username"/>
 
 
 
     <EditText
         android:id="@+id/username"
-        android:layout_marginLeft='10dp'
-        android:layout_marginRight='10dp'
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="20"
-        android:inputType="textNoSuggestions">
+        android:layout_marginLeft='5dp'
+        android:layout_marginRight='5dp'
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+ 		android:padding='5dp'     
+        android:inputType="textNoSuggestions"
+        android:background="@drawable/text_view_border">
         <requestFocus/>
    </EditText>
         
@@ -53,18 +55,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/username_label"
-        android:layout_marginLeft='10dp'
-        android:layout_marginRight='10dp'
+        android:layout_marginLeft='5dp'
+        android:layout_marginRight='5dp'
+        android:layout_marginTop="5dp"
         android:text="@string/password" />
         
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft='10dp'
-        android:layout_marginRight='10dp'
-        android:ems="20"
-        android:inputType="textPassword" >
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft='5dp'
+        android:layout_marginRight='5dp'
+        android:inputType="textPassword"
+        android:padding='5dp'
+        android:background="@drawable/text_view_border">
     </EditText>
 	
     <RelativeLayout
@@ -76,7 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight='true'
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
+       	android:layout_marginTop="5dp"
+        
         android:text="@string/login" />
     
     </RelativeLayout>
