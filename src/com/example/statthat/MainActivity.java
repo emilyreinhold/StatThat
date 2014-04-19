@@ -41,14 +41,7 @@ public class MainActivity extends Activity {
 			}
 			
 		});
-		Parser p = new Parser();
-		String[] m = {"playeR three three point missed", "player twenty two offensive rebound", "player five foul", "player 6 steal"};
-		ArrayList<String> list = new ArrayList<String>();
-		for (String w : m) {
-			list.add(w);
-		}
-		System.out.println("===============================");
-		System.out.println(p.parseMatch(list));
+		
 		
 	}
 

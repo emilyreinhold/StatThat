@@ -121,7 +121,7 @@ public class Parser {
 					System.out.println("Unable to parse player number:" + sentence[1]);
 				}
 			}
-			output += "Player: " + String.valueOf(number) + ". ";
+			output += "Player: " + String.valueOf(number) + ", ";
 
 			// Find action
 			if (sentence.length == 5 || sentence.length == 6) {
@@ -137,6 +137,7 @@ public class Parser {
 						System.out.println("Unable to parse made/missed shot");
 					}
 				} else if (otherStats.contains(testAction)) {
+					// Other stats that have 2 words
 					action = testAction;
 				}
 			} else {
