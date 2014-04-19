@@ -54,7 +54,7 @@ public class RecordStat extends Activity {
 	
 	// keeping track of stats
 	private int current_quarter;
-	private long report_time;
+	private double report_time;
 	private long stopped_at = 0;
 	private boolean clock_stopped = true;
 	ArrayList<Long> stats = new ArrayList<Long>();
@@ -167,7 +167,6 @@ public class RecordStat extends Activity {
 				
 				return false;
 			}
-			
 		});
 		
 //		record.setOnClickListener(new Button.OnClickListener(){
@@ -341,7 +340,7 @@ public class RecordStat extends Activity {
 		
 		protected class SpeechRecognitionListener implements RecognitionListener
 		{
-
+			
 		    @Override
 		    public void onBeginningOfSpeech()
 		    {          
@@ -399,18 +398,27 @@ public class RecordStat extends Activity {
 		    @Override
 		    public void onResults(Bundle results)
 		    {
+				
 		    	// TODO call speech parser class
-				String stat_id = null;
+				String result = null;
+				int stat_id = 0;
 				
 				if(results != null && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)){
-					stat_id = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+					result = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), report_time, current_quarter);
+				}
+				// Try to convert the result into an id
+				try{
+					stat_id = Integer.parseInt(result);
+					Stat stat = Stat.findById(Stat.class, (long)stat_id);
+					updateRecentStats(stat);
+				
+				}catch(Exception e){
+					// DEV - if not an int display bad results
+					int duration = Toast.LENGTH_LONG;
+					Toast toast = Toast.makeText(getApplicationContext(), result, duration);
+					toast.show();
 				}
 				
-				if(stat_id != null){
-					Stat stat = Stat.findById(Stat.class, Long.parseLong(stat_id));
-					updateRecentStats(Stat.findById(Stat.class, stat_id));
-				}
-//					
 
 		    }
 

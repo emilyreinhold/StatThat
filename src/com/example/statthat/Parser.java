@@ -58,11 +58,16 @@ public class Parser {
 	
 	// TODO: pass the team to find correct player
 	public String saveStat(int number, String action, boolean result, int period, double time) {
-		Player player = Player.find(Player.class, "number = ?", String.valueOf(number)).get(0);
-		String actionName = DBHelper.bballStatMap.get(action);
-		StatType type = StatType.find(StatType.class, "name = ?", actionName).get(0);
-		Stat s = new Stat(context, player, game, type, time, period, result);
-		s.save();
+		Stat s;
+		try{
+			Player player = Player.find(Player.class, "number = ?", String.valueOf(number)).get(0);
+//			String actionName = DBHelper.bballStatMap.get(action);
+			StatType type = StatType.find(StatType.class, "name = ?", action).get(0);
+			s = new Stat(context, player, game, type, time, period, result);
+			s.save();
+		} catch(Exception e){
+			return null;
+		}
 		return s.getId().toString();
 	}
 	
@@ -94,6 +99,8 @@ public class Parser {
 	}
 	
 	public String parseMatch(ArrayList<String> matches, double time, int period) {
+		String stat_id = null;
+		
 		String output = "";
 		
 		for (String match: matches) {
@@ -104,9 +111,11 @@ public class Parser {
 			
 			output += "Original: " + match + "\n";
 			String[] sentence = match.split(" ");
+			
 			if (sentence.length < 3) {
 				continue; // not enough words, try next match
 			}
+			
 			for (int i = 0; i < sentence.length; i++) {
 				sentence[i] = sentence[i].toLowerCase();
 			}
@@ -134,17 +143,18 @@ public class Parser {
 					System.out.println("Unable to parse player number:" + sentence[1]);
 				}
 			}
+			
 			output += "Player: " + String.valueOf(number) + ", ";
 
 			// Find action
 			if (sentence.length == 5 || sentence.length == 6) {
 				// Look for shot stats
-				String testAction = sentence[currentPos] + " " + sentence[currentPos + 1];
+				String testAction = sentence[3] + " " + sentence[4];//sentence[currentPos] + " " + sentence[currentPos + 1];
 				if (shotStats.contains(testAction)) {
 					action = testAction;
-					if (sentence[currentPos + 2].equals(SUCCESS_COMMAND)) {
+					if(sentence[2].equals(SUCCESS_COMMAND)) { //(sentence[currentPos + 2].equals(SUCCESS_COMMAND)) {
 						result = true;
-					} else if (sentence[currentPos + 2].equals(FAILURE_COMMAND)) {
+					} else if (sentence[2].equals(FAILURE_COMMAND)) { //(sentence[currentPos + 2].equals(FAILURE_COMMAND)) {
 						result = false;
 					} else {
 						System.out.println("Unable to parse made/missed shot");
@@ -158,11 +168,20 @@ public class Parser {
 					action = sentence[currentPos];
 				}
 			}
+			
 			output += "Stat: " + action + ", Result: " + String.valueOf(result) + "\n";
+			
 			if (!action.equals("")) {
-				saveStat(number, action, result, period, time);
+				output += "Made it into action\n";
+				stat_id = saveStat(number, action, result, period, time);
+				if(stat_id != null)
+					return stat_id;
+				else
+					output += "\n**Stat retrival failed**\n";
 			}
-		}
+			
+		} // end of loop
+		
 		return output;
 	}
 }

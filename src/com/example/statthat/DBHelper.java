@@ -12,8 +12,8 @@ public class DBHelper {
 	
 	// Basketball data
 	
-	static String[] bballStatTypes = { "3 pt", "2 pt", "Free throw", "Offensive rebound", "Defensive rebound",
-		   "Assist", "Steal", "Block", "Turnover", "Personal foul" };
+	static String[] bballStatTypes = { "3 pt", "2 pt", "free throw", "offensive rebound", "Defensive rebound",
+		   "assist", "steal", "block", "turnover", "personal foul" };
 
 	static String[] bballStatAbbr = { "3FGM", "3FG", "FGM", "FG",
 		  "FTM", "FT", "OREB", "DREB",
@@ -54,6 +54,11 @@ public class DBHelper {
 		if (queryResult.size() == 3) {
 			return queryResult;
 		} else {
+			
+			Player default_player = new Player(c, "Default", "Player", team, 9, "guard", 8, 5, 160.0, "Freshman");
+			default_player.save();
+			players.add(default_player);
+			
 			Player p = new Player(c, "Tobias", "Funke", team, 0, "guard", 8, 5, 160.0, "sophomore");
 			p.save();
 			players.add(p);
@@ -72,8 +77,8 @@ public class DBHelper {
 	
 	private static void populateStatsForGame(Context c, Game game, List<Player> players) {
 		StatType type1 = StatType.find(StatType.class, "name = ?", "3 pt").get(0);
-		StatType type2 = StatType.find(StatType.class, "name = ?", "Free throw").get(0);
-		StatType type3 = StatType.find(StatType.class, "name = ?", "Personal foul").get(0);
+		StatType type2 = StatType.find(StatType.class, "name = ?", "free throw").get(0);
+		StatType type3 = StatType.find(StatType.class, "name = ?", "personal foul").get(0);
 		
 		new Stat(c, players.get(0), game, type1, 11.0, 1, true).save();
 		new Stat(c, players.get(0), game, type1, 13.0, 1, true).save();
