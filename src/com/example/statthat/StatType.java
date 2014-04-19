@@ -30,6 +30,12 @@ public class StatType extends SugarRecord<StatType> {
 				type.save();
 			}
 		}
+		
+		String[] pairs = DBHelper.mapping.split(",");
+		for (int i=0; i < pairs.length; i++) {
+		    String[] keyValue = pairs[i].split(":");
+		    DBHelper.bballStatMap.put(keyValue[0], keyValue[1]);
+		}
 	}
 
 }
