@@ -2,7 +2,8 @@ package com.example.statthat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import android.content.Context;
 
 public class Parser {
 	
@@ -22,8 +23,14 @@ public class Parser {
 	public static String SUCCESS_COMMAND = "made";
 	public static String FAILURE_COMMAND = "missed";
 	
-	public Parser() {
+	Game game;
+	Context context;
+	
+	public Parser(Game game, Context context) {
 		// Populate Number to Int mappings
+		this.game = game;
+		this.context = context;
+		
 		String[] pairs = oneMapping.split(",");
 		String[] keyValue;
 		for (int i=0; i < pairs.length; i++) {
@@ -49,8 +56,14 @@ public class Parser {
 		}
 	}
 	
-	public int saveStat(ArrayList<String> matches) {
-		return 0;
+	// TODO: pass the team to find correct player
+	public String saveStat(int number, String action, boolean result, int period, double time) {
+		Player player = Player.find(Player.class, "number = ?", String.valueOf(number)).get(0);
+		String actionName = DBHelper.bballStatMap.get(action);
+		StatType type = StatType.find(StatType.class, "name = ?", actionName).get(0);
+		Stat s = new Stat(context, player, game, type, time, period, result);
+		s.save();
+		return s.getId().toString();
 	}
 	
 	public int[] stringToInt(String[] words) throws NumberFormatException {
@@ -80,7 +93,7 @@ public class Parser {
 		return resultArray;
 	}
 	
-	public String parseMatch(ArrayList<String> matches) {
+	public String parseMatch(ArrayList<String> matches, double time, int period) {
 		String output = "";
 		
 		for (String match: matches) {
@@ -146,6 +159,9 @@ public class Parser {
 				}
 			}
 			output += "Stat: " + action + ", Result: " + String.valueOf(result) + "\n";
+			if (!action.equals("")) {
+				saveStat(number, action, result, period, time);
+			}
 		}
 		return output;
 	}
