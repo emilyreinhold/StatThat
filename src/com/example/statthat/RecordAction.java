@@ -11,7 +11,6 @@ import android.widget.Toast;
 public class RecordAction {
 	private SpeechRecognizer mSpeechRecognizer;
 	private Intent mSpeechRecognizerIntent; 
-	private boolean mIsListening; 
 	private Context ctx;
 	
 	//

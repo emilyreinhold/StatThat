@@ -39,8 +39,11 @@ public class RecordStat extends Activity {
 	
 	TableLayout stat_table;
 	Game game = null;
+	
+	// Recording Dialog
 	private Dialog record_diag;
 	private RecordAction record_stat;
+	private Parser parser;
 	
 	// View buttons
 	private Button done;
@@ -66,9 +69,6 @@ public class RecordStat extends Activity {
 		getActionBar().hide();
 		setContentView(R.layout.activity_record_stat);
 		
-		// setup recording stat
-		record_stat = new RecordAction();
-		
 		// get game id
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
@@ -76,6 +76,10 @@ public class RecordStat extends Activity {
 		}else{
 			game = Game.findById(Game.class, (long)1);
 		}
+		
+		// setup recording stat
+		record_stat = new RecordAction();
+		parser = new Parser(game, getApplicationContext());
 		
 		// Set variables
 	    done = (Button) findViewById(R.id.done_button);
@@ -308,12 +312,12 @@ public class RecordStat extends Activity {
 		private SpeechRecognizer mSpeechRecognizer;
 		private Intent mSpeechRecognizerIntent; 
 		private boolean mIsListening; 
-		private Context ctx;
+		private SpeechRecognitionListener listener;
 		
 		//
 		public RecordAction(){
 			mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
-			SpeechRecognitionListener listener = new SpeechRecognitionListener();
+			listener = new SpeechRecognitionListener();
 			
 		    mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		    mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -396,15 +400,18 @@ public class RecordStat extends Activity {
 		    public void onResults(Bundle results)
 		    {
 		    	// TODO call speech parser class
-				int duration = Toast.LENGTH_SHORT;
-				String msg = "Results";
+				String stat_id = null;
+				
 				if(results != null && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)){
-					msg = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).get(0);
+					stat_id = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+				}
+				
+				if(stat_id != null){
+					Stat stat = Stat.findById(Stat.class, Long.parseLong(stat_id));
+					updateRecentStats(Stat.findById(Stat.class, stat_id));
 				}
 //					
-				
-				Toast toast = Toast.makeText(getApplicationContext(), msg, duration);
-				toast.show();
+
 		    }
 
 		    @Override
