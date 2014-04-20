@@ -62,16 +62,17 @@ public class Parser {
 	public String saveStat(int number, String action, boolean result, int period, double time) {
 		Stat s;
 		try {
-		List<Player> players = Player.find(Player.class, "number = ? AND team = ?", String.valueOf(number), game.team.getId().toString());
-		if (players.size() < 1) {
-			System.out.println("Unable to find player number: " + String.valueOf(number)+ ", on team: " + game.team.name);
-		}
-		// String actionName = DBHelper.bballStatMap.get(action);
-		StatType type = StatType.find(StatType.class, "name = ?", action).get(0);
-		s = new Stat(context, players.get(0), game, type, time, period, result);
-		s.save();
+			List<Player> players = Player.find(Player.class, "number = ? AND team = ?", String.valueOf(number), game.team.getId().toString());
+			if (players.size() < 1) {
+				System.out.println("Unable to find player number: " + String.valueOf(number)+ ", on team: " + game.team.name);
+				return null;
+			}
+			String actionName = DBHelper.bballStatMap.get(action);
+			StatType type = StatType.find(StatType.class, "name = ?", actionName).get(0);
+			s = new Stat(context, players.get(0), game, type, time, period, result);
+			s.save();
 		} catch (Exception e) {
-			System.out.println("Unable to save stat.");
+			System.out.println("Error: Unable to save stat.");
 			return null;
 		}
 		return s.getId().toString();
@@ -79,7 +80,7 @@ public class Parser {
 	
 	// Turn word form of number into int
 	// ex: stringToInt(["twenty", "three"]) => 23
-	// Note: currently broken for things like player three two point made
+	// Note: currently broken for things like player twenty three two point made
 	public int[] stringToInt(String[] words) throws NumberFormatException {
 		int result = 0;
 		int pos = 0;
@@ -188,10 +189,13 @@ public class Parser {
 			if (!action.equals("")) {
 				output += "Made it into action\n";
 				stat_id = saveStat(number, action, result, period, time);
-				if(stat_id != null)
+				if(stat_id != null) {
+					output += "Stat saved!";
+					System.out.print(output);
 					return stat_id;
-				else
+				} else {
 					output += "\n**Stat retrival failed**\n";
+				}
 			}
 			
 		} // end of loop
