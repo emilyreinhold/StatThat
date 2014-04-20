@@ -2,6 +2,7 @@ package com.example.statthat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
 
@@ -26,6 +27,7 @@ public class Parser {
 	Game game;
 	Context context;
 	
+	// Parser is constructed for each game
 	public Parser(Game game, Context context) {
 		// Populate Number to Int mappings
 		this.game = game;
@@ -56,31 +58,42 @@ public class Parser {
 		}
 	}
 	
-	// TODO: pass the team to find correct player
+	// Save the stat and return its ID
 	public String saveStat(int number, String action, boolean result, int period, double time) {
 		Stat s;
-		try{
-			Player player = Player.find(Player.class, "number = ?", String.valueOf(number)).get(0);
-//			String actionName = DBHelper.bballStatMap.get(action);
-			StatType type = StatType.find(StatType.class, "name = ?", action).get(0);
-			s = new Stat(context, player, game, type, time, period, result);
-			s.save();
-		} catch(Exception e){
+		try {
+		List<Player> players = Player.find(Player.class, "number = ? AND team = ?", String.valueOf(number), game.team.getId().toString());
+		if (players.size() < 1) {
+			System.out.println("Unable to find player number: " + String.valueOf(number)+ ", on team: " + game.team.name);
+		}
+		// String actionName = DBHelper.bballStatMap.get(action);
+		StatType type = StatType.find(StatType.class, "name = ?", action).get(0);
+		s = new Stat(context, players.get(0), game, type, time, period, result);
+		s.save();
+		} catch (Exception e) {
+			System.out.println("Unable to save stat.");
 			return null;
 		}
 		return s.getId().toString();
 	}
 	
+	// Turn word form of number into int
+	// ex: stringToInt(["twenty", "three"]) => 23
+	// Note: currently broken for things like player three two point made
 	public int[] stringToInt(String[] words) throws NumberFormatException {
 		int result = 0;
 		int pos = 0;
+		int limit;
 		boolean oneUsed = false;
 		
 		if (words.length < 3) {
 			int[] dummy = {0, 1};
 			return dummy;
 		}
-		for (int i = 1; i < 3; i++) {
+		
+		limit = 3; // TODO: change to func call to remove action from array
+		
+		for (int i = 1; i < limit; i++) {
 			String word = words[i];
 			if (ones.containsKey(word) && !oneUsed) {
 				result += ones.get(word);
@@ -98,6 +111,7 @@ public class Parser {
 		return resultArray;
 	}
 	
+	// Parse the text and separate into pieces needed to save stat
 	public String parseMatch(ArrayList<String> matches, double time, int period) {
 		String stat_id = null;
 		
