@@ -78,9 +78,35 @@ public class Parser {
 		return s.getId().toString();
 	}
 	
+	// Find the last possible index that could contain the text for
+	// a player number.
+	// ex: findLimit([player, one, two, point, miss]) => 1
+	// 	   findLimit([player, twenty, two, foul]) => 2
+	public int findLimit(String[] words) {
+		int pos = 1;
+		int curr = 2;
+		while (words.length > curr) {
+			String action = words[curr] + words[curr + 1];
+			if (shotStats.contains(action) || otherStats.contains(action)) {
+				pos = curr - 1;
+				break;
+			}
+			if (shotStats.contains(words[curr]) || otherStats.contains(words[curr])) {
+				pos = curr - 1;
+				break;
+			}
+			if (shotStats.contains(words[curr + 1]) || otherStats.contains(words[curr + 1])) {
+				pos = curr;
+				break;
+			}
+			curr++;
+		}
+		
+		return pos;
+	}
+	
 	// Turn word form of number into int
 	// ex: stringToInt(["twenty", "three"]) => 23
-	// Note: currently broken for things like player twenty three two point made
 	public int[] stringToInt(String[] words) throws NumberFormatException {
 		int result = 0;
 		int pos = 0;
@@ -92,7 +118,7 @@ public class Parser {
 			return dummy;
 		}
 		
-		limit = 3; // TODO: change to func call to remove action from array
+		limit = findLimit(words); // TODO: change to func call to remove action from array
 		
 		for (int i = 1; i < limit; i++) {
 			String word = words[i];
