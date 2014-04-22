@@ -1,6 +1,8 @@
 package com.example.statthat;
 
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		
-//		testing();
+		testing();
 
 		return true;
 	}
