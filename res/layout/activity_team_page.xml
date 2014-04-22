@@ -34,6 +34,31 @@
             android:onClick="makeNewTeam"
             android:text="new game" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_team_page"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:padding="15dp"
+                android:text="Players"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:onClick="onStatsClick"
+                android:padding="15dp"
+                android:text="Stats"
+                android:textSize="20sp" />
+        </LinearLayout>
+
         <android.support.v4.view.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
