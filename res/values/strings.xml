@@ -53,7 +53,6 @@
     </string-array>
 
     <string name="title_activity_game_players">GamePlayersActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_team_page_stats">TeamPageStatsActivity</string>
     <string name="title_activity_record_action">RecordAction</string>
     <string name="hello_world">Hello world!</string>
