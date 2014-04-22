@@ -65,6 +65,14 @@
             android:name="com.example.statthat.NewPlayerActivity"
             android:label="@string/title_activity_new_player" >
         </activity>
+        <activity
+            android:name="com.example.statthat.GamePlayersActivity"
+            android:label="@string/title_activity_game_players" >
+        </activity>
+        <activity
+            android:name="com.example.statthat.TeamPageStatsActivity"
+            android:label="@string/title_activity_team_page_stats" >
+        </activity>
     </application>
 
 </manifest>

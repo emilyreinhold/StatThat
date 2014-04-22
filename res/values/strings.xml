@@ -39,6 +39,7 @@
     <string name="finalize_team">confirm team</string>
     <string name="select_a_year">select a year</string>
     <string name="select_a_position">select a position</string>
+
     <string-array name="positions_array">
         <item>center</item>
         <item>forward</item>
@@ -50,5 +51,9 @@
         <item>junior</item>
         <item>senior</item>
     </string-array>
+
+    <string name="title_activity_game_players">GamePlayersActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_team_page_stats">TeamPageStatsActivity</string>
 
 </resources>
