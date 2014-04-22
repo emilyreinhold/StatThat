@@ -23,12 +23,6 @@ public class StatType extends SugarRecord<StatType> {
 		Sport bball = Sport.populateBball(c);
 		boolean isPopulated = StatType.listAll(StatType.class).size() > 0;
 		
-		String[] pairs = DBHelper.mapping.split(",");
-		for (int i=0; i < pairs.length; i++) {
-		    String[] keyValue = pairs[i].split(":");
-		    DBHelper.bballStatMap.put(keyValue[0], keyValue[1]);
-		}
-		
 		if (isPopulated) {
 			return;
 		} else {
