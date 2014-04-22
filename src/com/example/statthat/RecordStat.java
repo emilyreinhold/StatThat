@@ -405,12 +405,19 @@ public class RecordStat extends Activity {
 				
 				if(results != null && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)){
 					result = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), report_time, current_quarter);
+//					result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).get(0);
 				}
+				
+				
 				// Try to convert the result into an id
 				try{
 					stat_id = Integer.parseInt(result);
 					Stat stat = Stat.findById(Stat.class, (long)stat_id);
 					updateRecentStats(stat);
+//					
+//					int duration = Toast.LENGTH_LONG;
+//					Toast toast = Toast.makeText(getApplicationContext(), result, duration);
+//					toast.show();
 				
 				}catch(Exception e){
 					// DEV - if not an int display bad results
