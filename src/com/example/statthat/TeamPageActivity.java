@@ -200,8 +200,7 @@ public class TeamPageActivity extends FragmentActivity {
 //				View view = new View(v.getContext());
 //				view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, 1));
 //				view.setBackgroundColor(Color.rgb(51, 51, 51));
-				
-				
+
 				tableLayout.addView(r);
 				//tableLayout.addView(view);
 				
@@ -231,7 +230,6 @@ public class TeamPageActivity extends FragmentActivity {
 
 				for (String vs : hash.keySet()) {
 					Button button = new Button(container.getContext());
-					
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
 					button.setTextSize(25);
