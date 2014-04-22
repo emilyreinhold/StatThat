@@ -67,8 +67,8 @@ public class Parser {
 				System.out.println("Unable to find player number: " + String.valueOf(number)+ ", on team: " + game.team.name);
 				return null;
 			}
-			String actionName = DBHelper.bballStatMap.get(action);
-			StatType type = StatType.find(StatType.class, "name = ?", actionName).get(0);
+			
+			StatType type = StatType.find(StatType.class, "name = ?", action).get(0);
 			s = new Stat(context, players.get(0), game, type, time, period, result);
 			s.save();
 		} catch (Exception e) {
