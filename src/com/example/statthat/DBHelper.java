@@ -1,7 +1,6 @@
 package com.example.statthat;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -58,17 +57,36 @@ public class DBHelper {
 			default_player.save();
 			players.add(default_player);
 			
-			Player p = new Player(c, "Tobias", "Funke", team, 0, "guard", 8, 5, 160.0, "sophomore");
+			Player p = new Player(c, "Tobias", "Funke", team, 7, "guard", 8, 5, 160.0, "sophomore");
 			p.save();
 			players.add(p);
-			
 			Player p2 = new Player(c, "George Michael", "Bluth", team, 5, "forward", 1, 6, 180.0, "senior");
 			p2.save();
 			players.add(p2);
-			
 			Player p3 = new Player(c, "Tom", "Funke", team, 1, "guard", 8, 5, 160.0, "sophomore");
 			p3.save();
 			players.add(p3);
+			Player p4 = new Player(c, "Annyong", "Bluth", team, 25, "guard", 6, 4, 124.0, "freshman");
+			p4.save();
+			players.add(p4);
+			Player p5 = new Player(c, "Buster", "Bluth", team, 47, "guard", 5, 5, 100.0, "senior");
+			p5.save();
+			players.add(p5);
+			Player p6 = new Player(c, "Steve", "Holt", team, 6, "guard", 9, 5, 160.0, "sophomore");
+			p6.save();
+			players.add(p6);
+			Player p7 = new Player(c, "Lucille", "Bluth", team, 2, "guard", 5, 10, 105.0, "sophomore");
+			p7.save();
+			players.add(p7);
+			Player p8 = new Player(c, "Onyango", "Funke", team, 12, "guard", 5, 11, 160.0, "sophomore");
+			p8.save();
+			players.add(p8);
+			Player p9 = new Player(c, "Tracey", "Funke", team, 8, "guard", 6, 1, 140.0, "sophomore");
+			p9.save();
+			players.add(p9);
+			Player p10 = new Player(c, "Eve", "Holt", team, 62, "forward", 6, 5, 180.0, "sophomore");
+			p10.save();
+			players.add(p10);
 			
 			return players;
 		}

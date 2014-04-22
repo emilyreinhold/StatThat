@@ -8,10 +8,7 @@ import android.content.Context;
 
 public class Parser {
 	
-	public String[] shotStatsArray = { "two point", "three point", "free throw" };
-	public String[] otherStatsArray = { "offensive rebound", "defensive rebound", "assist", "steal", "block", "turnover", "foul" };
-	public ArrayList<String> shotStats = new ArrayList<String>();
-	public ArrayList<String> otherStats = new ArrayList<String>();
+	public ArrayList<String> stats = new ArrayList<String>();
 	
 	public HashMap<String, Integer> ones = new HashMap<String, Integer>();
 	public HashMap<String, Integer> teens = new HashMap<String, Integer>();
@@ -50,11 +47,8 @@ public class Parser {
 		    tens.put(keyValue[0], Integer.parseInt(keyValue[1]));
 		}
 		// Put stats into arraylists
-		for (String s : shotStatsArray) {
-			shotStats.add(s);
-		}
-		for (String s : otherStatsArray) {
-			otherStats.add(s);
+		for (String s : DBHelper.bballStatTypes) {
+			stats.add(s);
 		}
 	}
 	
@@ -87,15 +81,15 @@ public class Parser {
 		int curr = 2;
 		while (words.length > curr) {
 			String action = words[curr] + words[curr + 1];
-			if (shotStats.contains(action) || otherStats.contains(action)) {
+			if (stats.contains(action)) {
 				pos = curr - 1;
 				break;
 			}
-			if (shotStats.contains(words[curr]) || otherStats.contains(words[curr])) {
+			if (stats.contains(words[curr])) {
 				pos = curr - 1;
 				break;
 			}
-			if (shotStats.contains(words[curr + 1]) || otherStats.contains(words[curr + 1])) {
+			if (stats.contains(words[curr + 1])) {
 				pos = curr;
 				break;
 			}
@@ -110,8 +104,9 @@ public class Parser {
 	public int[] stringToInt(String[] words) throws NumberFormatException {
 		int result = 0;
 		int pos = 0;
-		int limit;
 		boolean oneUsed = false;
+		
+		words = replaceHomophones(words);
 		
 		if (words.length < 3) {
 			int[] dummy = {0, 1};
@@ -135,6 +130,25 @@ public class Parser {
 		
 		int[] resultArray = {result, pos + 1};
 		return resultArray;
+	}
+	
+	public String[] replaceHomophones(String[] words) {
+		String mapping = "ate:eight,hate:eight,weight:eight,won:one,too:two,to:two,for:four";
+		HashMap<String, String> matches = new HashMap<String, String>();
+		String[] pairs = mapping.split(",");
+		String[] keyValue;
+		for (int i=0; i < pairs.length; i++) {
+		    keyValue = pairs[i].split(":");
+		    matches.put(keyValue[0], keyValue[1]);
+		}
+		
+		for (int i = 0; i < words.length; i++) {
+			String word = words[i];
+			if (matches.containsKey(word)) {
+				words[i] = matches.get(word);
+			}
+		}
+		return words;
 	}
 	
 	// Parse the text and separate into pieces needed to save stat
@@ -204,7 +218,7 @@ public class Parser {
 					}
 					testAction += sentence[i];
 					
-					if (shotStats.contains(testAction) || otherStats.contains(testAction)) {
+					if (stats.contains(testAction)) {
 						action = testAction;
 					}
 				}
@@ -220,7 +234,7 @@ public class Parser {
 				if(stat_id != null) {
 					output += "Stat saved!";
 					System.out.print(output);
-					return stat_id;
+					return stat_id; // Successful stat saving
 				} else {
 					output += "\n**Stat retrival failed**\n";
 				}
@@ -228,6 +242,7 @@ public class Parser {
 			
 		} // end of loop
 		
+		// output = "Error occurred, try again."; // Failure message for now
 		return output;
 	}
 }
