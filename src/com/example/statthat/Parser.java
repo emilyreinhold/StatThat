@@ -8,7 +8,6 @@ import android.content.Context;
 
 public class Parser {
 	
-	public String[] statsArray = { "two point", "three point", "free throw", "offensive rebound", "defensive rebound", "assist", "steal", "block", "turnover", "foul" };
 	public ArrayList<String> stats = new ArrayList<String>();
 	
 	public HashMap<String, Integer> ones = new HashMap<String, Integer>();
@@ -48,7 +47,7 @@ public class Parser {
 		    tens.put(keyValue[0], Integer.parseInt(keyValue[1]));
 		}
 		// Put stats into arraylists
-		for (String s : statsArray) {
+		for (String s : DBHelper.bballStatTypes) {
 			stats.add(s);
 		}
 	}
@@ -214,7 +213,7 @@ public class Parser {
 				if(stat_id != null) {
 					output += "Stat saved!";
 					System.out.print(output);
-					return stat_id;
+					return stat_id; // Successful stat saving
 				} else {
 					output += "\n**Stat retrival failed**\n";
 				}
@@ -222,6 +221,7 @@ public class Parser {
 			
 		} // end of loop
 		
+		// output = "Error occurred, try again."; // Failure message for now
 		return output;
 	}
 }
