@@ -28,17 +28,9 @@ public class MainActivity extends Activity {
 		// Add a team, players, game, and stats for testing
 		DBHelper.populateTestData(c);
 		
-		// login - no username/password checks
-		Button login = (Button) findViewById(R.id.login);
-		login.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				Intent team_select = new Intent(MainActivity.this, TeamSelect.class);
-				startActivity(team_select);
-			}
-			
-		});
+		//Decided not to show login screen. Jump to TeamSelect
+		Intent team_select = new Intent(MainActivity.this, TeamSelect.class);
+		startActivity(team_select);
 		
 		
 	}
