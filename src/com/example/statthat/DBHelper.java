@@ -78,7 +78,7 @@ public class DBHelper {
 	}
 	
 	private static void populateStatsForGame(Context c, Game game, List<Player> players) {
-		StatType type1 = StatType.find(StatType.class, "name = ?", "3 pt").get(0);
+		StatType type1 = StatType.find(StatType.class, "name = ?", "three point").get(0);
 		StatType type2 = StatType.find(StatType.class, "name = ?", "free throw").get(0);
 		StatType type3 = StatType.find(StatType.class, "name = ?", "personal foul").get(0);
 		

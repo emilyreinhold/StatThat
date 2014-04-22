@@ -62,7 +62,7 @@ public class Parser {
 	public String saveStat(int number, String action, boolean result, int period, double time) {
 		Stat s;
 		try {
-			List<Player> players = Player.find(Player.class, "number = ? AND team = ?", String.valueOf(number), game.team.getId().toString());
+			List<Player> players = Player.find(Player.class, "number = ?", String.valueOf(number));//, game.team.getId().toString());
 			if (players.size() < 1) {
 				System.out.println("Unable to find player number: " + String.valueOf(number)+ ", on team: " + game.team.name);
 				return null;
