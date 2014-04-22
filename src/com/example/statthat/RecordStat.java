@@ -2,39 +2,40 @@ package com.example.statthat;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import android.os.Bundle;
-import android.os.SystemClock;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.DigitalClock;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RecordStat extends Activity {
 	
 	TableLayout stat_table;
 	Game game = null;
+	
+	// Recording Dialog
 	private Dialog record_diag;
+	private RecordAction record_stat;
+	private Parser parser;
 	
 	// View buttons
 	private Button done;
@@ -45,7 +46,7 @@ public class RecordStat extends Activity {
 	
 	// keeping track of stats
 	private int current_quarter;
-	private long report_time;
+	private double report_time;
 	private long stopped_at = 0;
 	private boolean clock_stopped = true;
 	ArrayList<Long> stats = new ArrayList<Long>();
@@ -67,6 +68,10 @@ public class RecordStat extends Activity {
 		}else{
 			game = Game.findById(Game.class, (long)1);
 		}
+		
+		// setup recording stat
+		record_stat = new RecordAction();
+		parser = new Parser(game, getApplicationContext());
 		
 		// Set variables
 	    done = (Button) findViewById(R.id.done_button);
@@ -122,28 +127,57 @@ public class RecordStat extends Activity {
 		});
 		
 		// record stat
-		record.setOnClickListener(new Button.OnClickListener(){
+		record.setOnTouchListener(new Button.OnTouchListener(){
 
 			@Override
-			public void onClick(View v) {
-//				Stat recent_stat = recordStat();
-//				stats.add(recent_stat.getId());
-//				updateRecentStats(recent_stat);
-				if(clock_stopped)
-					report_time = -1*stopped_at;
-				else
-					report_time = SystemClock.elapsedRealtime() - clock.getBase();
+			public boolean onTouch(View v, MotionEvent event) {
+				 switch (event.getAction() & MotionEvent.ACTION_MASK) {
+
+				    case MotionEvent.ACTION_DOWN:
+						if(clock_stopped)
+							report_time = -1*stopped_at;
+						else
+							report_time = SystemClock.elapsedRealtime() - clock.getBase();
+					
+						record_diag.show();
+						record_stat.startListening();
+				        break;
+				    case MotionEvent.ACTION_UP:
+
+				    	record_diag.dismiss();
+				    	record_stat.stopListening();
+				    	break;
+				    case MotionEvent.ACTION_OUTSIDE:
+				        break;
+				    case MotionEvent.ACTION_POINTER_DOWN:
+				        break;
+				    case MotionEvent.ACTION_POINTER_UP:
+				        break;
+				    case MotionEvent.ACTION_MOVE:
+				        break;
+				    }
 				
-				record_diag.show();
-//				System.out.println("PRINT!");
-//
-//				System.out.println(record_diag);
-				
-				
-				
+				return false;
 			}
-			
 		});
+		
+//		record.setOnClickListener(new Button.OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//
+//				if(clock_stopped)
+//					report_time = -1*stopped_at;
+//				else
+//					report_time = SystemClock.elapsedRealtime() - clock.getBase();
+//				
+//				record_diag.show();
+//				
+//				
+//				
+//			}
+//			
+//		});
 		
 
 		
@@ -253,66 +287,150 @@ public class RecordStat extends Activity {
 		
 	
 	}
+	
 	private void setupDialog(){
 		
 
 		record_diag = new Dialog(this);
-		record_diag.setContentView(R.layout.record_stat_dialog);
+		record_diag.setContentView(R.layout.activity_record_action);
 		record_diag.setTitle("Record Stat");
-		
-		List<Player> players = Player.listAll(Player.class);
-		List<StatType> stat_types = StatType.listAll(StatType.class);
-		
-		ArrayList<Integer> player_numbers = new ArrayList<Integer>();
-		for(Player player : players){
-			player_numbers.add(player.number);
-		}
-		
-		ArrayList<String> stat_type_strings = new ArrayList<String>();
-		for(StatType stat_type : stat_types){
-			stat_type_strings.add(stat_type.name);
-		}
-		
-		
-		
-		// Add player selection
-		ArrayAdapter<Integer> player_adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, player_numbers);
-		final Spinner select_player_spinner = (Spinner) record_diag.findViewById(R.id.select_player);
-		select_player_spinner.setAdapter(player_adapter);
-		
-		// Add stat selection
-		ArrayAdapter<String> stat_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, stat_type_strings);
-		final Spinner select_stat_spinner = (Spinner) record_diag.findViewById(R.id.select_stat);
-		select_stat_spinner.setAdapter(stat_adapter);
-		
-		// Add result selection
-		ArrayList<String> result = new ArrayList<String>(Arrays.asList("HIT", "MISS"));
-		ArrayAdapter<String> result_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, result);
-		final Spinner select_result_spinner = (Spinner) record_diag.findViewById(R.id.select_result);
-		select_result_spinner.setAdapter(result_adapter);
-		
-		
-		// Add confirm listen
-		Button confirm = (Button) record_diag.findViewById(R.id.confirm);
-		confirm.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				Stat stat = new Stat(getApplicationContext());
-				stat.player = Player.find(Player.class, "number=?", select_player_spinner.getSelectedItem().toString()).get(0);
-				stat.statType = StatType.find(StatType.class, "name=?",select_stat_spinner.getSelectedItem().toString()).get(0);
-				stat.result = select_result_spinner.getSelectedItem().toString() == "HIT";
-				stat.time = report_time;
-				stat.save();
 				
-				updateRecentStats(stat);
-				record_diag.dismiss();
-				
-			}
+		
+	}
+	
+	
+	private class RecordAction {
+		private SpeechRecognizer mSpeechRecognizer;
+		private Intent mSpeechRecognizerIntent; 
+		private boolean mIsListening; 
+		private SpeechRecognitionListener listener;
+		
+		//
+		public RecordAction(){
+			mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplicationContext());
+			listener = new SpeechRecognitionListener();
 			
-		});
+		    mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		    mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+		                                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		    mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
+		                                     getApplicationContext().getPackageName());
+		    
+		    mSpeechRecognizer.setRecognitionListener(listener);
+		
+		}
+		
+		public void startListening(){
+			
+		    mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+		}
+		
+		public void stopListening(){
+			mSpeechRecognizer.stopListening();
+		
+		}
+		
+		protected class SpeechRecognitionListener implements RecognitionListener
+		{
+			
+		    @Override
+		    public void onBeginningOfSpeech()
+		    {          
+				int duration = Toast.LENGTH_SHORT;
+				String msg = "Beginning";
+				Toast toast = Toast.makeText(getApplicationContext(), msg, duration);
+				toast.show();
+
+		    }
+
+		    @Override
+		    public void onBufferReceived(byte[] buffer)
+		    {
+
+		    }
+
+		    @Override
+		    public void onEndOfSpeech()
+		    {
+		    	
+		    }
+
+		    @Override
+		    public void onError(int error)
+		    {
+//		         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+				int duration = Toast.LENGTH_SHORT;
+				String msg = "Error";
+				Toast toast = Toast.makeText(getApplicationContext(), msg, duration);
+				toast.show();
+
+		    }
+
+		    @Override
+		    public void onEvent(int eventType, Bundle params)
+		    {
+				int duration = Toast.LENGTH_SHORT;
+				String msg = "Event";
+				Toast toast = Toast.makeText(getApplicationContext(), msg, duration);
+				toast.show();
+		    }
+
+		    @Override
+		    public void onPartialResults(Bundle partialResults)
+		    {
+
+		    }
+
+		    @Override
+		    public void onReadyForSpeech(Bundle params)
+		    {
+
+		    }
+
+		    @Override
+		    public void onResults(Bundle results)
+		    {
+				
+		    	// TODO call speech parser class
+				String result = null;
+				int stat_id = 0;
+				
+				if(results != null && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)){
+					result = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), report_time, current_quarter);
+//					result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).get(0);
+				}
+				
+				
+				// Try to convert the result into an id
+				try{
+					stat_id = Integer.parseInt(result);
+					Stat stat = Stat.findById(Stat.class, (long)stat_id);
+					updateRecentStats(stat);
+//					
+//					int duration = Toast.LENGTH_LONG;
+//					Toast toast = Toast.makeText(getApplicationContext(), result, duration);
+//					toast.show();
+				
+				}catch(Exception e){
+					// DEV - if not an int display bad results
+					int duration = Toast.LENGTH_LONG;
+					Toast toast = Toast.makeText(getApplicationContext(), result, duration);
+					toast.show();
+				}
+				
+
+		    }
+
+		    @Override
+		    public void onRmsChanged(float rmsdB)
+		    {
+
+		    }
+
+		}
 		
 		
+
 	}
 	
 }

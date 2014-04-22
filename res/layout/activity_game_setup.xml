@@ -17,7 +17,7 @@
 	       android:layout_height="match_parent"
 	       android:gravity="center"
 	       android:textSize="30sp"
-	       android:text="game setup"/>
+	       android:text="Game Setup"/>
     
     </FrameLayout>
 	
@@ -96,7 +96,7 @@
 	           android:layout_alignParentRight='true'
 	           android:layout_width="wrap_content"
 	           android:layout_height="40dp"
-	           android:text="calendar"/>
+	           android:text="Calendar"/>
        <!-- Game Notes  -->
 		    
 		</RelativeLayout>

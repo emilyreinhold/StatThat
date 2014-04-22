@@ -3,7 +3,9 @@
     package="com.example.statthat"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
@@ -72,6 +74,8 @@
         <activity
             android:name="com.example.statthat.TeamPageStatsActivity"
             android:label="@string/title_activity_team_page_stats" >
+            android:name="com.example.statthat.RecordAction_old"
+            android:label="@string/title_activity_record_action" >
         </activity>
     </application>
 

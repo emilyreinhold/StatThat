@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.statthat.RecordAction_old"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView 
+     android:id="@+id/msg"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:textAlignment="center"
+     android:text="@string/record_action_message"/>
+    
+</FrameLayout>

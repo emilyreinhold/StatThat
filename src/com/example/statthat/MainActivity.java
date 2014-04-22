@@ -1,13 +1,10 @@
 package com.example.statthat;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends Activity {
 
@@ -28,17 +25,9 @@ public class MainActivity extends Activity {
 		// Add a team, players, game, and stats for testing
 		DBHelper.populateTestData(c);
 		
-		// login - no username/password checks
-		Button login = (Button) findViewById(R.id.login);
-		login.setOnClickListener(new Button.OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				Intent team_select = new Intent(MainActivity.this, TeamSelect.class);
-				startActivity(team_select);
-			}
-			
-		});
+		//Decided not to show login screen. Jump to TeamSelect
+		Intent team_select = new Intent(MainActivity.this, TeamSelect.class);
+		startActivity(team_select);
 		
 		
 	}
@@ -47,9 +36,6 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		
-//		testing();
-
 		return true;
 	}
 	

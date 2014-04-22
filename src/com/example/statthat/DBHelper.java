@@ -11,12 +11,14 @@ public class DBHelper {
 	
 	// Basketball data
 	
-	static String[] bballStatTypes = { "3 pt", "2 pt", "Free throw", "Offensive rebound", "Defensive rebound",
-		   "Assist", "Steal", "Block", "Turnover", "Personal foul" };
+	static String[] bballStatTypes = { "three point", "two point", "free throw", "offensive rebound", "defensive rebound",
+		   "assist", "steal", "block", "turnover", "personal foul" };
 
 	static String[] bballStatAbbr = { "3FGM", "3FG", "FGM", "FG",
 		  "FTM", "FT", "OREB", "DREB",
 		  "AST", "STL", "BLK", "TO", "PF" };
+	
+	static String[] parseTestText = {"playeR three three point missed", "player twenty two offensive rebound", "player five foul", "player 6 steal", "player 33 free throw made"};
 	
 	public static void populateTestData(Context c) {
 		StatType.populateBballStatTypes(c);
@@ -50,26 +52,50 @@ public class DBHelper {
 		if (queryResult.size() == 3) {
 			return queryResult;
 		} else {
-			Player p = new Player(c, "Tobias", "Funke", team, 0, "guard", 8, 5, 160.0, "sophomore");
+			
+			Player default_player = new Player(c, "Default", "Player", team, 9, "guard", 8, 5, 160.0, "Freshman");
+			default_player.save();
+			players.add(default_player);
+			
+			Player p = new Player(c, "Tobias", "Funke", team, 7, "guard", 8, 5, 160.0, "sophomore");
 			p.save();
 			players.add(p);
-			
 			Player p2 = new Player(c, "George Michael", "Bluth", team, 5, "forward", 1, 6, 180.0, "senior");
 			p2.save();
 			players.add(p2);
-			
 			Player p3 = new Player(c, "Tom", "Funke", team, 1, "guard", 8, 5, 160.0, "sophomore");
 			p3.save();
 			players.add(p3);
+			Player p4 = new Player(c, "Annyong", "Bluth", team, 25, "guard", 6, 4, 124.0, "freshman");
+			p4.save();
+			players.add(p4);
+			Player p5 = new Player(c, "Buster", "Bluth", team, 47, "guard", 5, 5, 100.0, "senior");
+			p5.save();
+			players.add(p5);
+			Player p6 = new Player(c, "Steve", "Holt", team, 6, "guard", 9, 5, 160.0, "sophomore");
+			p6.save();
+			players.add(p6);
+			Player p7 = new Player(c, "Lucille", "Bluth", team, 2, "guard", 5, 10, 105.0, "sophomore");
+			p7.save();
+			players.add(p7);
+			Player p8 = new Player(c, "Onyango", "Funke", team, 12, "guard", 5, 11, 160.0, "sophomore");
+			p8.save();
+			players.add(p8);
+			Player p9 = new Player(c, "Tracey", "Funke", team, 8, "guard", 6, 1, 140.0, "sophomore");
+			p9.save();
+			players.add(p9);
+			Player p10 = new Player(c, "Eve", "Holt", team, 62, "forward", 6, 5, 180.0, "sophomore");
+			p10.save();
+			players.add(p10);
 			
 			return players;
 		}
 	}
 	
 	private static void populateStatsForGame(Context c, Game game, List<Player> players) {
-		StatType type1 = StatType.find(StatType.class, "name = ?", "3 pt").get(0);
-		StatType type2 = StatType.find(StatType.class, "name = ?", "Free throw").get(0);
-		StatType type3 = StatType.find(StatType.class, "name = ?", "Personal foul").get(0);
+		StatType type1 = StatType.find(StatType.class, "name = ?", "three point").get(0);
+		StatType type2 = StatType.find(StatType.class, "name = ?", "free throw").get(0);
+		StatType type3 = StatType.find(StatType.class, "name = ?", "personal foul").get(0);
 		
 		new Stat(c, players.get(0), game, type1, 11.0, 1, true).save();
 		new Stat(c, players.get(0), game, type1, 13.0, 1, true).save();
