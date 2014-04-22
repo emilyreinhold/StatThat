@@ -106,6 +106,8 @@ public class Parser {
 		int pos = 0;
 		boolean oneUsed = false;
 		
+		words = replaceHomophones(words);
+		
 		if (words.length < 3) {
 			int[] dummy = {0, 1};
 			return dummy;
@@ -128,6 +130,25 @@ public class Parser {
 		
 		int[] resultArray = {result, pos + 1};
 		return resultArray;
+	}
+	
+	public String[] replaceHomophones(String[] words) {
+		String mapping = "ate:eight,hate:eight,weight:eight,won:one,too:two,to:two,for:four";
+		HashMap<String, String> matches = new HashMap<String, String>();
+		String[] pairs = mapping.split(",");
+		String[] keyValue;
+		for (int i=0; i < pairs.length; i++) {
+		    keyValue = pairs[i].split(":");
+		    matches.put(keyValue[0], keyValue[1]);
+		}
+		
+		for (int i = 0; i < words.length; i++) {
+			String word = words[i];
+			if (matches.containsKey(word)) {
+				words[i] = matches.get(word);
+			}
+		}
+		return words;
 	}
 	
 	// Parse the text and separate into pieces needed to save stat
