@@ -21,9 +21,6 @@ public class DBHelper {
 	
 	static String[] parseTestText = {"playeR three three point missed", "player twenty two offensive rebound", "player five foul", "player 6 steal", "player 33 free throw made"};
 	
-	static HashMap<String, String> bballStatMap = new HashMap<String, String>();
-	static String mapping = "two point:2 pt,three point:3 pt, free throw:Free throw,offensive rebound:Offensive rebound,defensive rebound:Defensive rebound,assist:Assist,steal:Steal,block:Block,turnover:Turnover,foul:Personal foul";
-	
 	public static void populateTestData(Context c) {
 		StatType.populateBballStatTypes(c);
 		
