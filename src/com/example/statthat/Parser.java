@@ -118,9 +118,7 @@ public class Parser {
 			return dummy;
 		}
 		
-		limit = findLimit(words); // TODO: change to func call to remove action from array
-		
-		for (int i = 1; i < limit; i++) {
+		for (int i = 1; i < 3; i++) {
 			String word = words[i];
 			if (ones.containsKey(word) && !oneUsed) {
 				result += ones.get(word);
@@ -134,6 +132,7 @@ public class Parser {
 				pos += 1;
 			}
 		}
+		
 		int[] resultArray = {result, pos + 1};
 		return resultArray;
 	}
@@ -186,28 +185,31 @@ public class Parser {
 			}
 			
 			output += "Player: " + String.valueOf(number) + ", ";
-
+			
+			if (sentence[currentPos].equals(SUCCESS_COMMAND)) {
+				result = true;
+				currentPos++;
+			} else if (sentence[currentPos].equals(FAILURE_COMMAND)) {
+				result = false;
+				currentPos++;
+			}
+			
 			// Find action
-			if (sentence.length == 5 || sentence.length == 6) {
-				// Look for shot stats
-				String testAction = sentence[3] + " " + sentence[4];//sentence[currentPos] + " " + sentence[currentPos + 1];
-				if (shotStats.contains(testAction)) {
-					action = testAction;
-					if(sentence[2].equals(SUCCESS_COMMAND)) { //(sentence[currentPos + 2].equals(SUCCESS_COMMAND)) {
-						result = true;
-					} else if (sentence[2].equals(FAILURE_COMMAND)) { //(sentence[currentPos + 2].equals(FAILURE_COMMAND)) {
-						result = false;
-					} else {
-						System.out.println("Unable to parse made/missed shot");
+			int nextPos = currentPos + 1;
+			while (action.equals("") && nextPos <= sentence.length) {
+				String testAction = "";
+				for (int i = currentPos; i < nextPos; i++) {
+					if (i != currentPos && i != sentence.length) {
+						testAction += " ";
 					}
-				} else if (otherStats.contains(testAction)) {
-					// Other stats that have 2 words
-					action = testAction;
+					testAction += sentence[i];
+					
+					if (shotStats.contains(testAction) || otherStats.contains(testAction)) {
+						action = testAction;
+					}
 				}
-			} else {
-				if (otherStats.contains(sentence[currentPos])) {
-					action = sentence[currentPos];
-				}
+				
+				nextPos++;
 			}
 			
 			output += "Stat: " + action + ", Result: " + String.valueOf(result) + "\n";
