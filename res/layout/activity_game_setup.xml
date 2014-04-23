@@ -17,6 +17,8 @@
 	       android:layout_height="match_parent"
 	       android:gravity="center"
 	       android:textSize="30sp"
+	       android:textColor="@android:color/white"
+	       android:textStyle="bold"
 	       android:text="Game Setup"/>
     
     </FrameLayout>
