@@ -34,7 +34,8 @@ public class TeamPageActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//getActionBar().hide();
+		
+		getActionBar().hide();
 		getActionBar().setDisplayShowHomeEnabled(false);              
 		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.activity_team_page);	
@@ -84,6 +85,21 @@ public class TeamPageActivity extends FragmentActivity {
 					}
 				});
 
+	}
+	
+	// when pressing back button, we still want the button to be highlighted
+    protected void onResume() {
+    	super.onResume();
+    	Button b = (Button) findViewById(R.id.button_team_page);
+		b.setPressed(true);
+    }
+	
+	// FOR BUTTON
+	public void onStatsClick(View v) {
+		
+		Intent intent = new Intent(TeamPageActivity.this, TeamPageStatsActivity.class);
+		intent.putExtra("team", teamName);
+		TeamPageActivity.this.startActivity(intent);
 	}
 
 	private List<Fragment> getFragments(){
@@ -198,8 +214,7 @@ public class TeamPageActivity extends FragmentActivity {
 //				View view = new View(v.getContext());
 //				view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, 1));
 //				view.setBackgroundColor(Color.rgb(51, 51, 51));
-				
-				
+
 				tableLayout.addView(r);
 				//tableLayout.addView(view);
 				
@@ -229,7 +244,6 @@ public class TeamPageActivity extends FragmentActivity {
 
 				for (String vs : hash.keySet()) {
 					Button button = new Button(container.getContext());
-					
 					button.setText(vs + "\n" + hash.get(vs));
 					button.setOnClickListener(this);
 					button.setTextSize(25);

@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -46,7 +47,11 @@ public class GameActivity extends FragmentActivity {
 		TextView tView = (TextView) findViewById(R.id.team_title);
 		tView.setText(teamName);
 		
-		//getActionBar().hide();
+		
+		Button b = (Button) findViewById(R.id.button_team);
+		b.setPressed(true);
+		
+		getActionBar().hide();
 		getActionBar().setDisplayShowHomeEnabled(false);              
 		getActionBar().setDisplayShowTitleEnabled(false);
 		List<Fragment> fragments = getFragments();
@@ -89,7 +94,25 @@ public class GameActivity extends FragmentActivity {
 						getActionBar().setSelectedNavigationItem(position);
 					}
 				});
+	}
+	
+	// when pressing back button, we still want the button to be highlighted
+    protected void onResume() {
+    	super.onResume();
+    	Button b = (Button) findViewById(R.id.button_team);
+		b.setPressed(true);
+    }
 
+	
+	// FOR THE BUTTONS
+
+	
+	public void onPlayersClick(View v) {
+		Intent intent = new Intent(GameActivity.this, GamePlayersActivity.class);
+		intent.putExtra("location", location);
+		intent.putExtra("teamName", teamName);
+		GameActivity.this.startActivity(intent);
+		
 	}
 
 	HashMap<String, HashMap<String, Integer>> players;
@@ -118,55 +141,11 @@ public class GameActivity extends FragmentActivity {
 				else {
 					h.put(stat, 1);
 				}
-				
 			}
 			players.put(p.firstName + " " + p.lastName, h);
 		}
-
-//		HashMap<String, String> a_stats = new HashMap<String, String>();
-//		a_stats.put("Free Throws", "2");
-//		a_stats.put("Points Scored", "13");
-//		a_stats.put("Fouls", "3");
-//		a_stats.put("Three Pointers", "2");
-//		a_stats.put("Rebounds", "1");
-//		a_stats.put("Layups", "4");
-//		a_stats.put("Assist", "9");
-//		a_stats.put("Steal", "2");
-//		a_stats.put("Block", "1");
-//		a_stats.put("Turnover", "1");
-//
-//		HashMap<String, String> d_stats = new HashMap<String, String>();
-//		d_stats.put("Free Throws", "1");
-//		d_stats.put("Points Scored", "10");
-//		d_stats.put("Fouls", "1");
-//		d_stats.put("Three Pointers", "3");
-//		d_stats.put("Rebounds", "2");
-//		d_stats.put("Layups", "4");
-//		d_stats.put("Assist", "6");
-//		d_stats.put("Steal", "1");
-//		d_stats.put("Block", "2");
-//		d_stats.put("Turnover", "2");
-//
-//		HashMap<String, String> e_stats = new HashMap<String, String>();
-//		e_stats.put("Free Throws", "4");
-//		e_stats.put("Points Scored", "15");
-//		e_stats.put("Fouls", "2");
-//		e_stats.put("Three Pointers", "2");
-//		e_stats.put("Rebounds", "5");
-//		e_stats.put("Layups", "4");
-//		e_stats.put("Assist", "8");
-//		e_stats.put("Steal", "1");
-//		e_stats.put("Block", "4");
-//		e_stats.put("Turnover", "1");
-
-//
-//		players.put("Andrew Dorsett", a_stats);
-//		players.put("Daphne Hsu", d_stats);
-//		players.put("Emily Reinhold", e_stats);
-		// add players stats
-
-		// make team stats
 		
+		// make team stats
 		HashMap<String, Integer> team = new HashMap<String,Integer>();
 
 		for (Stat stat: teamStats) {
@@ -225,8 +204,6 @@ public class GameActivity extends FragmentActivity {
 			return f;
 		}
 
-
-
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -262,8 +239,6 @@ public class GameActivity extends FragmentActivity {
 				for (String stat: hash.keySet()) {
 					TableRow row = new TableRow(v.getContext());
 					TextView s = new TextView(v.getContext());
-					
-				
 
 					s.setText(stat + "        ");
 					s.setTextSize(30);
@@ -277,7 +252,6 @@ public class GameActivity extends FragmentActivity {
 					layout.addView(row);			
 				}
 			}
-
 			return v;
 		}
 
@@ -285,6 +259,7 @@ public class GameActivity extends FragmentActivity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			
 
 		}
 

@@ -68,6 +68,12 @@
             android:label="@string/title_activity_new_player" >
         </activity>
         <activity
+            android:name="com.example.statthat.GamePlayersActivity"
+            android:label="@string/title_activity_game_players" >
+        </activity>
+        <activity
+            android:name="com.example.statthat.TeamPageStatsActivity"
+            android:label="@string/title_activity_team_page_stats" >
             android:name="com.example.statthat.RecordAction_old"
             android:label="@string/title_activity_record_action" >
         </activity>

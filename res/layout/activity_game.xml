@@ -2,25 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    
     tools:context=".GameActivity" >
 
     <LinearLayout
- 		style = "@style/Background"
+        style="@style/Background"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <TextView
-            style = "@style/TitleBar"
-            
+            android:id="@+id/team_title"
+            style="@style/TitleBar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="20dp"
             android:text="Golden Bears"
-            android:textSize="35sp"
-            android:id="@+id/team_title" />
+            android:textSize="35sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_team"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:padding="15dp"
+                android:text="Team"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:onClick="onPlayersClick"
+                android:padding="15dp"
+                android:text="Players"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <android.support.v4.view.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,76 +1,52 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".RecordStat" 
     style="@style/Background">
-
-    <!-- Top row buttons -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-	    
-	    <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal" >
-	        <Button
-	            style="@style/buttonStyleConfirm"
-	            android:id="@+id/done_button"
-	            android:layout_weight="1.0"
-	            android:layout_margin="5dp"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="Done"/>
-	        <Button
-	            style="@style/buttonStyleCancel"
-	            android:id="@+id/edit_game_button"
-	            android:layout_weight="1.0"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_margin="5dp"
-	            android:text="Edit Stat"/>
-	        
-	        <!-- Game Clock -->
-	        <LinearLayout 
-	            android:id="@+id/game_clock_layout"
-	            android:layout_weight="1.0"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:gravity="center_horizontal"
-	            android:orientation="vertical">
-	            <TextView
-	                android:id="@+id/game_clock_label"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Game Clock"/>
-	
-	            <Chronometer
-	                android:id="@+id/clock"
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:gravity="center"
-	                android:text="Chronometer"/>
-	
-	        </LinearLayout>
-	
-	            
-	    </LinearLayout>
-    </RelativeLayout>
     
-    <!-- Stats and clock buttons -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-	   
-        <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="fill_parent"
-	        android:layout_weight="1.0"
-	        android:orientation="horizontal"
-	        android:layout_above="@+id/record_button_layout">
-	   
+	 <LinearLayout
+	   	android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="horizontal">
+	    
+		
+		<!-- Left column -->	
+		<LinearLayout
+		    android:layout_width="fill_parent"
+	    	android:layout_height="match_parent"
+	    	android:layout_weight="1"
+	    	android:orientation="vertical">
+		    	 
+		    <!-- Top row buttons -->
+		    <RelativeLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content">
+			    
+			    <LinearLayout
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal" >
+			        <Button
+			            style="@style/buttonStyleConfirm"
+			            android:id="@+id/done_button"
+			            android:layout_weight="1.0"
+			            android:layout_margin="5dp"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="Done"/>
+			        <Button
+			            style="@style/buttonStyleCancel"
+			            android:id="@+id/edit_game_button"
+			            android:layout_weight="1.0"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_margin="5dp"
+			            android:text="Edit Stat"/>
+			    </LinearLayout>
+			        
+		</RelativeLayout>
+			
 		    <!-- Recent Stats -->
 		    <TableLayout
 		        android:id="@+id/recent_stats_table"
@@ -126,67 +102,131 @@
 		        </TableRow>
 		        
 		    </TableLayout>
-		    
-		    <!-- Clock Buttons -->
-		    <LinearLayout 
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:orientation="vertical"
-		        android:layout_alignParentRight='true' >
-		        		    	
-		       <Button
-		            android:id="@+id/start_clock_button"
-		            android:layout_width="75dp"
-		            android:layout_height="75dp"
-		            android:gravity="center_horizontal"
-		            android:background="@drawable/play"
-		            android:textSize="10dp"/>
-
-		        
-		       	<!-- Dividing Line  --> 
-		    	<View
-				   android:layout_width="fill_parent"
-				   android:layout_height="1dp"
-				   android:id="@+id/divider_line"
-				   android:gravity="center_horizontal"
-				   android:background="@android:color/black"/>
-		    	
-		    	<Button
-		            android:id="@+id/next_quarter_button"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:gravity="center_horizontal"
-		            style="@style/buttonStyleCancel"
-		            android:layout_margin="2dp"
-		            android:text="Next Quarter"/>
-
-		     
-		       
-		    </LinearLayout> <!-- End of clock buttons -->
-		    
-	  	
-	  	</LinearLayout> 
-	  	
-	  	
-	    <!-- Record Button -->
-	    <LinearLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:layout_alignParentBottom="true"
-	        android:id="@+id/record_button_layout" >
-		    <Button 
-		        style="@style/buttonStyleConfirm"
-		        android:id="@+id/record_button"
-		        android:layout_width="fill_parent"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
-		        android:layout_marginBottom="5dp"
-		        android:layout_height="fill_parent"
-		        android:text="Record"/>
-	    </LinearLayout>
+		
+		</LinearLayout> <!-- End of Left Column -->
+			
+			
+		<!-- Right column -->	
+		<LinearLayout
+		    android:layout_width="fill_parent"
+	    	android:layout_height="match_parent"
+	    	android:layout_weight="2"
+	    	android:orientation="vertical"> 
+	    	       		
+		   
+		    <!-- Stats and clock buttons -->
+		    <RelativeLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="fill_parent">
+			   
+		        <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="fill_parent"
+			        android:layout_weight="1.0"
+			        android:orientation="horizontal">
+			   
+				    
+				    
+				    <!-- Clock Buttons -->
+				    <LinearLayout 
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:orientation="vertical"
+				        android:layout_alignParentRight='true' >
+				      
+				        <!-- Game Clock -->
+				        <FrameLayout 
+				    	android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+				        android:padding="10dp">
+				        
+					        <LinearLayout 
+					            android:id="@+id/game_clock_layout"
+					            android:layout_weight="1.0"
+					            android:layout_width="fill_parent"
+					            android:layout_height="wrap_content"
+					            android:gravity="center"
+					            android:orientation="vertical">
+					            
+					            <TextView
+					                android:id="@+id/game_clock_label"
+					                android:layout_width="fill_parent"
+					                android:layout_height="wrap_content"
+					                android:gravity="center"
+					                android:text="Game Clock"/>
+					
+					            <Chronometer
+					                android:id="@+id/clock"
+					                android:layout_width="fill_parent"
+					                android:layout_height="wrap_content"
+					                android:gravity="center"
+					                android:text="Chronometer"/>			
+					        </LinearLayout>
+				        
+				        </FrameLayout>
+				        
+				    	<FrameLayout 
+				    	android:layout_width="fill_parent"
+				        android:layout_height="wrap_content">
+				       	 	<Button
+					            android:id="@+id/start_clock_button"
+					            android:layout_width="75dp"
+					            android:layout_height="75dp"
+					            android:layout_gravity="center_horizontal"
+					           	android:background="@drawable/play"
+					            android:textSize="10dp"/>
+				    	    
+				    	</FrameLayout>		    	
 	
-	</RelativeLayout>
+		
+				        
+				       	<!-- Dividing Line  --> 
+				    	<View
+						   android:layout_width="fill_parent"
+						   android:layout_height="1dp"
+						   android:id="@+id/divider_line"
+						   android:gravity="center_horizontal"
+						   android:background="@android:color/black"/>
+				    	
+				    	<Button
+				            android:id="@+id/next_quarter_button"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:gravity="center_horizontal"
+				            style="@style/buttonStyleCancel"
+				            android:layout_margin="2dp"
+				            android:text="Next Quarter"/>
+		
+				     
+				       
+				    </LinearLayout> <!-- End of clock buttons -->
+				    
+			  	
+			  	</LinearLayout> 
+			  	
+			
+			</RelativeLayout>
+			
+	    </LinearLayout> <!-- End of right colum -->
+		
+	</LinearLayout> <!-- End of columns -->
 	
-</LinearLayout> 
-    
+    <!-- Record Button -->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_alignParentBottom="true"
+       android:id="@+id/record_button_layout" >
+    <Button 
+        style="@style/buttonStyleConfirm"
+        android:id="@+id/record_button"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="fill_parent"
+        android:text="Record"/>
+   </LinearLayout>
+
+</RelativeLayout>
