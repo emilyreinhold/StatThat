@@ -1,5 +1,6 @@
 package com.example.statthat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -70,6 +71,39 @@ public class Player extends SugarRecord<Player> {
 	
 	public Integer getCountForStatType(StatType statType) {
 		return getStatsForStatType(statType).size();
+	}
+	
+	// Returns stat counts in list in the same order as stat types are
+	// returned in StatType.getBballStatTypeIds()
+	public ArrayList<Integer> getBballStatCountsForGame(Game game) {
+		String gameId = game.getId().toString();
+		ArrayList<Integer> counts = new ArrayList<Integer>();
+		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		for (String typeId : typeIds) {
+			int count = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ?", getId().toString(), typeId, gameId).size();
+			counts.add(count);
+		}
+		return counts;
+	}
+	
+	// See comment on above method
+	public ArrayList<Integer> getBballStatCountsAllTime() {
+		ArrayList<Integer> counts = new ArrayList<Integer>();
+		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		for (String typeId : typeIds) {
+			int count = Stat.find(Stat.class, "player = ? AND stat_type = ?", getId().toString(), typeId).size();
+			counts.add(count);
+		}
+		return counts;
+	}
+	
+	public int getStatCountForTypeAllTime(String typeId) {
+		return Stat.find(Stat.class, "player = ? AND stat_type = ?", getId().toString(), typeId).size();
+	}
+	
+	public int getStatCountForTypeForGame(String gameId, String typeId) {
+		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ?", getId().toString(), typeId, gameId).size();
+		
 	}
 	
 }
