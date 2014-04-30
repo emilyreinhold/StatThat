@@ -53,7 +53,7 @@ public class Parser {
 	}
 	
 	// Save the stat and return its ID
-	public String saveStat(int number, String action, boolean result, int period, double time) {
+	public String saveStat(int number, String action, boolean result, int period, double time, Flag flag) {
 		Stat s;
 		try {
 			List<Player> players = Player.find(Player.class, "number = ?", String.valueOf(number));//, game.team.getId().toString());
@@ -63,7 +63,7 @@ public class Parser {
 			}
 			
 			StatType type = StatType.find(StatType.class, "name = ?", action).get(0);
-			s = new Stat(context, players.get(0), game, type, time, period, result);
+			s = new Stat(context, players.get(0), game, type, time, period, result, flag);
 			s.save();
 		} catch (Exception e) {
 			System.out.println("Error: Unable to save stat.");
@@ -230,7 +230,7 @@ public class Parser {
 			
 			if (!action.equals("")) {
 				output += "Made it into action\n";
-				stat_id = saveStat(number, action, result, period, time);
+				stat_id = saveStat(number, action, result, period, time, null);
 				if(stat_id != null) {
 					output += "Stat saved!";
 					System.out.print(output);
@@ -238,10 +238,16 @@ public class Parser {
 				} else {
 					output += "\n**Stat retrival failed**\n";
 				}
+			} else {
+				Flag flag = new Flag(context, match);
+				stat_id = saveStat(number, action, result, period, time, flag);
+				System.out.print("Erroneous stat saved");
+				return stat_id;
 			}
 			
 		} // end of loop
 		
+		// should never reach this point. now stats are flagged
 		// output = "Error occurred, try again."; // Failure message for now
 		return output;
 	}
