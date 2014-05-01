@@ -126,7 +126,6 @@ public class GameActivity extends FragmentActivity {
 
 			List<Game> games = Game.find(Game.class, "location = ?", location);
 			Game game = games.get(0);
-			List<Stat> teamStats =  game.getStats();
 			ArrayList<Integer> statCounts = game.team.getBballStatCountsForGame(game);
 			ArrayList<String> statNames = StatType.getBballStatTypeNames();
 			for (int i = 0; i < statCounts.size(); i++) {
@@ -315,7 +314,6 @@ public class GameActivity extends FragmentActivity {
 
 		List<Game> games = Game.find(Game.class, "location = ?", location);
 		Game game = games.get(0);
-		List<Stat> teamStats =  game.getStats();
 
 		Team t = Team.find(Team.class, "name = ?", teamName).get(0);
 		List<Player> plays = t.getPlayers();

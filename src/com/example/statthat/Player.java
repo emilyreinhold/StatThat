@@ -77,6 +77,10 @@ public class Player extends SugarRecord<Player> {
 	// returned in StatType.getBballStatTypeIds()
 	public ArrayList<Integer> getBballStatCountsForGame(Game game) {
 		String gameId = game.getId().toString();
+		String teamId = game.team.getId().toString();
+		if (!teamId.equals(team.getId().toString())) {
+			return null;
+		}
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
 		for (String typeId : typeIds) {
