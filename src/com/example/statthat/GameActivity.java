@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.example.statthat.TeamPageActivity.PFragment;
+import com.example.statthat.TeamPageActivity.SFragment;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -13,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,8 +37,8 @@ import android.widget.TextView;
 public class GameActivity extends FragmentActivity {
 	MyPageAdapter pageAdapter;
 	String opposingTeamName;
-	String location;
-	String teamName;
+	static String location;
+	static String teamName;
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,11 @@ public class GameActivity extends FragmentActivity {
 		teamName = in.getStringExtra("teamName");
 		TextView tView = (TextView) findViewById(R.id.team_title);
 		tView.setText(teamName);
-		
-		
+
+
 		Button b = (Button) findViewById(R.id.button_team);
 		b.setPressed(true);
-		
+
 		getActionBar().hide();
 		getActionBar().setDisplayShowHomeEnabled(false);              
 		getActionBar().setDisplayShowTitleEnabled(false);
@@ -94,25 +98,199 @@ public class GameActivity extends FragmentActivity {
 						getActionBar().setSelectedNavigationItem(position);
 					}
 				});
-	}
-	
-	// when pressing back button, we still want the button to be highlighted
-    protected void onResume() {
-    	super.onResume();
-    	Button b = (Button) findViewById(R.id.button_team);
-		b.setPressed(true);
-    }
 
-	
+
+
+		FragmentTabHost tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+		tabHost.setup(this, getSupportFragmentManager(), R.id.tab_1);
+
+
+
+		tabHost.addTab(tabHost.newTabSpec("team").setIndicator("Team Stats"),
+				TFragment.class, null);
+
+		tabHost.addTab(tabHost.newTabSpec("players").setIndicator("Players Stats"),
+				PFragment.class, null);
+	}
+
+
+
+	public static class TFragment extends Fragment {
+
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			HashMap<String, Integer> team = new HashMap<String,Integer>();
+
+
+			List<Game> games = Game.find(Game.class, "location = ?", location);
+			Game game = games.get(0);
+			List<Stat> teamStats =  game.getStats();
+			for (Stat stat: teamStats) {
+				String s = stat.statType.name;
+				if (team.containsKey(s)) {
+					int c = team.get(s);
+					c ++;
+					team.put(s, c);
+				}
+				else {
+					team.put(s, 1);
+				}
+			}
+
+
+			View v = inflater.inflate(R.layout.myfragment_game_viewteam, container, false);
+			TableLayout layout = (TableLayout) v.findViewById(R.id.table_layout_team);
+
+			// reset tablerows
+			layout.removeAllViews();
+
+			for (String stat: team.keySet()) {
+				TableRow row = new TableRow(v.getContext());
+				TextView s = new TextView(v.getContext());
+
+				s.setText(stat + "        ");
+				s.setTextSize(30);
+
+				TextView ss = new TextView(v.getContext());
+				ss.setText(String.valueOf(team.get(stat)));
+				ss.setTextSize(30);
+
+				row.addView(s);
+				row.addView(ss);
+				layout.addView(row);			
+			}
+
+
+			return v;
+		}
+	}
+
+	public static class PFragment extends Fragment implements OnClickListener, OnItemSelectedListener{
+
+		HashMap<String, HashMap<String, Integer>> players;
+		View v;
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+
+			players = new HashMap<String, HashMap<String, Integer>>();
+
+			List<Game> games = Game.find(Game.class, "location = ?", location);
+			Game game = games.get(0);
+
+			Team t = Team.find(Team.class, "name = ?", teamName).get(0);
+			List<Player> plays = t.getPlayers();
+
+			for (Player p: plays) {
+				HashMap<String, Integer> h = new HashMap<String, Integer>();
+				List<Stat> playerStats = game.getStatsForPlayer(p); // questionable
+				for(Stat s: playerStats) {
+					String stat = s.statType.name;
+					if (h.containsKey(s)) {
+						int c = h.get(s);
+						c ++;
+						h.put(stat, c);
+					}
+					else {
+						h.put(stat, 1);
+					}
+				}
+				players.put(p.firstName + " " + p.lastName, h);
+			}
+
+
+
+			//View v = inflater.inflate(R.layout.myfragment_game_layout, container, false);
+
+			v = inflater.inflate(R.layout.myfragment_game_viewplayers, container, false);
+
+			LinearLayout gamesLayout = (LinearLayout)v.findViewById(R.id.linear_players); 
+			Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
+
+			List l = new ArrayList();
+			l.addAll(players.keySet());
+			ArrayAdapter<String> adapter=new ArrayAdapter<String>(v.getContext(),
+					android.R.layout.simple_dropdown_item_1line, l);
+
+			adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+			spinner.setAdapter(adapter);
+			spinner.setOnItemSelectedListener(this);
+
+
+
+
+			return v;
+
+		}
+
+		@Override
+		public void onClick(View arg0) {
+			// TODO Auto-generated method stub
+
+
+		}
+
+		/*
+		 * For spinner
+		 * 
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			// make spinner text bigger
+			if (arg0 != null && arg0.getChildAt(0) != null) {
+				((TextView) arg0.getChildAt(0)).setTextSize(25);			
+				String s = (String) arg0.getItemAtPosition(arg2);
+				TableLayout layout = (TableLayout) v.findViewById(R.id.table_layout);
+				// reset tablerows
+				layout.removeAllViews();
+				for (String stat: players.get(s).keySet()) {
+					TableRow row = new TableRow(v.getContext());
+					TextView t = new TextView(v.getContext());
+					t.setText(stat + "        ");
+					t.setTextSize(30);
+
+					TextView tt = new TextView(v.getContext());
+					tt.setText(String.valueOf(players.get(s).get(stat)));
+					tt.setTextSize(30);
+
+					row.addView(t);
+					row.addView(tt);
+					layout.addView(row);		
+				}
+			}
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+
+
+		}
+	}
+
+
+	// when pressing back button, we still want the button to be highlighted
+	//    protected void onResume() {
+	//    	super.onResume();
+	//    	Button b = (Button) findViewById(R.id.button_team);
+	//		b.setPressed(true);
+	//    }
+
+
 	// FOR THE BUTTONS
 
-	
+
 	public void onPlayersClick(View v) {
 		Intent intent = new Intent(GameActivity.this, GamePlayersActivity.class);
 		intent.putExtra("location", location);
 		intent.putExtra("teamName", teamName);
 		GameActivity.this.startActivity(intent);
-		
+
 	}
 
 	HashMap<String, HashMap<String, Integer>> players;
@@ -120,14 +298,14 @@ public class GameActivity extends FragmentActivity {
 	private List<Fragment> getFragments(){
 		List<Fragment> fList = new ArrayList<Fragment>();
 		players = new HashMap<String, HashMap<String, Integer>>();
-		
+
 		List<Game> games = Game.find(Game.class, "location = ?", location);
 		Game game = games.get(0);
 		List<Stat> teamStats =  game.getStats();
-	
+
 		Team t = Team.find(Team.class, "name = ?", teamName).get(0);
 		List<Player> plays = t.getPlayers();
-		
+
 		for (Player p: plays) {
 			HashMap<String, Integer> h = new HashMap<String, Integer>();
 			List<Stat> playerStats = game.getStatsForPlayer(p); // questionable
@@ -144,7 +322,7 @@ public class GameActivity extends FragmentActivity {
 			}
 			players.put(p.firstName + " " + p.lastName, h);
 		}
-		
+
 		// make team stats
 		HashMap<String, Integer> team = new HashMap<String,Integer>();
 
@@ -159,17 +337,17 @@ public class GameActivity extends FragmentActivity {
 				team.put(s, 1);
 			}
 		}
-//		team.put("Points Scored", "56");
-//		team.put("Rebounds", "20");
-//		team.put("Fouls", "9");
-//		team.put("Three Pointers", "11");		
-//		team.put("Layups", "15");
-//		team.put("Time-outs", "3");
-//		team.put("Free Throws", "20");
-//		team.put("Assist", "40");
-//		team.put("Steal", "16");
-//		team.put("Block", "20");
-//		team.put("Turnover", "5");
+		//		team.put("Points Scored", "56");
+		//		team.put("Rebounds", "20");
+		//		team.put("Fouls", "9");
+		//		team.put("Three Pointers", "11");		
+		//		team.put("Layups", "15");
+		//		team.put("Time-outs", "3");
+		//		team.put("Free Throws", "20");
+		//		team.put("Assist", "40");
+		//		team.put("Steal", "16");
+		//		team.put("Block", "20");
+		//		team.put("Turnover", "5");
 
 		fList.add(MyFragment.newInstance(team));		
 		fList.add(MyFragment.newInstance(players, 0)); 
@@ -259,7 +437,7 @@ public class GameActivity extends FragmentActivity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			
+
 
 		}
 

@@ -101,7 +101,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 		tabHost.addTab(tabHost.newTabSpec("players").setIndicator("Players"),
 				PFragment.class, null);
 
-		tabHost.addTab(tabHost.newTabSpec("stats").setIndicator("Stats"),
+		tabHost.addTab(tabHost.newTabSpec("stats").setIndicator("Game Reports"),
 				SFragment.class, null);
 	}
 
