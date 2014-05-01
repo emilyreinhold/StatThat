@@ -109,7 +109,20 @@ public class DBHelper {
 		new Stat(c, players.get(2), game, type2, 21.0, 2, false, null).save();
 		new Stat(c, players.get(2), game, type1, 17.0, 1, true, null).save();
 		new Stat(c, players.get(2), game, type3, 50.0, 4, true, null).save();
-		
+		new Stat(c, players.get(3), game, type1, 13.0, 1, true, null).save();
+		new Stat(c, players.get(3), game, type1, 20.0, 2, false, null).save();
+		new Stat(c, players.get(4), game, type1, 2.0, 1, true, null).save();
+		new Stat(c, players.get(4), game, type2, 41.0, 3, false, null).save();
+		new Stat(c, players.get(4), game, type2, 21.0, 2, false, null).save();
+		new Stat(c, players.get(5), game, type1, 17.0, 1, true, null).save();
+		new Stat(c, players.get(5), game, type3, 50.0, 4, true, null).save();
+		new Stat(c, players.get(5), game, type1, 13.0, 1, true, null).save();
+		new Stat(c, players.get(6), game, type1, 20.0, 2, false, null).save();
+		new Stat(c, players.get(6), game, type1, 2.0, 1, true, null).save();
+		new Stat(c, players.get(7), game, type2, 41.0, 3, false, null).save();
+		new Stat(c, players.get(7), game, type2, 21.0, 2, false, null).save();
+		new Stat(c, players.get(8), game, type1, 17.0, 1, true, null).save();
+		new Stat(c, players.get(9), game, type3, 50.0, 4, true, null).save();
 	}
 
 }

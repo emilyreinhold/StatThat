@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
 		Intent team_select = new Intent(MainActivity.this, TeamSelect.class);
 		startActivity(team_select);
 		
-		
 	}
 
 	@Override

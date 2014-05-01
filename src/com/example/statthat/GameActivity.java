@@ -127,6 +127,12 @@ public class GameActivity extends FragmentActivity {
 			List<Game> games = Game.find(Game.class, "location = ?", location);
 			Game game = games.get(0);
 			List<Stat> teamStats =  game.getStats();
+			ArrayList<Integer> statCounts = game.team.getBballStatCountsForGame(game);
+			ArrayList<String> statNames = StatType.getBballStatTypeNames();
+			for (int i = 0; i < statCounts.size(); i++) {
+				team.put(statNames.get(i), statCounts.get(i));
+			}
+			/*
 			for (Stat stat: teamStats) {
 				String s = stat.statType.name;
 				if (team.containsKey(s)) {
@@ -138,6 +144,7 @@ public class GameActivity extends FragmentActivity {
 					team.put(s, 1);
 				}
 			}
+			*/
 
 
 			View v = inflater.inflate(R.layout.myfragment_game_viewteam, container, false);
@@ -185,6 +192,12 @@ public class GameActivity extends FragmentActivity {
 
 			for (Player p: plays) {
 				HashMap<String, Integer> h = new HashMap<String, Integer>();
+				ArrayList<Integer> statCounts = p.getBballStatCountsForGame(game);
+				ArrayList<String> statNames = StatType.getBballStatTypeNames();
+				for (int i = 0; i < statCounts.size(); i++) {
+					h.put(statNames.get(i), statCounts.get(i));
+				}
+				/*
 				List<Stat> playerStats = game.getStatsForPlayer(p); // questionable
 				for(Stat s: playerStats) {
 					String stat = s.statType.name;
@@ -197,6 +210,7 @@ public class GameActivity extends FragmentActivity {
 						h.put(stat, 1);
 					}
 				}
+				*/
 				players.put(p.firstName + " " + p.lastName, h);
 			}
 
@@ -325,7 +339,12 @@ public class GameActivity extends FragmentActivity {
 
 		// make team stats
 		HashMap<String, Integer> team = new HashMap<String,Integer>();
-
+		ArrayList<Integer> statCounts = t.getBballStatCountsForGame(game);
+		ArrayList<String> statNames = StatType.getBballStatTypeNames();
+		for (int i = 0; i < statCounts.size(); i++) {
+			team.put(statNames.get(i), statCounts.get(i));
+		}
+		/*
 		for (Stat stat: teamStats) {
 			String s = stat.statType.name;
 			if (team.containsKey(s)) {
@@ -337,6 +356,7 @@ public class GameActivity extends FragmentActivity {
 				team.put(s, 1);
 			}
 		}
+		*/
 		//		team.put("Points Scored", "56");
 		//		team.put("Rebounds", "20");
 		//		team.put("Fouls", "9");
