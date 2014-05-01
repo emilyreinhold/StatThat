@@ -96,14 +96,13 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 		FragmentTabHost tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		tabHost.setup(this, getSupportFragmentManager(), R.id.tab_1);
 
-		Bundle bdl = new Bundle(1);
-		bdl.putString("hi", "hi");
+
 
 		tabHost.addTab(tabHost.newTabSpec("players").setIndicator("Players"),
 				PFragment.class, null);
 
 		tabHost.addTab(tabHost.newTabSpec("stats").setIndicator("Stats"),
-				SFragment.class, bdl);
+				SFragment.class, null);
 	}
 
 
