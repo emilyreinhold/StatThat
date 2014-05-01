@@ -60,7 +60,7 @@ public class RecordStat extends Activity {
 		super.onCreate(savedInstanceState);
 		getActionBar().hide();
 		setContentView(R.layout.activity_record_stat);
-		
+
 		// get game id
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
@@ -219,7 +219,7 @@ public class RecordStat extends Activity {
 		else
 			time = SystemClock.elapsedRealtime() - clock.getBase();
 		
-		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), time , current_quarter, true);
+		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), time , current_quarter, true, null);
 		
 		return stat;
 	}
@@ -253,7 +253,7 @@ public class RecordStat extends Activity {
 		
 		// result 
 		TextView result = new TextView(ctx);
-		result.setText(stat.result ? "HIT" : "MISS");
+		result.setText(stat.result ? "MADE" : "MISS");
 		params = ((TextView) findViewById(R.id.result_header)).getLayoutParams();
 		result.setGravity(Gravity.CENTER_HORIZONTAL);
 		result.setTextColor(Color.parseColor("#424242"));
@@ -281,6 +281,21 @@ public class RecordStat extends Activity {
 		time.setTextColor(Color.parseColor("#424242"));
 		
 		row.addView(time);
+		
+		TextView flag = new TextView(ctx);
+		if (stat.flag == null) {
+			flag.setText("good");
+		} else {
+			flag.setText("!");
+		}
+		// params = ((TextView) findViewById(R.id.flag_header)).getLayoutParams();
+		// flag.setLayoutParams(params);
+		flag.setGravity(Gravity.CENTER_HORIZONTAL);
+		flag.setTextColor(Color.parseColor("#424242"));
+		
+		// attach listener to flag textbox that opens manual edit dialog
+		
+		// row.addView(flag);
 		
 		stat_table.addView(row);
 		
@@ -414,7 +429,8 @@ public class RecordStat extends Activity {
 				}catch(Exception e){
 					// DEV - if not an int display bad results
 					int duration = Toast.LENGTH_LONG;
-					Toast toast = Toast.makeText(getApplicationContext(), result, duration);
+					String error_msg = "Error parsing stat. Review flagged stat to correct.";
+					Toast toast = Toast.makeText(getApplicationContext(), error_msg, duration);
 					toast.show();
 				}
 				

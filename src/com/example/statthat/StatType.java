@@ -1,5 +1,8 @@
 package com.example.statthat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 
 import com.orm.SugarRecord;
@@ -31,6 +34,16 @@ public class StatType extends SugarRecord<StatType> {
 				type.save();
 			}
 		}
+	}
+	
+	public static ArrayList<String> getBballStatTypeIds() {
+		ArrayList<String> ids = new ArrayList<String>();
+		Sport b = Sport.find(Sport.class, "name = ?", "basketball").get(0);
+		List<Stat> stats = Stat.find(Stat.class, "sport = ?", b.getId().toString());
+		for (Stat s : stats) {
+			ids.add(s.getId().toString());
+		}
+		return ids;
 	}
 
 }
