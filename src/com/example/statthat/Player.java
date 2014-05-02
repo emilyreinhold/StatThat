@@ -83,9 +83,15 @@ public class Player extends SugarRecord<Player> {
 		}
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		ArrayList<String> boolStats = StatType.getBballBoolStats();
 		for (String typeId : typeIds) {
 			int count = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ?", getId().toString(), typeId, gameId).size();
 			counts.add(count);
+			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
+			if (boolStats.contains(s.name)) {
+				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ? AND result = true", getId().toString(), typeId, gameId).size();
+				counts.add(madeCount);
+			}
 		}
 		return counts;
 	}
@@ -94,9 +100,15 @@ public class Player extends SugarRecord<Player> {
 	public ArrayList<Integer> getBballStatCountsAllTime() {
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		ArrayList<String> boolStats = StatType.getBballBoolStats();
 		for (String typeId : typeIds) {
 			int count = Stat.find(Stat.class, "player = ? AND stat_type = ?", getId().toString(), typeId).size();
 			counts.add(count);
+			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
+			if (boolStats.contains(s.name)) {
+				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND result = true", getId().toString(), typeId).size();
+				counts.add(madeCount);
+			}
 		}
 		return counts;
 	}

@@ -36,6 +36,14 @@ public class StatType extends SugarRecord<StatType> {
 		}
 	}
 	
+	public static ArrayList<String> getBballBoolStats() {
+		ArrayList<String> bools = new ArrayList<String>();
+		bools.add("free throw");
+		bools.add("two point");
+		bools.add("three point");
+		return bools;
+	}
+	
 	public static ArrayList<String> getBballStatTypeIds() {
 		ArrayList<String> ids = new ArrayList<String>();
 		System.out.println(Sport.listAll(Sport.class).size());
@@ -58,9 +66,15 @@ public class StatType extends SugarRecord<StatType> {
 			return null;
 		}
 		Sport b = bList.get(0);
+		ArrayList<String> bools = getBballBoolStats();
 		List<StatType> statsTypes = StatType.find(StatType.class, "sport = ?", b.getId().toString());
 		for (StatType s : statsTypes) {
-			names.add(s.name);
+			if (bools.contains(s.name)) {
+				names.add(s.name + " attempted");
+				names.add(s.name + " made");
+			} else {
+				names.add(s.name);
+			}
 		}
 		return names;
 	}
