@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class NewTeam extends Activity {
 	Team team;
@@ -27,6 +28,7 @@ public class NewTeam extends Activity {
 			public void onClick(View v) {
 				EditText teamName = (EditText)findViewById(R.id.TeamName);
 				team_name = teamName.getText().toString();
+				
 				Sport bball = new Sport(getApplicationContext(), "basketball", "quarter");
 				if(team == null) {
 					team = new Team(getApplicationContext(), team_name, bball);
@@ -38,12 +40,21 @@ public class NewTeam extends Activity {
 			}
 		});
 		
-		Button done = (Button) findViewById(R.id.done_adding_players);
+		Button done = (Button) findViewById(R.id.confirm_team);
 		done.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				finish();
+				EditText teamName = (EditText)findViewById(R.id.TeamName);
+				if(!teamName.getText().toString().isEmpty()) {
+					finish();
+				}
+				else {
+					int duration = Toast.LENGTH_LONG;
+					String toast_message = "Please enter a team name.";
+					Toast toast = Toast.makeText(getApplicationContext(), toast_message, duration);
+					toast.show();
+				}
 				
 			}
 		});

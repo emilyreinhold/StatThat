@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.statthat.TeamPageActivity.PFragment;
-import com.example.statthat.TeamPageActivity.SFragment;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
