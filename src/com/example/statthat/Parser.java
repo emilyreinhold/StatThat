@@ -18,8 +18,8 @@ public class Parser {
 	String tenMapping = "twenty:20,thirty:30,fourty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90";
 	
 	// Constants that specify the voice command for making/missing shots
-	public static String SUCCESS_COMMAND = "made";
-	public static String FAILURE_COMMAND = "missed";
+	public static String[] SUCCESS_COMMANDS = {"made", "maid"};
+	public static String[] FAILURE_COMMANDS = {"missed", "miss", "mist"};
 	
 	Game game;
 	Context context;
@@ -149,6 +149,21 @@ public class Parser {
 		return words;
 	}
 	
+	public boolean matchCommand(String word, boolean isSuccess) {
+		String[] cmds;
+		if (isSuccess) {
+			cmds = SUCCESS_COMMANDS;
+		} else {
+			cmds = FAILURE_COMMANDS;
+		}
+		for (String command : cmds) {
+			if (word.equals(command)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// Parse the text and separate into pieces needed to save stat
 	public String parseMatch(ArrayList<String> matches, double time, int period) {
 		String stat_id = null;
@@ -199,10 +214,10 @@ public class Parser {
 			
 			output += "Player: " + String.valueOf(number) + ", ";
 			
-			if (sentence[currentPos].equals(SUCCESS_COMMAND)) {
+			if (matchCommand(sentence[currentPos], true)) {
 				result = true;
 				currentPos++;
-			} else if (sentence[currentPos].equals(FAILURE_COMMAND)) {
+			} else if (matchCommand(sentence[currentPos], false)) {
 				result = false;
 				currentPos++;
 			}
