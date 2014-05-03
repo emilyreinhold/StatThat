@@ -479,8 +479,12 @@ public class RecordStat extends Activity {
 		for(Player player : players){
 			List<Stat> player_stats = Stat.find(Stat.class, "player = ?", player.getId().toString());
 			if (player_stats.size() > 0){
+				int count = 0;
 				for(Stat stat : player_stats){
+					if (count > 2)
+						return;
 					updateRecentStats(stat);
+					count++;
 				}
 				return;
 			}
