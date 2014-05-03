@@ -165,6 +165,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 
 				row.addView(s);
 				row.addView(ss);
+				
 				tableLayout.addView(row);
 
 			}
