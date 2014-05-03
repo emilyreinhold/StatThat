@@ -146,11 +146,11 @@ public class GameActivity extends FragmentActivity {
 				TextView s = new TextView(v.getContext());
 
 				s.setText(stat + "        ");
-				s.setTextSize(20);
+				s.setTextSize(25);
 
 				TextView ss = new TextView(v.getContext());
 				ss.setText(String.valueOf(team.get(stat)));
-				ss.setTextSize(20);
+				ss.setTextSize(25);
 				
 				
 				TableRow row2 = new TableRow(v.getContext());
@@ -242,15 +242,14 @@ public class GameActivity extends FragmentActivity {
 				// reset tablerows
 				layout.removeAllViews();
 				for (String stat: StatType.getBballStatTypeNames()) {
-					
-					TableRow row = new TableRow(v.getContext());
+										TableRow row = new TableRow(v.getContext());
 					TextView t = new TextView(v.getContext());
 					t.setText(stat + "        ");
-					t.setTextSize(20);
+					t.setTextSize(25);
 
 					TextView tt = new TextView(v.getContext());
 					tt.setText(String.valueOf(players.get(s).get(stat)));
-					tt.setTextSize(20);
+					tt.setTextSize(25);
 
 					row.addView(t);
 					row.addView(tt);
