@@ -317,6 +317,7 @@ public class RecordStat extends Activity {
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(msg).setTitle("Record a stat now");
+		builder.setIcon(android.R.drawable.ic_btn_speak_now);
 		record_diag = builder.create();
 
 	}
