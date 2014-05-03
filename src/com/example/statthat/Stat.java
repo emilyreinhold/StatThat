@@ -11,12 +11,13 @@ public class Stat extends SugarRecord<Stat> {
 	double time;
 	boolean result;
 	int period_num;
+	Flag flag;
 	
 	public Stat(Context ctx) {
 		super(ctx);
 	}
 	
-	public Stat(Context ctx, Player player, Game game, StatType statType, double time, int period_num, boolean result) {
+	public Stat(Context ctx, Player player, Game game, StatType statType, double time, int period_num, boolean result, Flag flag) {
 		super(ctx);
 		this.player = player;
 		this.game = game;
@@ -24,5 +25,6 @@ public class Stat extends SugarRecord<Stat> {
 		this.time = time;
 		this.period_num = period_num;
 		this.result = result;
+		this.flag = flag;
 	}
 }
