@@ -42,12 +42,21 @@ public class Team extends SugarRecord<Team> {
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		List<Player> players = getPlayers();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		ArrayList<String> boolStats = StatType.getBballBoolStats();
 		for (String typeId : typeIds) {
 			int sumTypeCount = 0;
 			for (Player player : players) {
 				sumTypeCount += player.getStatCountForTypeForGame(gameId, typeId);
 			}
 			counts.add(sumTypeCount);
+			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
+			if (boolStats.contains(s.name)) {
+				int madeCount = 0;
+				for (Player player : players) {
+					madeCount += player.getStatCountForTypeTrueForGame(gameId, typeId);
+				};
+				counts.add(madeCount);
+			}
 		}
 		return counts;
 	}
@@ -56,12 +65,21 @@ public class Team extends SugarRecord<Team> {
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		List<Player> players = getPlayers();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		ArrayList<String> boolStats = StatType.getBballBoolStats();
 		for (String typeId : typeIds) {
 			int sumTypeCount = 0;
 			for (Player player : players) {
 				sumTypeCount += player.getStatCountForTypeAllTime(typeId);
 			}
 			counts.add(sumTypeCount);
+			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
+			if (boolStats.contains(s.name)) {
+				int madeCount = 0;
+				for (Player player : players) {
+					madeCount += player.getStatCountForTypeTrueAllTime(typeId);
+				}
+				counts.add(madeCount);
+			}
 		}
 		return counts;
 	}

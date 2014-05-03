@@ -89,7 +89,7 @@ public class Player extends SugarRecord<Player> {
 			counts.add(count);
 			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
 			if (boolStats.contains(s.name)) {
-				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ? AND result = true", getId().toString(), typeId, gameId).size();
+				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ? AND result = ?", getId().toString(), typeId, gameId, "true").size();
 				counts.add(madeCount);
 			}
 		}
@@ -106,7 +106,7 @@ public class Player extends SugarRecord<Player> {
 			counts.add(count);
 			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
 			if (boolStats.contains(s.name)) {
-				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND result = true", getId().toString(), typeId).size();
+				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND result = ?", getId().toString(), typeId, "true").size();
 				counts.add(madeCount);
 			}
 		}
@@ -117,9 +117,16 @@ public class Player extends SugarRecord<Player> {
 		return Stat.find(Stat.class, "player = ? AND stat_type = ?", getId().toString(), typeId).size();
 	}
 	
+	public int getStatCountForTypeTrueAllTime(String typeId) {
+		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND result = ?", getId().toString(), typeId, "true").size();
+	}
+	
 	public int getStatCountForTypeForGame(String gameId, String typeId) {
 		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ?", getId().toString(), typeId, gameId).size();
-		
+	}
+	
+	public int getStatCountForTypeTrueForGame(String gameId, String typeId) {
+		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ? AND result = ?", getId().toString(), typeId, gameId, "true").size();
 	}
 	
 }
