@@ -126,19 +126,11 @@ public class GameActivity extends FragmentActivity {
 
 			List<Game> games = Game.find(Game.class, "location = ?", location);
 			Game game = games.get(0);
-			List<Stat> teamStats =  game.getStats();
-			for (Stat stat: teamStats) {
-				String s = stat.statType.name;
-				if (team.containsKey(s)) {
-					int c = team.get(s);
-					c ++;
-					team.put(s, c);
-				}
-				else {
-					team.put(s, 1);
-				}
+			ArrayList<Integer> statCounts = game.team.getBballStatCountsForGame(game);
+			ArrayList<String> statNames = StatType.getBballStatTypeNames();
+			for (int i = 0; i < statCounts.size(); i++) {
+				team.put(statNames.get(i), statCounts.get(i));
 			}
-
 
 			View v = inflater.inflate(R.layout.myfragment_game_viewteam, container, false);
 			TableLayout layout = (TableLayout) v.findViewById(R.id.table_layout_team);
@@ -146,7 +138,10 @@ public class GameActivity extends FragmentActivity {
 			// reset tablerows
 			layout.removeAllViews();
 
-			for (String stat: team.keySet()) {
+			for (String stat: StatType.getBballStatTypeNames()) {
+				if (!team.containsKey(stat)) {
+					continue;
+				}
 				TableRow row = new TableRow(v.getContext());
 				TextView s = new TextView(v.getContext());
 
@@ -185,17 +180,10 @@ public class GameActivity extends FragmentActivity {
 
 			for (Player p: plays) {
 				HashMap<String, Integer> h = new HashMap<String, Integer>();
-				List<Stat> playerStats = game.getStatsForPlayer(p); // questionable
-				for(Stat s: playerStats) {
-					String stat = s.statType.name;
-					if (h.containsKey(s)) {
-						int c = h.get(s);
-						c ++;
-						h.put(stat, c);
-					}
-					else {
-						h.put(stat, 1);
-					}
+				ArrayList<Integer> statCounts = p.getBballStatCountsForGame(game);
+				ArrayList<String> statNames = StatType.getBballStatTypeNames();
+				for (int i = 0; i < statCounts.size(); i++) {
+					h.put(statNames.get(i), statCounts.get(i));
 				}
 				players.put(p.firstName + " " + p.lastName, h);
 			}
@@ -218,9 +206,6 @@ public class GameActivity extends FragmentActivity {
 
 			spinner.setAdapter(adapter);
 			spinner.setOnItemSelectedListener(this);
-
-
-
 
 			return v;
 
@@ -248,7 +233,8 @@ public class GameActivity extends FragmentActivity {
 				TableLayout layout = (TableLayout) v.findViewById(R.id.table_layout);
 				// reset tablerows
 				layout.removeAllViews();
-				for (String stat: players.get(s).keySet()) {
+				for (String stat: StatType.getBballStatTypeNames()) {
+					
 					TableRow row = new TableRow(v.getContext());
 					TextView t = new TextView(v.getContext());
 					t.setText(stat + "        ");
@@ -301,7 +287,6 @@ public class GameActivity extends FragmentActivity {
 
 		List<Game> games = Game.find(Game.class, "location = ?", location);
 		Game game = games.get(0);
-		List<Stat> teamStats =  game.getStats();
 
 		Team t = Team.find(Team.class, "name = ?", teamName).get(0);
 		List<Player> plays = t.getPlayers();
@@ -325,17 +310,10 @@ public class GameActivity extends FragmentActivity {
 
 		// make team stats
 		HashMap<String, Integer> team = new HashMap<String,Integer>();
-
-		for (Stat stat: teamStats) {
-			String s = stat.statType.name;
-			if (team.containsKey(s)) {
-				int c = team.get(s);
-				c ++;
-				team.put(s, c);
-			}
-			else {
-				team.put(s, 1);
-			}
+		ArrayList<Integer> statCounts = t.getBballStatCountsForGame(game);
+		ArrayList<String> statNames = StatType.getBballStatTypeNames();
+		for (int i = 0; i < statCounts.size(); i++) {
+			team.put(statNames.get(i), statCounts.get(i));
 		}
 		//		team.put("Points Scored", "56");
 		//		team.put("Rebounds", "20");
@@ -414,7 +392,10 @@ public class GameActivity extends FragmentActivity {
 				// reset tablerows
 				layout.removeAllViews();
 
-				for (String stat: hash.keySet()) {
+				for (String stat: StatType.getBballStatTypeNames()) {
+					if (!hash.containsKey(stat)) {
+						continue;
+					}
 					TableRow row = new TableRow(v.getContext());
 					TextView s = new TextView(v.getContext());
 
@@ -455,7 +436,10 @@ public class GameActivity extends FragmentActivity {
 			TableLayout layout = (TableLayout) v.findViewById(R.id.table_layout);
 			// reset tablerows
 			layout.removeAllViews();
-			for (String stat: hash.get(s).keySet()) {
+			for (String stat: StatType.getBballStatTypeNames()) {
+				if (!hash.get(s).containsKey(stat)) {
+					continue;
+				}
 				TableRow row = new TableRow(v.getContext());
 				TextView t = new TextView(v.getContext());
 				t.setText(stat + "        ");

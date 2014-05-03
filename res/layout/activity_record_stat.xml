@@ -31,7 +31,7 @@
 			            style="@style/buttonStyleConfirm"
 			            android:id="@+id/done_button"
 			            android:layout_weight="1.0"
-			            android:layout_margin="5dp"
+			            android:layout_margin="15dp"
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
 			            android:text="Done"/>
@@ -41,7 +41,7 @@
 			            android:layout_weight="1.0"
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
-			            android:layout_margin="5dp"
+			            android:layout_margin="15dp"
 			            android:text="Edit Stat"/>
 			    </LinearLayout>
 			        
@@ -194,7 +194,7 @@
 				            android:layout_height="wrap_content"
 				            android:gravity="center_horizontal"
 				            style="@style/buttonStyleCancel"
-				            android:layout_margin="2dp"
+				            android:layout_margin="15dp"
 				            android:text="Next Quarter"/>
 		
 				     
@@ -222,11 +222,11 @@
         style="@style/buttonStyleConfirm"
         android:id="@+id/record_button"
         android:layout_width="fill_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_height="fill_parent"
-        android:text="Record"/>
+        android:text="Press and Hold to Record"/>
    </LinearLayout>
 
 </RelativeLayout>
