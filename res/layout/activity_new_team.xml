@@ -46,6 +46,17 @@
         <requestFocus />
     </EditText>
     
+    <Button
+	        style="@style/buttonStyleBlack"
+	        android:id="@+id/add_player"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/add_players"
+	        android:textColor="@android:color/white"
+    		android:layout_marginBottom="15dp"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" />
+    
     <TextView
         style="@style/Label"
         android:id="@+id/players_label"
@@ -76,27 +87,17 @@
     	android:layout_height="wrap_content"
     	android:layout_marginTop="15dp"
     	android:layout_marginBottom="15dp"
-    	android:layout_alignParentBottom='true'
-    	android:weightSum="2" >
+    	android:layout_alignParentBottom='true'>
 
 	    <Button
 	        style="@style/buttonStyleConfirm"
 	        android:id="@+id/done_adding_players"
-	        android:layout_width="0dp"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/finalize_team"
-	        android:layout_weight="1"
 	        android:layout_marginLeft="15dp"
 	        android:layout_marginRight="15dp" />
-	    <Button
-	        style="@style/buttonStyleCancel"
-	        android:id="@+id/add_player"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:text="@string/add_players"
-	        android:layout_weight="1"
-	        android:layout_marginLeft="15dp"
-	        android:layout_marginRight="15dp" />
+	    
 	</LinearLayout>
 	    
 </RelativeLayout>    	    

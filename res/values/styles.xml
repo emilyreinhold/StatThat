@@ -42,6 +42,13 @@
        <item name="android:background">@drawable/custom_button_cancel</item>
        <item name="android:padding">10dip</item>
    </style>
+   
+    <style name="buttonStyleBlack" parent="@android:style/Widget.Button">
+       <item name="android:textSize">20sp</item>
+       <item name="android:gravity">center</item>
+       <item name="android:background">@drawable/custom_button_black</item>
+       <item name="android:padding">10dip</item>
+   </style>
     
     <style name="buttonStyleConfirm" parent="@android:style/Widget.Button">
        <item name="android:textSize">20sp</item>
