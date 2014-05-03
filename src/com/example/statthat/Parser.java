@@ -106,8 +106,6 @@ public class Parser {
 		int pos = 0;
 		boolean oneUsed = false;
 		
-		words = replaceHomophones(words);
-		
 		if (words.length < 3) {
 			int[] dummy = {0, 1};
 			return dummy;
@@ -165,6 +163,7 @@ public class Parser {
 			
 			output += "Original: " + match + "\n";
 			String[] sentence = match.split(" ");
+			sentence = replaceHomophones(sentence);
 			
 			if (sentence.length < 3) {
 				continue; // not enough words, try next match
