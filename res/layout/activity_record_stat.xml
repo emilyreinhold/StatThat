@@ -37,12 +37,12 @@
 			            android:text="Done"/>
 			        <Button
 			            style="@style/buttonStyleCancel"
-			            android:id="@+id/edit_game_button"
+			            android:id="@+id/edit_stat_button"
 			            android:layout_weight="1.0"
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
 			            android:layout_margin="15dp"
-			            android:text="Edit Stat"/>
+			            android:text="Undo"/>
 			    </LinearLayout>
 			        
 		</RelativeLayout>
