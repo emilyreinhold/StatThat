@@ -36,9 +36,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
-public class TeamPageActivity extends FragmentActivity { // fragmentactivity
+public class TeamPageActivity extends FragmentActivity {
 	public static String teamName;
-	// http://architects.dzone.com/articles/android-tutorial-using
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +57,11 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 
 		FragmentTabHost tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		tabHost.setup(this, getSupportFragmentManager(), R.id.tab_1);
-
-
-
 		tabHost.addTab(tabHost.newTabSpec("players").setIndicator("Players"),
 				PFragment.class, null);
-
 		tabHost.addTab(tabHost.newTabSpec("stats").setIndicator("Game Reports"),
 				SFragment.class, null);
 	}
-
 
 	public static class PFragment extends Fragment {
 		@SuppressLint("NewApi")
@@ -91,9 +85,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 				playerNameThenNumber[i] = name; 
 				playerNameThenNumber[ i + 1] = number; 
 				i += 2;
-
 			}
-
 
 			TableLayout tableLayout = (TableLayout) v.findViewById(R.id.table_layout);
 
@@ -139,13 +131,9 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 				
 				tableLayout.addView(row);
 				tableLayout.addView(row2);		
-				
-				
-
 			}
 			
 			return v;
-
 		}
 	}
 

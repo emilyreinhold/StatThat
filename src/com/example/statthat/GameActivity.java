@@ -144,10 +144,6 @@ public class GameActivity extends FragmentActivity {
 				players.put(p.firstName + " " + p.lastName, h);
 			}
 
-
-
-			//View v = inflater.inflate(R.layout.myfragment_game_layout, container, false);
-
 			v = inflater.inflate(R.layout.myfragment_game_viewplayers, container, false);
 
 			LinearLayout gamesLayout = (LinearLayout)v.findViewById(R.id.linear_players); 
