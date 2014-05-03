@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 		StatType.populateBballStatTypes(c);
 		
 		// Add a team, players, game, and stats for testing
-		DBHelper.populateTestData(c);
+		DBHelper.populateTestData(c); // possibly move pull out stat populating to after startActivity
 		
 		//Create Existing Team Buttons
 		teams = Team.listAll(Team.class); 

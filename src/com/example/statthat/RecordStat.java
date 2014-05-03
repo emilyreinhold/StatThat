@@ -305,12 +305,10 @@ public class RecordStat extends Activity {
 	
 	private void setupDialog(){
 		
-
 		record_diag = new Dialog(this);
 		record_diag.setContentView(R.layout.activity_record_action);
-		record_diag.setTitle("Record Stat");
-				
-		
+		record_diag.setTitle("Record a Stat");
+
 	}
 	
 	
