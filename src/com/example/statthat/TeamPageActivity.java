@@ -10,6 +10,10 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint.Style;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -107,6 +111,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 
 
 	public static class PFragment extends Fragment {
+		@SuppressLint("NewApi")
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -140,7 +145,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 			r.setPadding(0, 0, 0, 18);
 			TextView s1 = new TextView(v.getContext());
 			TextView s2 = new TextView(v.getContext());
-			s1.setText("Player");
+			s1.setText("  Player");
 			s1.setTextSize(23);
 			s2.setText("#");
 			s2.setTextSize(23);
@@ -152,11 +157,28 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 
 			for (int i1=0; i1 < playerNameThenNumber.length; i1 += 2) {
 
+//				TableRow row = new TableRow(v.getContext());
+//				TextView s = new TextView(v.getContext());
+//
+//
+//				s.setText(playerNameThenNumber[i1] + "       "); //hacky way to add space
+//				s.setTextSize(20);
+//
+//				TextView ss = new TextView(v.getContext());
+//				ss.setText(playerNameThenNumber[i1+1]);
+//				ss.setTextSize(20);
+//
+//				row.addView(s);
+//				row.addView(ss);
+//				
+//				tableLayout.addView(row);
+				
+				
 				TableRow row = new TableRow(v.getContext());
 				TextView s = new TextView(v.getContext());
 
 
-				s.setText(playerNameThenNumber[i1] + "       "); //hacky way to add space
+				s.setText("  " + playerNameThenNumber[i1] + "         "); //hacky way to add space
 				s.setTextSize(20);
 
 				TextView ss = new TextView(v.getContext());
@@ -165,10 +187,88 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 
 				row.addView(s);
 				row.addView(ss);
+								
+				TableRow row2 = new TableRow(v.getContext());
+				TextView sss = new TextView(v.getContext());
+				sss.setText("");
+				row2.addView(sss);
+				row2.setBackgroundResource(R.drawable.line);
+			
 				
 				tableLayout.addView(row);
+				tableLayout.addView(row2);		
+				
+			
+				
+				
+//				ShapeDrawable border = new ShapeDrawable(new RectShape());
+//				
+//				border.getPaint().setStyle(Style.STROKE);
+//				border.getPaint().setColor(Color.BLACK);
+//				
+//				
+//				
+//				TableRow row = new TableRow(v.getContext());
+//				TextView s = new TextView(v.getContext());
+//
+//
+//				s.setText(playerNameThenNumber[i1] + "       "); //hacky way to add space
+//				s.setPadding(8, 5, 8, 5);
+//				s.setTextSize(20);
+//				
+//
+//				TextView ss = new TextView(v.getContext());
+//				ss.setPadding(8, 5, 8, 5);
+//				ss.setText(playerNameThenNumber[i1+1]);
+//				ss.setTextSize(20);
+//				
+//				s.setBackground(border);
+//				ss.setBackground(border);
+//
+//				row.addView(s);
+//				row.addView(ss);
+//		
+//				//row.setBackground(border);
+//				
+//				tableLayout.addView(row);
+				
+				
+				
+				
+				
+				
+				
+//				TableRow tr = new TableRow(v.getContext());
+//				tr.setBackgroundColor(Color.BLACK);
+//				tr.setPadding(0, 0, 0, 2); //Border between rows
+//			
+//				
+//				TableRow.LayoutParams llp = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+//				//llp.setMargins(0, 0, 2, 0);//2px right-margin
+//
+//				//New Cell
+//				LinearLayout cell = new LinearLayout(v.getContext());
+//				cell.setBackgroundColor(Color.WHITE);
+//				cell.setLayoutParams(llp);//2px border on the right for the cell
+//
+//
+//				TextView tv = new TextView(v.getContext());
+//				tv.setText("Some Text");
+//				tv.setPadding(0, 0, 4, 3);
+//
+//				cell.addView(tv);
+//				tr.addView(cell);
+//				//add as many cells you want to a row, using the same approach
+//
+//				tableLayout.addView(tr);
+				
+				
+				
+				
+				
 
 			}
+			
 			return v;
 
 		}
