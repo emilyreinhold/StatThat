@@ -178,7 +178,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 				TextView s = new TextView(v.getContext());
 
 
-				s.setText("  " + playerNameThenNumber[i1] + "         "); //hacky way to add space
+				s.setText("   " + playerNameThenNumber[i1] + "                                "); //hacky way to add space
 				s.setTextSize(20);
 
 				TextView ss = new TextView(v.getContext());

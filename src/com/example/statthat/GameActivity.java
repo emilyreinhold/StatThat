@@ -146,15 +146,23 @@ public class GameActivity extends FragmentActivity {
 				TextView s = new TextView(v.getContext());
 
 				s.setText(stat + "        ");
-				s.setTextSize(30);
+				s.setTextSize(20);
 
 				TextView ss = new TextView(v.getContext());
 				ss.setText(String.valueOf(team.get(stat)));
-				ss.setTextSize(30);
+				ss.setTextSize(20);
+				
+				
+				TableRow row2 = new TableRow(v.getContext());
+				TextView sss = new TextView(v.getContext());
+				sss.setText("");
+				row2.addView(sss);
+				row2.setBackgroundResource(R.drawable.line);
 
 				row.addView(s);
 				row.addView(ss);
 				layout.addView(row);			
+				layout.addView(row2);
 			}
 
 
@@ -238,15 +246,26 @@ public class GameActivity extends FragmentActivity {
 					TableRow row = new TableRow(v.getContext());
 					TextView t = new TextView(v.getContext());
 					t.setText(stat + "        ");
-					t.setTextSize(30);
+					t.setTextSize(20);
 
 					TextView tt = new TextView(v.getContext());
 					tt.setText(String.valueOf(players.get(s).get(stat)));
-					tt.setTextSize(30);
+					tt.setTextSize(20);
 
 					row.addView(t);
 					row.addView(tt);
-					layout.addView(row);		
+					
+					
+					TableRow row2 = new TableRow(v.getContext());
+					TextView sss = new TextView(v.getContext());
+					sss.setText("");
+					row2.addView(sss);
+					row2.setBackgroundResource(R.drawable.line);
+					
+					
+					
+					layout.addView(row);
+					layout.addView(row2);
 				}
 			}
 		}
