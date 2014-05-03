@@ -91,7 +91,7 @@
 
 	    <Button
 	        style="@style/buttonStyleConfirm"
-	        android:id="@+id/done_adding_players"
+	        android:id="@+id/confirm_team"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/finalize_team"
