@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -305,12 +306,20 @@ public class RecordStat extends Activity {
 	
 	private void setupDialog(){
 		
-
-		record_diag = new Dialog(this);
-		record_diag.setContentView(R.layout.activity_record_action);
-		record_diag.setTitle("Record Stat");
-				
+		//record_diag = new Dialog(this);
+		//record_diag.setContentView(R.layout.activity_record_action);
+		//record_diag.setTitle("Record a Stat");
+		String msg = "\t\t\t\t\t\t\t\tex: \"player one made free throw\"\n\n";
+		msg += "Available stat types:\n";
+		for (String s : DBHelper.bballStatTypes) {
+			msg += "\t" + s + "\n";
+		}
 		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(msg).setTitle("Record a stat now");
+		builder.setIcon(android.R.drawable.ic_btn_speak_now);
+		record_diag = builder.create();
+
 	}
 	
 	

@@ -58,6 +58,6 @@
     <string name="hello_world">Hello world!</string>
     
    <!-- Record Action -->
-   <string name="record_action_message">Recording Stat!</string>
+   <string name="record_action_message">ex: \"player one made free throw\"</string>
 
 </resources>

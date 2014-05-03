@@ -11,6 +11,9 @@
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:textAlignment="center"
-     android:text="@string/record_action_message"/>
+     android:gravity="center_horizontal"
+     android:text="@string/record_action_message"
+     android:layout_marginTop="15px"
+     android:layout_marginBottom="15px"/>
     
 </FrameLayout>

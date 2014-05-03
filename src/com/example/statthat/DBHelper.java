@@ -57,7 +57,7 @@ public class DBHelper {
 			return queryResult;
 		} else {
 			
-			Player default_player = new Player(c, "Default", "Player", team, 9, "guard", 8, 5, 160.0, "Freshman");
+			Player default_player = new Player(c, "Arnold", "Palmer", team, 9, "guard", 8, 5, 160.0, "Freshman");
 			default_player.save();
 			players.add(default_player);
 			
