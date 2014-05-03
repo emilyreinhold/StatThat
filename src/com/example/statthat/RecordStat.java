@@ -93,7 +93,7 @@ public class RecordStat extends Activity {
 		// Setup Record Dialog
 		setupDialog();
 		
-		fakeStats();
+//		fakeStats();
 	}
 	
 	@Override
