@@ -31,8 +31,8 @@
        android:layout_height="fill_parent"
        android:layout_below="@+id/title_bar"
        android:layout_centerHorizontal="true"
-       android:layout_marginLeft="5dp"
-	   android:layout_marginRight="5dp"
+       android:layout_marginLeft="15dp"
+	   android:layout_marginRight="15dp"
        android:orientation="vertical" >
 	   <!-- Opponent Name -->
        <TextView
@@ -86,7 +86,7 @@
 	           android:padding="5dp"
 	           android:background="@drawable/text_view_border"
 	           android:layout_width="fill_parent"
-	           android:layout_marginRight="5dp"
+	           android:layout_marginRight="15dp"
 	           android:layout_height="40dp"
 	           android:layout_toLeftOf="@+id/date_picker" >
 
@@ -129,9 +129,9 @@
 	   android:layout_width="fill_parent"
 	   android:layout_height="wrap_content"
 	   android:text="@string/confirm"
-	   android:layout_marginLeft="5dp"
-	   android:layout_marginRight="5dp"
-	   android:layout_marginBottom="5dp"
+	   android:layout_marginLeft="15dp"
+	   android:layout_marginRight="15dp"
+	   android:layout_marginBottom="15dp"
 	   android:layout_weight="1"
 	   android:layout_alignParentBottom="true" />
 

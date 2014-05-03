@@ -16,6 +16,8 @@
 	     android:layout_height="match_parent"
 	     android:gravity="center"
 	     android:textSize="30sp"
+	     android:textColor="@android:color/white"
+	     android:textStyle="bold"
 	     android:text="@string/new_player_title"/>
 	
 	</FrameLayout>
@@ -35,8 +37,8 @@
 		    
 			<TextView
 		        style="@style/Label"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
 		        android:id="@+id/player_first_name_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -45,9 +47,9 @@
 			<EditText
 			    android:padding="5dp"
 		        android:id="@+id/PlayerFirstName"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
-		        android:layout_marginBottom="5dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
+		        android:layout_marginBottom="15dp"
 		        android:background="@drawable/text_view_border"
 		        android:layout_width="fill_parent"
 		        android:layout_height="40dp"
@@ -67,8 +69,8 @@
 			<TextView
 			    android:id="@+id/player_last_name_label"
 			    style="@style/Label"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
 		        android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:text="@string/player_last_name" />
@@ -80,9 +82,9 @@
 			    android:layout_height="40dp"
 			    android:background="@drawable/text_view_border"
 			    android:inputType="textPersonName"
-			   	android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
-		        android:layout_marginBottom="5dp"/>
+			   	android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
+		        android:layout_marginBottom="15dp"/>
 
 		</LinearLayout><!-- End of last name -->
 	
@@ -107,8 +109,8 @@
 		        android:id="@+id/player_number_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
 		        android:text="@string/player_number"/>
 		    
 			<EditText
@@ -117,9 +119,9 @@
 		        android:background="@drawable/text_view_border"
 		        android:layout_width="fill_parent"
 		        android:layout_height="40dp"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"
-		        android:layout_marginBottom="5dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
+		        android:layout_marginBottom="15dp"
 		        android:inputType="number" >
 		    </EditText>
 		</LinearLayout><!-- End of number -->
@@ -137,8 +139,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/player_weight"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp"/>
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"/>
 		        
 					<LinearLayout
 			    	    android:orientation="horizontal"
@@ -153,19 +155,11 @@
 				            android:background="@drawable/text_view_border"
 				            android:layout_weight="1"
 				            android:inputType="numberDecimal"
-				           	android:layout_marginLeft="5dp"
-		        			android:layout_marginRight="5dp"/>
+				           	android:layout_marginLeft="15dp"
+		        			android:layout_marginRight="15dp"
+		        			android:hint="lbs"/>
 				        
-				        <TextView
-					        android:id="@+id/pounds"
-					        android:layout_width="fill_parent"
-					        android:layout_height="wrap_content"
-					        android:layout_weight="2"
-					       	android:layout_marginLeft="5dp"
-		        			android:layout_marginRight="5dp"
-		        			android:layout_marginBottom="5dp"
-					        android:text="lbs">
-					    </TextView> <!--  -->    
+				         <!--  -->    
 				</LinearLayout><!-- End of weight editText and units -->
 				
 		</LinearLayout> <!-- End of Weight -->
@@ -185,8 +179,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/player_height"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginRight="5dp" >
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp" >
 		    
 		    </TextView>
 		    
@@ -201,22 +195,14 @@
 				        android:background="@drawable/text_view_border"
 				        android:layout_width="fill_parent"
 				        android:layout_height="40dp"
-				        android:layout_marginBottom="5dp"
-				        android:layout_marginLeft="5dp"
-				        android:layout_marginRight="5dp"
+				        android:layout_marginBottom="15dp"
+				        android:layout_marginLeft="15dp"
+				        android:layout_marginRight="15dp"
 				        android:layout_weight="1"
-				        android:inputType="number" >
+				        android:inputType="number"
+				        android:hint="feet" >
 				    </EditText>
 				    
-				    <TextView
-				        android:id="@+id/feet"
-				        android:layout_width="fill_parent"
-				        android:layout_height="wrap_content"
-				        android:text="feet"
-				        android:layout_marginTop="5dp"
-				        android:layout_marginRight="5dp"
-				        android:layout_weight="1" >
-				    </TextView>
 				    
 				    <EditText
 				        android:id="@+id/PlayerHeightInches"
@@ -224,22 +210,15 @@
 				        android:background="@drawable/text_view_border"
 				        android:layout_width="fill_parent"
 				        android:layout_height="40dp"
-				        android:layout_marginBottom="5dp"
-				        android:layout_marginRight="5dp"
-				        android:layout_marginLeft="5dp"
+				        android:layout_marginBottom="15dp"
+				        android:layout_marginRight="15dp"
+				        android:layout_marginLeft="15dp"
 				        android:layout_weight="1"
-				        android:inputType="number" >
+				        android:inputType="number"
+				        android:hint="inches" >
 				    </EditText>
 				    
-				    <TextView
-				        android:id="@+id/inches"
-				        android:layout_width="fill_parent"
-				        android:layout_height="wrap_content"
-				        android:text="inches"
-				        android:layout_weight="1"
-				        android:layout_marginTop="5dp"
-				        android:layout_marginRight="5dp" >
-				    </TextView>
+				    
 				    
 				</LinearLayout>
 				
@@ -265,14 +244,16 @@
 		        android:id="@+id/player_year_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_marginRight="5dp"
-				android:layout_marginLeft="5dp"
+		        android:layout_marginRight="15dp"
+				android:layout_marginLeft="15dp"
 		        android:text="@string/player_year"/>
 		   <Spinner
 		       android:id="@+id/year_spinner"
 		       android:layout_width="fill_parent"
 		       android:layout_height="wrap_content"
 		       android:entries="@array/year_array"
+		       android:layout_marginLeft="15dp"
+		       android:layout_marginRight="15dp"
 		       android:prompt="@string/select_a_position"/>
 		</LinearLayout> <!-- End of player year -->
 		
@@ -283,14 +264,16 @@
 	        android:layout_height="wrap_content">
 			<TextView
 		        style="@style/Label"
-		        android:layout_marginRight="5dp"
-				android:layout_marginLeft="5dp"
+		        android:layout_marginRight="15dp"
+				android:layout_marginLeft="15dp"
 		        android:id="@+id/player_position_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="@string/player_position"/>
 		    <Spinner
 		        android:id="@+id/position_spinner"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginRight="15dp"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:entries="@array/positions_array"
@@ -302,7 +285,7 @@
         android:layout_width="match_parent"
     	android:layout_height="match_parent"
     	android:weightSum="2"
-    	android:layout_marginBottom="5dp" >
+    	android:layout_marginBottom="15dp" >
 
 	    <Button
 	        style="@style/buttonStyleConfirm"
@@ -311,8 +294,8 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/done_adding_players"
 	        android:layout_weight="1"
-	        android:layout_marginLeft="5dp"
-	        android:layout_marginRight="5dp" 
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" 
 	        android:layout_gravity="bottom"/>
 	    <Button
 	        style="@style/buttonStyleCancel"
@@ -321,8 +304,8 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/add_player"
 	        android:layout_weight="1"
-	        android:layout_marginLeft="5dp"
-	        android:layout_marginRight="5dp" 
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" 
 	        android:layout_gravity="bottom"/>
 	</LinearLayout>
 
