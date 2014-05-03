@@ -76,7 +76,7 @@ public class RecordStat extends Activity {
 		
 		// Set variables
 	    done = (Button) findViewById(R.id.done_button);
-	    edit = (Button) findViewById(R.id.edit_game_button);
+	    edit = (Button) findViewById(R.id.edit_stat_button);
 	    next_quarter = (Button) findViewById(R.id.next_quarter_button);
 	    record = (Button) findViewById(R.id.record_button);
 	    start_clock = (Button) findViewById(R.id.start_clock_button);
@@ -115,8 +115,16 @@ public class RecordStat extends Activity {
 			
 		});
 		
-		// edit - do we want to edit right now?
 		
+		edit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				undoLastStat();
+				
+			}
+		});
+				
 		// next_quarter - increment quarter by 1
 		next_quarter.setOnClickListener(new Button.OnClickListener(){
 
@@ -223,6 +231,13 @@ public class RecordStat extends Activity {
 		Stat stat = new Stat(ctx, new Player(ctx), game, new StatType(ctx), time , current_quarter, true, null);
 		
 		return stat;
+	}
+	
+	private void undoLastStat() {
+		int children = stat_table.getChildCount();
+		if(children >= 2) {
+			stat_table.removeViewAt(children - 1);
+		}
 	}
 	
 	private void updateRecentStats(Stat stat){
