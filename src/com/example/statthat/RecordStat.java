@@ -469,8 +469,9 @@ public class RecordStat extends Activity {
 
 		}
 		
-		
-
 	}
+	
+
+	
 	
 }
