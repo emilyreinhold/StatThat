@@ -2,6 +2,7 @@ package com.example.statthat;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
@@ -91,6 +92,8 @@ public class RecordStat extends Activity {
 		
 		// Setup Record Dialog
 		setupDialog();
+		
+		fakeStats();
 	}
 	
 	@Override
@@ -471,6 +474,19 @@ public class RecordStat extends Activity {
 		
 	}
 	
+	private void fakeStats(){
+		List<Player> players = game.team.getPlayers();
+		for(Player player : players){
+			List<Stat> player_stats = Stat.find(Stat.class, "player = ?", player.getId().toString());
+			if (player_stats.size() > 0){
+				for(Stat stat : player_stats){
+					updateRecentStats(stat);
+				}
+				return;
+			}
+			
+		}
+	}
 
 	
 	
