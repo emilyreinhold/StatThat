@@ -1,6 +1,8 @@
 package com.example.statthat;
 
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -31,11 +33,17 @@ public class GameSetup extends Activity {
 		// Get team passed from intent
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
-			Long team_id = extras.getLong("team");
-			team = Team.findById(Team.class, team_id);
+			System.out.println("INSIDE EXTRAS");
+			String team_name = extras.getString("team");
+			List<Team> teams = Team.find(Team.class, "name = ?", team_name); 
+			if(teams.size() > 0){
+				team = teams.get(0);
+				System.out.println("Team name " + team.name);
+			}		
 		}else{
 			// for testing
 			// TODO delete for production
+			System.out.println("Extras is null");
 			team = Team.findById(Team.class, (long)1);
 		}
 		

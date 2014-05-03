@@ -546,6 +546,7 @@ public class TeamPageActivity extends FragmentActivity { // fragmentactivity
 
 	public void makeNewTeam(View v) {
 		Intent intent = new Intent(v.getContext(), GameSetup.class);
+		intent.putExtra("team",teamName);
 		startActivity(intent); 
 
 	}
