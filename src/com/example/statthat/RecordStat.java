@@ -309,10 +309,10 @@ public class RecordStat extends Activity {
 		//record_diag = new Dialog(this);
 		//record_diag.setContentView(R.layout.activity_record_action);
 		//record_diag.setTitle("Record a Stat");
-		String msg = "ex: \"player one made free throw\"\n\n";
+		String msg = "\t\t\t\t\t\t\t\tex: \"player one made free throw\"\n\n";
 		msg += "Available stat types:\n";
 		for (String s : DBHelper.bballStatTypes) {
-			msg += s + "\n";
+			msg += "\t" + s + "\n";
 		}
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
