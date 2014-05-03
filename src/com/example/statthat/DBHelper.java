@@ -96,20 +96,70 @@ public class DBHelper {
 		}
 	}
 	
-	private static void populateStatsForGame(Context c, Game game, List<Player> players) {
-		StatType type1 = StatType.find(StatType.class, "name = ?", "three point").get(0);
-		StatType type2 = StatType.find(StatType.class, "name = ?", "free throw").get(0);
-		StatType type3 = StatType.find(StatType.class, "name = ?", "personal foul").get(0);
-		
-		new Stat(c, players.get(0), game, type1, 11.0, 1, true, null).save();
-		new Stat(c, players.get(0), game, type1, 13.0, 1, true, null).save();
-		new Stat(c, players.get(0), game, type1, 20.0, 2, false, null).save();
-		new Stat(c, players.get(1), game, type1, 2.0, 1, true, null).save();
-		new Stat(c, players.get(1), game, type2, 41.0, 3, false, null).save();
-		new Stat(c, players.get(2), game, type2, 21.0, 2, false, null).save();
-		new Stat(c, players.get(2), game, type1, 17.0, 1, true, null).save();
-		new Stat(c, players.get(2), game, type3, 50.0, 4, true, null).save();
-		
+	private static void populateStatsForGame(Context c2, Game game2, List<Player> players2) {
+	
+		final String gameId = game2.getId().toString();
+		final Context c = c2;
+
+		new Thread(new Runnable() {
+			public void run() {
+				Game game = Game.findById(Game.class, Long.parseLong(gameId));
+				List<Player> players = game.team.getPlayers();
+				StatType type1 = StatType.find(StatType.class, "name = ?", "three point").get(0);
+				StatType type2 = StatType.find(StatType.class, "name = ?", "free throw").get(0);
+				StatType type3 = StatType.find(StatType.class, "name = ?", "personal foul").get(0);
+				StatType type4 = StatType.find(StatType.class, "name = ?", "two point").get(0);
+				StatType type5 = StatType.find(StatType.class, "name = ?", "turnover").get(0);
+				StatType type6 = StatType.find(StatType.class, "name = ?", "assist").get(0);
+				
+				new Stat(c, players.get(0), game, type1, 11.0, 1, true, null).save();
+				new Stat(c, players.get(0), game, type1, 13.0, 1, true, null).save();
+				new Stat(c, players.get(0), game, type1, 20.0, 2, false, null).save();
+				new Stat(c, players.get(1), game, type1, 2.0, 1, true, null).save();
+				new Stat(c, players.get(1), game, type2, 41.0, 3, false, null).save();
+				new Stat(c, players.get(2), game, type2, 21.0, 2, false, null).save();
+				new Stat(c, players.get(2), game, type1, 17.0, 1, true, null).save();
+				new Stat(c, players.get(2), game, type3, 50.0, 4, true, null).save();
+				new Stat(c, players.get(3), game, type1, 13.0, 1, true, null).save();
+				new Stat(c, players.get(3), game, type1, 20.0, 2, false, null).save();
+				new Stat(c, players.get(4), game, type1, 2.0, 1, true, null).save();
+				new Stat(c, players.get(4), game, type2, 41.0, 3, false, null).save();
+				new Stat(c, players.get(4), game, type2, 21.0, 2, false, null).save();
+				new Stat(c, players.get(5), game, type1, 17.0, 1, true, null).save();
+				new Stat(c, players.get(5), game, type3, 50.0, 4, true, null).save();
+				new Stat(c, players.get(5), game, type1, 13.0, 1, true, null).save();
+				new Stat(c, players.get(6), game, type1, 20.0, 2, false, null).save();
+				new Stat(c, players.get(6), game, type1, 2.0, 1, true, null).save();
+				new Stat(c, players.get(7), game, type2, 41.0, 3, false, null).save();
+				new Stat(c, players.get(7), game, type2, 21.0, 2, false, null).save();
+				new Stat(c, players.get(8), game, type1, 17.0, 1, true, null).save();
+				new Stat(c, players.get(9), game, type4, 50.0, 4, true, null).save();
+				new Stat(c, players.get(0), game, type4, 11.0, 1, true, null).save();
+				new Stat(c, players.get(0), game, type4, 13.0, 1, true, null).save();
+				new Stat(c, players.get(0), game, type5, 20.0, 2, false, null).save();
+				new Stat(c, players.get(1), game, type5, 2.0, 1, true, null).save();
+				new Stat(c, players.get(1), game, type4, 41.0, 3, false, null).save();
+				
+				new Stat(c, players.get(2), game, type5, 21.0, 2, false, null).save();
+				new Stat(c, players.get(2), game, type6, 17.0, 1, true, null).save();
+				new Stat(c, players.get(2), game, type5, 50.0, 4, true, null).save();
+				new Stat(c, players.get(3), game, type4, 13.0, 1, true, null).save();
+				new Stat(c, players.get(3), game, type4, 20.0, 2, false, null).save();
+				new Stat(c, players.get(8), game, type4, 2.0, 1, true, null).save();
+				new Stat(c, players.get(8), game, type4, 41.0, 3, false, null).save();
+				new Stat(c, players.get(9), game, type4, 21.0, 2, false, null).save();
+				new Stat(c, players.get(9), game, type5, 17.0, 1, true, null).save();
+				new Stat(c, players.get(9), game, type5, 50.0, 4, true, null).save();
+				new Stat(c, players.get(9), game, type6, 13.0, 1, true, null).save();
+				new Stat(c, players.get(10), game, type6, 20.0, 2, false, null).save();
+				new Stat(c, players.get(7), game, type6, 2.0, 1, true, null).save();
+				new Stat(c, players.get(10), game, type4, 41.0, 3, false, null).save();
+				new Stat(c, players.get(5), game, type5, 21.0, 2, false, null).save();
+				new Stat(c, players.get(10), game, type4, 17.0, 1, true, null).save();
+				new Stat(c, players.get(10), game, type4, 50.0, 4, true, null).save();
+				
+			}
+		}).start();
 	}
 
 }

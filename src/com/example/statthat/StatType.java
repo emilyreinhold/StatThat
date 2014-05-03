@@ -36,14 +36,47 @@ public class StatType extends SugarRecord<StatType> {
 		}
 	}
 	
+	public static ArrayList<String> getBballBoolStats() {
+		ArrayList<String> bools = new ArrayList<String>();
+		bools.add("free throw");
+		bools.add("two point");
+		bools.add("three point");
+		return bools;
+	}
+	
 	public static ArrayList<String> getBballStatTypeIds() {
 		ArrayList<String> ids = new ArrayList<String>();
-		Sport b = Sport.find(Sport.class, "name = ?", "basketball").get(0);
-		List<Stat> stats = Stat.find(Stat.class, "sport = ?", b.getId().toString());
-		for (Stat s : stats) {
+		System.out.println(Sport.listAll(Sport.class).size());
+		List<Sport> bList = Sport.find(Sport.class, "name = ?", "basketball");
+		if (bList.size() < 1) {
+			return null;
+		}
+		Sport b = bList.get(0);
+		List<StatType> statTypes = StatType.find(StatType.class, "sport = ?", b.getId().toString());
+		for (StatType s : statTypes) {
 			ids.add(s.getId().toString());
 		}
 		return ids;
+	}
+	
+	public static ArrayList<String> getBballStatTypeNames() {
+		ArrayList<String> names = new ArrayList<String>();
+		List<Sport> bList = Sport.find(Sport.class, "name = ?", "basketball");
+		if (bList.size() < 1) {
+			return null;
+		}
+		Sport b = bList.get(0);
+		ArrayList<String> bools = getBballBoolStats();
+		List<StatType> statsTypes = StatType.find(StatType.class, "sport = ?", b.getId().toString());
+		for (StatType s : statsTypes) {
+			if (bools.contains(s.name)) {
+				names.add(s.name + " attempted");
+				names.add(s.name + " made");
+			} else {
+				names.add(s.name);
+			}
+		}
+		return names;
 	}
 
 }

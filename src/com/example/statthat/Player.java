@@ -77,11 +77,21 @@ public class Player extends SugarRecord<Player> {
 	// returned in StatType.getBballStatTypeIds()
 	public ArrayList<Integer> getBballStatCountsForGame(Game game) {
 		String gameId = game.getId().toString();
+		String teamId = game.team.getId().toString();
+		if (!teamId.equals(team.getId().toString())) {
+			return null;
+		}
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		ArrayList<String> boolStats = StatType.getBballBoolStats();
 		for (String typeId : typeIds) {
 			int count = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ?", getId().toString(), typeId, gameId).size();
 			counts.add(count);
+			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
+			if (boolStats.contains(s.name)) {
+				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ? AND result = ?", getId().toString(), typeId, gameId, "true").size();
+				counts.add(madeCount);
+			}
 		}
 		return counts;
 	}
@@ -90,9 +100,15 @@ public class Player extends SugarRecord<Player> {
 	public ArrayList<Integer> getBballStatCountsAllTime() {
 		ArrayList<Integer> counts = new ArrayList<Integer>();
 		ArrayList<String> typeIds = StatType.getBballStatTypeIds();
+		ArrayList<String> boolStats = StatType.getBballBoolStats();
 		for (String typeId : typeIds) {
 			int count = Stat.find(Stat.class, "player = ? AND stat_type = ?", getId().toString(), typeId).size();
 			counts.add(count);
+			StatType s = StatType.findById(StatType.class, Long.parseLong(typeId));
+			if (boolStats.contains(s.name)) {
+				int madeCount = Stat.find(Stat.class, "player = ? AND stat_type = ? AND result = ?", getId().toString(), typeId, "true").size();
+				counts.add(madeCount);
+			}
 		}
 		return counts;
 	}
@@ -101,9 +117,16 @@ public class Player extends SugarRecord<Player> {
 		return Stat.find(Stat.class, "player = ? AND stat_type = ?", getId().toString(), typeId).size();
 	}
 	
+	public int getStatCountForTypeTrueAllTime(String typeId) {
+		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND result = ?", getId().toString(), typeId, "true").size();
+	}
+	
 	public int getStatCountForTypeForGame(String gameId, String typeId) {
 		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ?", getId().toString(), typeId, gameId).size();
-		
+	}
+	
+	public int getStatCountForTypeTrueForGame(String gameId, String typeId) {
+		return Stat.find(Stat.class, "player = ? AND stat_type = ? AND game = ? AND result = ?", getId().toString(), typeId, gameId, "true").size();
 	}
 	
 }
