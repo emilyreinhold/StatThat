@@ -3,6 +3,7 @@ package com.example.statthat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
@@ -38,6 +39,10 @@ public class RecordStat extends Activity {
 	private Dialog record_diag;
 	private RecordAction record_stat;
 	private Parser parser;
+	
+	// Edit Dialog
+	private Dialog edit_diag;
+
 	
 	// View buttons
 	private Button done;
@@ -84,6 +89,7 @@ public class RecordStat extends Activity {
 	    
 	    clock = (Chronometer) findViewById(R.id.clock);
 	    stat_table = (TableLayout) findViewById(R.id.recent_stats_table);
+	    stat_table.setColumnCollapsed(0, true);
 
 	    current_quarter = 1;
 		
@@ -123,8 +129,8 @@ public class RecordStat extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				undoLastStat();
-				
+//				undoLastStat();
+				editStats();
 			}
 		});
 				
@@ -243,11 +249,31 @@ public class RecordStat extends Activity {
 		}
 	}
 	
+	private void editStats(){
+		if(stat_table.isColumnCollapsed(0))
+			stat_table.setColumnCollapsed(0,false);
+		else
+			stat_table.setColumnCollapsed(0,true);
+
+	}
+	
 	private void updateRecentStats(Stat stat){
 		Context ctx = getApplicationContext();
 		TableRow row = new TableRow(ctx);
 		LayoutParams params;
 		
+		Button edit_button = new Button(ctx);
+		edit_button.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				edit_diag = new Dialog(RecordStat.this);
+				edit_diag.setContentView(R.layout.record_stat_dialog);
+				edit_diag.setTitle("Edit Stat");
+				edit_diag.show();
+			}
+		});
+		row.addView(edit_button);
 		
 		
 		// player number
@@ -472,18 +498,27 @@ public class RecordStat extends Activity {
 	
 	private void fakeStats(){
 		List<Player> players = game.team.getPlayers();
+		int player_count = 0;
+		double time = 1000;
+
 		for(Player player : players){
 			List<Stat> player_stats = Stat.find(Stat.class, "player = ?", player.getId().toString());
 			if (player_stats.size() > 0){
 				int count = 0;
+				
 				for(Stat stat : player_stats){
-					if (count > 10)
-						return;
+					if (count > 2)
+						break;
+					time += 10000*Math.random();
+					stat.time = time;
 					updateRecentStats(stat);
 					count++;
 				}
-				return;
 			}
+			if(player_count > 2)
+				return;
+			
+			player_count++;
 			
 		}
 	}
