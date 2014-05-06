@@ -19,12 +19,15 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -58,6 +61,9 @@ public class RecordStat extends Activity {
 	private boolean clock_stopped = true;
 	ArrayList<Long> stats = new ArrayList<Long>();
 
+	// edit spinners
+	Spinner player_spinner;
+	ArrayAdapter<String> player_spinnerArrayAdapter;
 	
 	// clock
 	private Chronometer clock;
@@ -98,7 +104,7 @@ public class RecordStat extends Activity {
 		
 		// Setup Record Dialog
 		setupDialog();
-		
+		setupSpinner();
 		fakeStats();
 	}
 	
@@ -179,23 +185,6 @@ public class RecordStat extends Activity {
 			}
 		});
 		
-//		record.setOnClickListener(new Button.OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//
-//				if(clock_stopped)
-//					report_time = -1*stopped_at;
-//				else
-//					report_time = SystemClock.elapsedRealtime() - clock.getBase();
-//				
-//				record_diag.show();
-//				
-//				
-//				
-//			}
-//			
-//		});
 		
 
 		
@@ -257,7 +246,7 @@ public class RecordStat extends Activity {
 
 	}
 	
-	private void updateRecentStats(Stat stat){
+	private void updateRecentStats(final Stat stat){
 		Context ctx = getApplicationContext();
 		TableRow row = new TableRow(ctx);
 		LayoutParams params;
@@ -267,9 +256,10 @@ public class RecordStat extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				edit_diag = new Dialog(RecordStat.this);
-				edit_diag.setContentView(R.layout.record_stat_dialog);
-				edit_diag.setTitle("Edit Stat");
+				
+				Stat temp_stat = Stat.findById(Stat.class, stat.getId());
+				int pos = player_spinnerArrayAdapter.getPosition(Integer.toString(temp_stat.player.number));
+				player_spinner.setSelection(pos);
 				edit_diag.show();
 			}
 		});
@@ -366,6 +356,25 @@ public class RecordStat extends Activity {
 
 	}
 	
+	private void setupSpinner(){
+		LayoutInflater factory = getLayoutInflater();
+
+		View record_stat_diag = factory.inflate(R.layout.record_stat_dialog, null);
+		edit_diag = new Dialog(RecordStat.this);
+		edit_diag.setContentView(record_stat_diag);
+		edit_diag.setTitle("Edit Stat");
+
+		player_spinner = (Spinner) record_stat_diag.findViewById(R.id.select_player);
+		ArrayList<String> numbers = new ArrayList<String>();
+		for (Player player : Player.listAll(Player.class)){
+			numbers.add(Integer.toString(player.number));
+		}
+		System.out.println(numbers);
+		player_spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, numbers);
+		player_spinner.setAdapter(player_spinnerArrayAdapter);	
+		
+
+	}
 	
 	private class RecordAction {
 		private SpeechRecognizer mSpeechRecognizer;
