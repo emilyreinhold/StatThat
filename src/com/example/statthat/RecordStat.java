@@ -93,7 +93,7 @@ public class RecordStat extends Activity {
 		// Setup Record Dialog
 		setupDialog();
 		
-//		fakeStats();
+		fakeStats();
 	}
 	
 	@Override
@@ -378,10 +378,6 @@ public class RecordStat extends Activity {
 		    @Override
 		    public void onBeginningOfSpeech()
 		    {          
-				int duration = Toast.LENGTH_SHORT;
-				String msg = "Beginning";
-				Toast toast = Toast.makeText(getApplicationContext(), msg, duration);
-				toast.show();
 
 		    }
 
@@ -481,7 +477,7 @@ public class RecordStat extends Activity {
 			if (player_stats.size() > 0){
 				int count = 0;
 				for(Stat stat : player_stats){
-					if (count > 2)
+					if (count > 10)
 						return;
 					updateRecentStats(stat);
 					count++;
