@@ -45,7 +45,7 @@ public class RecordStat extends Activity {
 	
 	// Edit Dialog
 	private Dialog edit_diag;
-
+	private Button edit_confirm_button;
 	
 	// View buttons
 	private Button done;
@@ -64,10 +64,15 @@ public class RecordStat extends Activity {
 	// edit spinners
 	Spinner player_spinner;
 	ArrayAdapter<String> player_spinnerArrayAdapter;
+	Spinner result_spinner;
+	ArrayAdapter<String> result_spinnerArrayAdapter;
+	Spinner stat_spinner;
+	ArrayAdapter<String> stat_spinnerArrayAdapter;
 	
 	// clock
 	private Chronometer clock;
 
+	int row_id = 1;
 	@SuppressLint("NewApi") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -249,6 +254,10 @@ public class RecordStat extends Activity {
 	private void updateRecentStats(final Stat stat){
 		Context ctx = getApplicationContext();
 		TableRow row = new TableRow(ctx);
+		row.setId(row_id);
+		final Integer current_row_id = row_id;
+		row_id++;
+		
 		LayoutParams params;
 		
 		Button edit_button = new Button(ctx);
@@ -260,6 +269,26 @@ public class RecordStat extends Activity {
 				Stat temp_stat = Stat.findById(Stat.class, stat.getId());
 				int pos = player_spinnerArrayAdapter.getPosition(Integer.toString(temp_stat.player.number));
 				player_spinner.setSelection(pos);
+				
+				String result = temp_stat.result ? "MADE" : "MISS";
+				pos = result_spinnerArrayAdapter.getPosition(result);
+				result_spinner.setSelection(pos);
+				
+				pos = stat_spinnerArrayAdapter.getPosition(stat.statType.name);
+				stat_spinner.setSelection(pos);
+				
+				edit_confirm_button.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						editUpdate(player_spinner.getSelectedItem().toString(), result_spinner.getSelectedItem().toString(), 
+									stat_spinner.getSelectedItem().toString(), stat, current_row_id);
+						
+						edit_diag.hide();
+					}
+				});
+				
+				
 				edit_diag.show();
 			}
 		});
@@ -360,20 +389,62 @@ public class RecordStat extends Activity {
 		LayoutInflater factory = getLayoutInflater();
 
 		View record_stat_diag = factory.inflate(R.layout.record_stat_dialog, null);
+		
+		edit_confirm_button = (Button) record_stat_diag.findViewById(R.id.edit_confirm);
+		
 		edit_diag = new Dialog(RecordStat.this);
 		edit_diag.setContentView(record_stat_diag);
 		edit_diag.setTitle("Edit Stat");
 
 		player_spinner = (Spinner) record_stat_diag.findViewById(R.id.select_player);
+		result_spinner = (Spinner) record_stat_diag.findViewById(R.id.select_result);
+		stat_spinner = (Spinner) record_stat_diag.findViewById(R.id.select_stat);
+		
+		
 		ArrayList<String> numbers = new ArrayList<String>();
+		ArrayList<String> statTypes = new ArrayList<String>();
+		ArrayList<String> results = new ArrayList<String>();
+		results.add("MADE");
+		results.add("MISS");
+		
 		for (Player player : Player.listAll(Player.class)){
 			numbers.add(Integer.toString(player.number));
 		}
-		System.out.println(numbers);
+		
+		for (StatType statType : StatType.listAll(StatType.class)){
+			statTypes.add(statType.name);
+		}
+
 		player_spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, numbers);
 		player_spinner.setAdapter(player_spinnerArrayAdapter);	
 		
+		
+		result_spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, results);
+		result_spinner.setAdapter(result_spinnerArrayAdapter);	
+		
+		stat_spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, statTypes);
+		stat_spinner.setAdapter(stat_spinnerArrayAdapter);	
 
+	}
+
+	private void editUpdate(String number, String result, String statType, Stat stat, Integer row_id){
+		// Update Stat
+		stat.player.number = Integer.parseInt(number);
+		stat.result = result.equals("MADE");
+		stat.statType = StatType.find(StatType.class, "name=?", statType).get(0);
+		stat.save();
+		
+		// Update Row
+		TableRow row = (TableRow) findViewById(row_id);
+		TextView row_number = (TextView) row.getChildAt(1);
+		TextView row_stat = (TextView) row.getChildAt(2);
+		TextView row_result = (TextView) row.getChildAt(3);
+		
+		row_number.setText(number);
+		row_stat.setText(statType);
+		row_result.setText(result);
+		
+		
 	}
 	
 	private class RecordAction {
