@@ -3,7 +3,6 @@ package com.example.statthat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
@@ -27,6 +26,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -261,6 +261,8 @@ public class RecordStat extends Activity {
 		LayoutParams params;
 		
 		Button edit_button = new Button(ctx);
+		edit_button.setBackgroundResource(R.drawable.circlethree);
+//		edit_button.setLayoutParams(new LinearLayout.LayoutParams(20, 20));
 		edit_button.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

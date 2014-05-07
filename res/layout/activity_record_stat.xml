@@ -42,7 +42,7 @@
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
 			            android:layout_margin="15dp"
-			            android:text="Undo"/>
+			            android:text="Edit Stats"/>
 			    </LinearLayout>
 			        
 		</RelativeLayout>
@@ -58,17 +58,11 @@
 		        <!-- Table Headers -->
 		        <TableRow
 		            android:id="@+id/headers"
-		            android:layout_width="match_parent"
+		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content">
 			        
 		            
 		            <!-- Player -->
-
-		            <Button
-		                android:id="@+id/button1"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:text="Button" />
 
 		            <TextView
 		              android:id="@+id/player_header"
@@ -76,6 +70,15 @@
 					  android:layout_margin="1dp"
 					  android:gravity="center_horizontal"
 					  android:layout_weight="1"
+					  android:text="Tap Below to Edit:" />
+
+		            <TextView
+		              android:id="@+id/player_header"
+					  android:textColor="@android:color/black"
+					  android:layout_margin="1dp"
+					  android:gravity="center_horizontal"
+					  android:layout_weight="1"
+					  android:background="@android:color/white"
 					  android:text="Player #" />
 		            
 		            <!-- Stat Type -->
