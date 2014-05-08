@@ -161,17 +161,28 @@ public class TeamPageActivity extends FragmentActivity {
 			Team team = t.get(0);
 			List<Game> games = team.getGames();
 			HashMap<String, String> gamess = new HashMap<String, String>();
-			for	(Game g : games) {
-				gamess.put("vs. " + g.opposingTeamName, g.date + " @ " + g.location);
-			}
-
-
+			
 			LinearLayout gamesLayout = (LinearLayout)v.findViewById(R.id.linear_games);
-
-			for (String vs : gamess.keySet()) {
+			
+			for	(final Game g : games) {
+//				gamess.put("vs. " + g.opposingTeamName, g.date + " @ " + g.location);
+				
 				Button button = new Button(v.getContext());
-				button.setText(vs + "\n" + gamess.get(vs));
-				button.setOnClickListener(this);
+				button.setText("vs. " + g.opposingTeamName +"\n" + g.date + " @ " + g.location);
+				
+				button.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent in = new Intent(v.getContext(), GameActivity.class);
+						in.putExtra("id", g.getId());
+						in.putExtra("teamName",teamName);
+//						TextView tView = (TextView) v.findViewById(R.id.team_title);
+//						tView.setText(teamName);
+						startActivity(in);
+					}
+				});
+				
 				button.setTextSize(25);
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 				params.setMargins(10,10,10,10);
@@ -181,22 +192,39 @@ public class TeamPageActivity extends FragmentActivity {
 			}
 
 
+
+			for (String vs : gamess.keySet()) {
+//				Button button = new Button(v.getContext());
+//				button.setText(vs + "\n" + gamess.get(vs));
+//				button.setOnClickListener(this);
+//				button.setTextSize(25);
+//				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+//				params.setMargins(10,10,10,10);
+//				button.setBackgroundResource(R.drawable.custom_button_confirm);
+//				button.setLayoutParams(params);
+//				gamesLayout.addView(button);
+			}
+
+
 			return v;
 		}
 
 		@Override
 		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-
-			// intent to game page
-			Button b = (Button) arg0;
-			String bText = b.getText().toString();
-			String[] bArr = bText.split(" ");
-
-			Intent intent = new Intent(arg0.getContext(), GameActivity.class);
-			intent.putExtra("teamName", teamName);
-			intent.putExtra("location", bArr[3]);
-			startActivity(intent);
+//			// TODO Auto-generated method stub
+//
+//			// intent to game page
+//			Button b = (Button) arg0;
+//			String bText = b.getText().toString();
+//			String[] bArr = bText.split(" ");
+//			
+//			System.out.println("bArr OUTPUT");
+//			System.out.println(bArr[0] + " " + bArr[1] + " " + bArr[2] + " " + bArr[3]);
+//			
+//			Intent intent = new Intent(arg0.getContext(), GameActivity.class);
+//			intent.putExtra("teamName", teamName);
+//			intent.putExtra("location", bArr[3]);
+//			startActivity(intent);
 
 		}
 	}

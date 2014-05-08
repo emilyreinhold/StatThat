@@ -53,10 +53,11 @@ public class Parser {
 	}
 	
 	// Save the stat and return its ID
-	public String saveStat(int number, String action, boolean result, int period, double time, Flag flag) {
+	public String saveStat(int number, String action, boolean result, int period, double time, Flag flag, Team team) {
 		Stat s;
 		try {
-			List<Player> players = Player.find(Player.class, "number = ?", String.valueOf(number));//, game.team.getId().toString());
+			
+			List<Player> players = Player.find(Player.class, "number = ? and team = ?", String.valueOf(number), team.getId().toString());//, game.team.getId().toString());
 			if (players.size() < 1) {
 				System.out.println("Unable to find player number: " + String.valueOf(number)+ ", on team: " + game.team.name);
 				return null;
@@ -165,7 +166,7 @@ public class Parser {
 	}
 	
 	// Parse the text and separate into pieces needed to save stat
-	public String parseMatch(ArrayList<String> matches, double time, int period) {
+	public String parseMatch(ArrayList<String> matches, double time, int period, Team team) {
 		String stat_id = null;
 		
 		String output = "";
@@ -244,7 +245,7 @@ public class Parser {
 			
 			if (!action.equals("")) {
 				output += "Made it into action\n";
-				stat_id = saveStat(number, action, result, period, time, null);
+				stat_id = saveStat(number, action, result, period, time, null, team);
 				if(stat_id != null) {
 					output += "Stat saved!";
 					System.out.print(output);
@@ -254,7 +255,7 @@ public class Parser {
 				}
 			} else {
 				Flag flag = new Flag(context, match);
-				stat_id = saveStat(number, action, result, period, time, flag);
+				stat_id = saveStat(number, action, result, period, time, flag, team);
 				System.out.print("Erroneous stat saved");
 				return stat_id;
 			}

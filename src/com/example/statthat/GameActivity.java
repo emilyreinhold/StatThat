@@ -35,14 +35,18 @@ public class GameActivity extends FragmentActivity {
 	String opposingTeamName;
 	static String location;
 	static String teamName;
+	static Long id;
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
+		
 		Intent in = getIntent();
-		location = in.getStringExtra("location");
+//		location = in.getStringExtra("location");
+		id = in.getLongExtra("id", 0);
+
 		teamName = in.getStringExtra("teamName");
 		TextView tView = (TextView) findViewById(R.id.team_title);
 		tView.setText(teamName);
@@ -72,8 +76,10 @@ public class GameActivity extends FragmentActivity {
 			HashMap<String, Integer> team = new HashMap<String,Integer>();
 
 
-			List<Game> games = Game.find(Game.class, "location = ?", location);
-			Game game = games.get(0);
+//			List<Game> games = Game.find(Game.class, "location = ?", location);
+			Game game = Game.findById(Game.class, id);
+
+//			Game game = games.get(0);
 			ArrayList<Integer> statCounts = game.team.getBballStatCountsForGame(game);
 			ArrayList<String> statNames = StatType.getBballStatTypeNames();
 			for (int i = 0; i < statCounts.size(); i++) {
@@ -128,10 +134,14 @@ public class GameActivity extends FragmentActivity {
 
 			players = new HashMap<String, HashMap<String, Integer>>();
 
-			List<Game> games = Game.find(Game.class, "location = ?", location);
-			Game game = games.get(0);
+//			List<Game> games = Game.find(Game.class, "location = ?", location);
+//			Game game = games.get(0);
 
+			Game game = Game.findById(Game.class, id);
+		
+			
 			Team t = Team.find(Team.class, "name = ?", teamName).get(0);
+			
 			List<Player> plays = t.getPlayers();
 
 			for (Player p: plays) {

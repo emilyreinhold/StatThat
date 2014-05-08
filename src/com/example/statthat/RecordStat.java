@@ -542,7 +542,7 @@ public class RecordStat extends Activity {
 				int stat_id = 0;
 				
 				if(results != null && results.containsKey(SpeechRecognizer.RESULTS_RECOGNITION)){
-					result = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), report_time, current_quarter);
+					result = parser.parseMatch(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION), report_time, current_quarter, game.team);
 //					result = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).get(0);
 				}
 				
